@@ -384,11 +384,6 @@ new Vue({
         mounted() {
             var _this = this
             var w = document.body.clientWidth
-            window.onresize = function() {
-                w = document.body.clientWidth
-                chulis()
-
-            }
             chulis()
 
             function chulis() {
