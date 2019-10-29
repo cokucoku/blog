@@ -1,0 +1,127 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>[实战]32-广告图片3d翻滚</title>
+    <style>
+    * {
+        margin: 0px;
+        padding: 0px;
+        list-style: none
+    }
+
+    .ad {
+        width: 728px;
+        height: 90px;
+        margin: 130px;
+        perspective: 1400px;
+    }
+
+    .ad .imgs {
+        transform-style: preserve-3d;
+        width: 728px;
+        height: 90px;
+        position: relative;
+        transform: rotateX(0deg) rotateY(80deg);
+        transition: 1.2s;
+    }
+
+    .ad .imgs div {
+        width: 728px;
+        height: 90px;
+        position: absolute;
+        transform-origin: center;background-size: cover;
+    }
+
+    .ad .imgs .div4 {
+        transform: rotateX(0deg) translateZ(26.5PX);
+        background-image: url(4.jpg)
+    }
+
+    .ad .imgs .div5 {
+        transform: rotateX(240deg) translateZ(26.5PX);
+        background-image: url(5.jpg)
+    }
+
+    .ad .imgs .div6 {
+        transform: rotateX(120deg) translateZ(26.5PX);
+        background-image: url(6.jpg)
+    }
+
+    @media screen and (max-width: 768px) {
+        .ad {
+            width: 364px;
+            height: 45px;
+            margin: 30px auto;
+            perspective: 1400px;
+        }
+
+        .ad .imgs {
+            transform-style: preserve-3d;
+            width: 364px;
+            height: 45px;
+            position: relative;
+            transform: rotateX(0deg) rotateY(80deg);
+            transition: 1.2s;
+        }
+
+        .ad .imgs div {
+            width: 364px;
+            height: 45px;
+            position: absolute;
+            transform-origin: center;
+        }
+
+        .ad .imgs .div4 {
+            transform: rotateX(0deg) translateZ(13.2PX);
+            background-image: url(4.jpg)
+        }
+
+        .ad .imgs .div5 {
+            transform: rotateX(240deg) translateZ(13.2PX);
+            background-image: url(5.jpg)
+        }
+
+        .ad .imgs .div6 {
+            transform: rotateX(120deg) translateZ(13.2PX);
+            background-image: url(6.jpg)
+        }
+    }
+    </style>
+</head>
+
+<body>
+    <div class="ad" id="ad">
+        <div class="imgs" :style="'transform:rotateX('+ro+'deg)'">
+            <div class="div4"></div>
+            <div class="div5"></div>
+            <div class="div6"></div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+    new Vue({
+        el: '#ad',
+        data: {
+            ro: 0
+
+        },
+        mounted() {
+            var _this = this
+            setInterval(function() {
+                _this.ro += 120
+            }, 2000)
+
+        },
+        methods: {
+
+
+        },
+        computed: {}
+    })
+    </script>
+</body>
+
+</html>

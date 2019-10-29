@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta name="author" content="Leeao">
+  
+  
+  <title>Vue实战05-折叠面板/手风琴 | Leeao个人博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Vue,折叠面板,手风琴,Vue,">
+  
+
+  
+  <meta name="description" content="前端技术,js,html5,css3,vue">
+
+  
+  <script src="https://hm.baidu.com/hm.js?10fbae7c1a6c78cc96943d97655a97da"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz","appkey":"WaR7nrzhliHj9aVwdQzkdlGd","comment":false,"count":false},
+    welcome: {"enable":true,"interval":30},
+    start_time: "2019-03-10",
+    passwords: ["efe07af7441da2b69c4a41e42e73be4db47f66010a56900788a458354a7373ec", ],
+    is_post: true,
+    lock: false,
+    author: "Leeao",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+<script src="/demo/code/vue/bus/play/music.js"></script>
+<script src="/demo/code/vue/bus/play/slider.js" .js"></script>
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+    <link rel="apple-touch-icon" href="/images/favicon.ico">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+ <link href="https://at.alicdn.com/t/font_1468805_o85uzwp8pui.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+<link rel="stylesheet" href="/demo/code/vue/bus/play/slider.css">
+
+  
+</head>
+  <body style="background-image: url(https://w.wallhaven.cc/full/ne/wallhaven-ne5ekn.jpg)">
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">Leeao</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 工作的你更帅气</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/aboutme/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/cokucoku/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/aboutme/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2019-04-15
+    </span>
+    
+      <span>
+        | <a href="/categories/Vue/"><i class="fa fa-bookmark"></i>Vue</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    Vue实战05-折叠面板/手风琴
+  </h1>
+  
+  <article class="passage-article">
+    <h2 id="折叠面板DEMO演示"><a href="#折叠面板DEMO演示" class="headerlink" title="折叠面板DEMO演示"></a>折叠面板DEMO演示</h2><iframe src="/demo/code/vue/collapse.html" width="100%" height="450" frameborder="0" allowfullscreen></iframe>
+<h2 id="折叠面板实现"><a href="#折叠面板实现" class="headerlink" title="折叠面板实现"></a>折叠面板实现</h2><p>我们先讲下思路：<br>折叠面板，顾名思义就是可以把所需要的内容折叠与展开，达到节约页面空间显示范围作用。它的效果是多个内容可以同时展开，也可以折叠。</p>
+<ul>
+<li><strong>那如何判断哪个内容折叠与展开？</strong></li>
+<li><strong>内容折叠与展开效果如何实现？</strong><br>在该例中，我们建一个<code>activeNames</code>数组存储展开的内容索引，判断<code>activeNames</code>中数据是否包含折叠内容的索引来判断，折叠展开效果利用<code>transition</code>过渡配合<code>CSS3</code>的<code>animation</code>来实现内容的高度从0到内容的高度或者从内容高度到0的变化，也利用到了<code>CSS变量</code>。相关知识大家自行恶补…</li>
+</ul>
+<p>先布局好页面HTML代码如下：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"collapse"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"collapse-item"</span> <span class="attr">v-for</span>=<span class="string">"(item,inx) in list"</span> <span class="attr">:key</span>=<span class="string">"item"</span> <span class="attr">:class</span>=<span class="string">"&#123;'is-active':activeNames.indexOf(inx)&gt;-1&#125;"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"collapse-item-tab"</span> @<span class="attr">click.prevent</span>=<span class="string">"handleChange(event,inx)"</span>&gt;</span>&#123;&#123;item.title&#125;&#125;<span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"wbicon"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">transition</span> <span class="attr">name</span>=<span class="string">"my"</span> @<span class="attr">enter</span>=<span class="string">"enter"</span> @<span class="attr">after-enter</span>=<span class="string">"afterenter"</span> @<span class="attr">leave</span>=<span class="string">"leave"</span> @<span class="attr">after-leave</span>=<span class="string">"afterleave"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"collapse-item-wrap"</span> <span class="attr">v-show</span>=<span class="string">"activeNames.indexOf(inx)&gt;-1"</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"collapse-item-content"</span> <span class="attr">v-html</span>=<span class="string">"item.content"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">transition</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>CSS代码如下：<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#app</span> &#123;</span><br><span class="line">        <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">        <span class="attribute">padding</span>: <span class="number">20px</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.collapse-item</span><span class="selector-class">.is-active</span> <span class="selector-class">.collapse-item-tab</span> &#123;</span><br><span class="line">    <span class="attribute">border-bottom-color</span>: transparent;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.collapse-item-tab</span> &#123;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">48px</span>;</span><br><span class="line">    <span class="attribute">line-height</span>: <span class="number">48px</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#fff</span>;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#303133</span>;</span><br><span class="line">    <span class="attribute">cursor</span>: pointer;</span><br><span class="line">    <span class="attribute">border-bottom</span>: <span class="number">1px</span> solid <span class="number">#ebeef5</span>;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">13px</span>;</span><br><span class="line">    <span class="attribute">font-weight</span>: <span class="number">500</span>;</span><br><span class="line">    <span class="attribute">transition</span>: border-bottom-color .<span class="number">3s</span>;</span><br><span class="line">    <span class="attribute">outline</span>: none;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.collapse-item-tab</span> <span class="selector-tag">i</span> &#123;</span><br><span class="line">    <span class="attribute">float</span>: right;</span><br><span class="line">    <span class="attribute">margin-right</span>: <span class="number">10px</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.collapse-item-tab</span> <span class="selector-tag">i</span><span class="selector-pseudo">:before</span> &#123;</span><br><span class="line">    <span class="attribute">content</span>: <span class="string">"\e795"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.collapse-item</span><span class="selector-class">.is-active</span> <span class="selector-class">.collapse-item-tab</span> <span class="selector-tag">i</span><span class="selector-pseudo">:before</span> &#123;</span><br><span class="line">    <span class="attribute">content</span>: <span class="string">"\e794"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.collapse-item-wrap</span> &#123;</span><br><span class="line">    <span class="attribute">will-change</span>: height;</span><br><span class="line">    <span class="attribute">overflow</span>: hidden;</span><br><span class="line">    <span class="attribute">box-sizing</span>: border-box;</span><br><span class="line">    <span class="attribute">border-bottom</span>: <span class="number">1px</span> solid <span class="number">#ebeef5</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.collapse-item-content</span> &#123;</span><br><span class="line">    <span class="attribute">padding-bottom</span>: <span class="number">25px</span>;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">13px</span>;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#999</span>;</span><br><span class="line">    <span class="attribute">line-height</span>: <span class="number">1.769230769230769</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.my-enter-active</span> &#123;</span><br><span class="line">    <span class="attribute">animation</span>: my-in .<span class="number">3s</span> ease-in-out;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.my-leave-active</span> &#123;</span><br><span class="line">    <span class="attribute">animation</span>: my-out .<span class="number">3s</span> ease-in-out;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@keyframes</span> my-in &#123;</span><br><span class="line">    <span class="selector-tag">0%</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="attribute">height</span>: <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="selector-tag">100%</span> &#123;</span><br><span class="line">        <span class="attribute">height</span>: var(--h);</span><br><span class="line">        <span class="comment">/*height: 71px*/</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@keyframes</span> my-out &#123;</span><br><span class="line">    <span class="selector-tag">0%</span> &#123;</span><br><span class="line">        <span class="attribute">height</span>: var(--h);</span><br><span class="line">        <span class="comment">/*height: 71px*/</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="selector-tag">100%</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="attribute">height</span>: <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>JS代码如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> list = [&#123;</span><br><span class="line">        <span class="string">'title'</span>: <span class="string">'一致性 Consistency'</span>,</span><br><span class="line">        <span class="string">'content'</span>: <span class="string">'&lt;div&gt;与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；&lt;/div&gt;&lt;div&gt;在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。&lt;/div&gt;'</span></span><br><span class="line">    &#125;, &#123;</span><br><span class="line">        <span class="string">'title'</span>: <span class="string">'反馈 Feedback'</span>,</span><br><span class="line">        <span class="string">'content'</span>: <span class="string">'&lt;div&gt;控制反馈：通过界面样式和交互动效让用户可以清晰的感知自己的操作；&lt;/div&gt;&lt;div&gt;页面反馈：操作后，通过页面元素的变化清晰地展现当前状态。&lt;/div&gt;'</span></span><br><span class="line">    &#125;, &#123;</span><br><span class="line">        <span class="string">'title'</span>: <span class="string">'效率 Efficiency'</span>,</span><br><span class="line">        <span class="string">'content'</span>: <span class="string">'&lt;div&gt;简化流程：设计简洁直观的操作流程；&lt;/div&gt;&lt;div&gt;清晰明确：语言表达清晰且表意明确，让用户快速理解进而作出决策；&lt;/div&gt;&lt;div&gt;帮助用户识别：界面简单直白，让用户快速识别而非回忆，减少用户记忆负担。&lt;/div&gt;'</span></span><br><span class="line">    &#125;, &#123;</span><br><span class="line">        <span class="string">'title'</span>: <span class="string">'可控 Controllability'</span>,</span><br><span class="line">        <span class="string">'content'</span>: <span class="string">' &lt;div&gt;用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；&lt;/div&gt;&lt;div&gt;结果可控：用户可以自由的进行操作，包括撤销、回退和终止当前操作等。&lt;/div&gt;'</span></span><br><span class="line">    &#125;, ]</span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    el: <span class="string">'#app'</span>,</span><br><span class="line">    data: &#123;</span><br><span class="line">        activeNames: [<span class="number">0</span>],</span><br><span class="line">        list: list</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">        handleChange(e, inx) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">this</span>.activeNames.indexOf(inx) &gt; <span class="number">-1</span>) &#123;</span><br><span class="line">                <span class="keyword">var</span> i = <span class="keyword">this</span>.activeNames.indexOf(inx)</span><br><span class="line">                <span class="keyword">this</span>.activeNames.splice(i, <span class="number">1</span>)</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">this</span>.activeNames.splice(<span class="number">0</span>, <span class="number">0</span>, inx)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        enter(el) &#123;</span><br><span class="line">            <span class="keyword">var</span> h = el.scrollHeight</span><br><span class="line">            el.style.setProperty(<span class="string">'--h'</span>, h + <span class="string">'px'</span>)</span><br><span class="line"></span><br><span class="line">        &#125;,</span><br><span class="line">        afterenter(el) &#123;</span><br><span class="line">            el.removeAttribute(<span class="string">'style'</span>)</span><br><span class="line">        &#125;,</span><br><span class="line">        leave(el) &#123;</span><br><span class="line">            <span class="keyword">var</span> h = el.scrollHeight</span><br><span class="line">            el.style.setProperty(<span class="string">'--h'</span>, h + <span class="string">'px'</span>)</span><br><span class="line">        &#125;,</span><br><span class="line">        afterleave(el) &#123;</span><br><span class="line">            el.style.setProperty(<span class="string">'--h'</span>, <span class="string">''</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p><strong>然后其中有一些细节可以提一下：</strong></p>
+<ul>
+<li>我们给<code>collapse-item-wrap</code>的<code>CSS</code>中<code>will-change: height</code>。<br><code>will-change</code>属性可以提前通知浏览器我们要对元素做什么动画，这样浏览器可以提前准备合适的优化设置。这样可以避免对页面响应速度有重要影响的昂贵成本。元素可以更快的被改变，渲染的也更快，这样页面可以快速更新，表现的更加流畅。</li>
+<li>我们在关键帧动画<code>my-in</code>中看到<code>100% {height: var(--h);}</code>，这边的<code>var(--h)</code>利用<code>CSS</code>变量读取元素的高度。</li>
+<li>关键帧动画<code>my-in</code>中的<code>--h</code>值我们怎么来的呢？我们通过<code>transition</code>的钩子函数，在函数里面用<code>el.style.setProperty(&#39;--h&#39;, h + &#39;px&#39;)</code>来操作<code>CSS</code>里的变量。</li>
+</ul>
+<h2 id="手风琴DEMO演示"><a href="#手风琴DEMO演示" class="headerlink" title="手风琴DEMO演示"></a>手风琴DEMO演示</h2><iframe src="/demo/code/vue/accordion.html" width="100%" height="450" frameborder="0" allowfullscreen></iframe>
+<h2 id="手风琴实现"><a href="#手风琴实现" class="headerlink" title="手风琴实现"></a>手风琴实现</h2><p>与折叠面板不同，手风琴只能展开其中一项内容，因此<code>activeNames</code>数组存储的索引就只能存在一个，即<code>activeNames.length</code>只能小于等于<code>1</code>。<br>HTML代码及CSS代码与折叠面板一样，此处省略。</p>
+<p>不同的JS代码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">handleChange(e, inx) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.activeNames.indexOf(inx) &gt; <span class="number">-1</span>) &#123;</span><br><span class="line">        <span class="keyword">var</span> i = <span class="keyword">this</span>.activeNames.indexOf(inx)</span><br><span class="line">        <span class="keyword">this</span>.activeNames.splice(i, <span class="number">1</span>)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.activeNames.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>.activeNames = []</span><br><span class="line">            <span class="keyword">this</span>.activeNames.splice(<span class="number">0</span>, <span class="number">0</span>, inx)</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">this</span>.activeNames.splice(<span class="number">0</span>, <span class="number">0</span>, inx)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#折叠面板DEMO演示"><span class="toc-text">折叠面板DEMO演示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#折叠面板实现"><span class="toc-text">折叠面板实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#手风琴DEMO演示"><span class="toc-text">手风琴DEMO演示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#手风琴实现"><span class="toc-text">手风琴实现</span></a></li></ol>
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: Leeao</div>
+      
+        <div>
+          原文链接: 
+          <a href target="_blank">http://leeao82.com/article/2019-04-15-折叠面板.html</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/折叠面板/"><i class="fa fa-tags"></i>折叠面板</a>
+     
+      <a href="/tags/手风琴/"><i class="fa fa-tags"></i>手风琴</a>
+     
+      <a href="/tags/Vue/"><i class="fa fa-tags"></i>Vue</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      <div class="site-footer-col">
+        <h5 class="site-footer-title">博客推荐</h5>
+        
+          <span class="site-footer-item">
+            <a href="https://www.zhangxinxu.com/" target="_blank">张鑫旭</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="http://ruanyifeng.com/" target="_blank">阮一峰</a>
+          </span>
+        
+      </div>
+    
+      <div class="site-footer-col">
+        <h5 class="site-footer-title">系列教程</h5>
+        
+          <span class="site-footer-item">
+            <a href="http://es6.ruanyifeng.com/" target="_blank">ECMAScript6 入门</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://www.vuepress.cn/" target="_blank">VuePress 中文网</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://cn.vuejs.org/" target="_blank">Vue.js 教程</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="http://www.bootcss.com/" target="_blank">Bootstrap 中文网</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://www.tslang.net/" target="_blank">TypeScript 中文手册</a>
+          </span>
+        
+      </div>
+    
+      <div class="site-footer-col">
+        <h5 class="site-footer-title">抓到我</h5>
+        
+          <span class="site-footer-item">
+            <a href="https://github.com/cokucoku/" target="_blank">Github</a>
+          </span>
+        
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 Created by <a href="https://leeao82.com/" target="_blank">leeao82.com</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+        
+          <div>
+            <img src="/images/wechat.png" alt="微信扫一扫">
+            
+              <p>微信扫一扫</p>
+            
+          </div>
+        
+          <div>
+            <img src="/images/alipay.png" alt="AliPay">
+            
+              <p>AliPay</p>
+            
+          </div>
+        
+      </div>
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/article/2019-05-07-nginx.html" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/article/2019-04-15-最近通知.html" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="music">
+            <div class="iconfont iconziyuan1" @click="prev"></div>
+            <div class="iconfont iconbofang" v-if="!play" @click="playmucis"></div>
+            <div class="iconfont iconstop" v-if="play" @click="pausemucis"></div>
+            <div class="iconfont iconziyuan" @click="next"></div>
+            <div class="musicinfo">
+                <audio id="mymusic"></audio>
+                <div class="info">
+                    <div class="nameauthor">{{music[xh].name}} - {{music[xh].author}}</div>
+                    <div class="time"><em>{{curtime | ge}}</em> / <em>{{music[xh].time}}</em></div>
+                </div>
+                <div id="jd" class="jd"></div>
+            </div>
+            <div class="iconfont iconyinliang"></div>
+            <div id="volume"></div>
+        </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    <a href="javascript:void(0);" id="site-reward">
+      <i class="fa fa-thumbs-up"></i>
+    </a>
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+<script>
+new Vue({
+        el: '.music',
+        data: {
+            mymusic: document.getElementById('mymusic'),
+            music: music, //存放播放列表
+            play: false,
+            xh: 0, //播放的音乐的序号
+            curtime: 0, //播放當前時間
+            total: 0, //音樂總長度
+            temcurtime: 0, //暫停播放後臨時保存，
+            setinter: '', //保存定時器名稱
+            si1: '',
+            si2: '',
+            exp: false,
+        },
+        mounted() {
+            var _this = this
+            var w = document.body.clientWidth
+            window.onresize = function() {
+                w = document.body.clientWidth
+                chulis()
+
+            }
+            chulis()
+
+            function chulis() {
+                if (w > 768) {
+                    _this.si2 = new Slider(
+                        '#volume', {
+                            theme: 'green', //red,yellow,black,green,
+                            size: 's', //s,m,l
+                            initvalue: 100, //初始值
+                            showtip: false,
+                            slideend: function(val, string) {
+                                _this.mymusic.volume = val / 100
+                            }
+                        });
+                }
+            }
+            this.si1 = new Slider(
+                '#jd', {
+                    theme: 'green', //red,yellow,black,green,
+                    size: 's', //s,m,l
+                    initvalue: 0, //初始值
+                    showtip: false,
+                    slideend: function(val, string) {
+                        if (_this.total > 0) {
+                            //_this.mymusic.currentTime = val * _this.total / 100
+                            _this.temcurtime = val * _this.total / 100
+                            _this.playmucis()
+                        }
+                    }
+                });
+
+            this.chulimusic()
+        },
+        computed: {
+            thestyle() {
+                if (this.play) {
+                    return 'animation-play-state:running'
+                } else {
+                    return 'animation-play-state:paused'
+                }
+            }
+        },
+        filters: {
+            ge: function(value) {
+                var fen = Math.floor(value / 60)
+                var yu = Math.floor(value % 60)
+                if (fen < 10) {
+                    fen = '0' + fen
+                } else {
+                    fen = fen
+                }
+                if (yu < 10) {
+                    yu = '0' + yu
+                } else {
+                    yu = yu
+                }
+                return fen + ':' + yu
+            }
+        },
+        watch: {
+            xh: {
+                immediate: true,
+                handler(value) {
+                    this.$nextTick(function() {
+                        this.mymusic.src = this.music[value].url
+                        this.temcurtime = 0
+                        this.mymusic.currentTime = 0
+                    })
+                }
+            },
+            curtime: {
+                immediate: true,
+                handler(value) {
+                    this.$nextTick(function() {
+                        if (value == 0) {
+                            this.si1.disabled()
+                        } else {
+                            this.si1.enabled()
+                        }
+                    })
+                }
+            }
+        },
+        methods: {
+            playme(xh) {
+                this.xh = xh
+                this.chulimusic()
+            },
+            playmucis() {
+                this.chulimusic()
+            },
+            pausemucis() {
+                this.play = false
+                this.mymusic.pause()
+                this.temcurtime = this.mymusic.currentTime
+                clearInterval(this.setinter)
+            },
+            prev() {
+                this.xh--
+                if (this.xh < 0) {
+                    this.xh = this.music.length - 1
+                }
+                this.chulimusic()
+            },
+            next() {
+                this.xh++
+                if (this.xh > this.music.length - 1) {
+                    this.xh = 0
+                }
+                this.chulimusic()
+            },
+            chulimusic() {
+                var _this = this
+                this.play = true
+                this.mymusic.currentTime = _this.temcurtime
+                this.mymusic.oncanplaythrough = function() {
+                    _this.mymusic.play()
+                    _this.curtime = _this.mymusic.currentTime
+                    _this.total = _this.mymusic.duration
+                    _this.setinter = setInterval(function() {
+                        _this.curtime = _this.mymusic.currentTime
+                        var pos = _this.curtime / _this.total * 100
+                        _this.si1.go(pos)
+                        if (_this.curtime >= _this.total) {
+                            _this.next()
+                        }
+                    }, 1000)
+                }
+            }
+        }
+    })
+</script>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>

@@ -1,0 +1,466 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>[实战]47谷歌浏览器首页</title>
+    <link rel="stylesheet" href="google/css.css">
+</head>
+
+<body>
+    <div class="google">
+        <div class="bg" :style="'opacity:'+opacity+';background-image:linear-gradient(transparent, rgba(0, 0, 0, 0.3)),url('+bg+')'"></div>
+        <div class="editbg" @click.stop="bgw=true"><i></i></div>
+        <transition name="scale">
+            <div class="err" v-if="err" v-cloak>
+                <p>网站已存在</p>
+            </div>
+        </transition>
+        <transition name="slide">
+            <div class="editbgdialog" v-if="bgw" @click.stop="bgw=true" v-cloak>
+                <div class="title">自定义此页</div>
+                <div class="ht set" @click.stop="opensetbg">
+                    <div class="ico"></div>
+                    <div class="text">Chrome 背景</div>
+                </div>
+                <div class="ht up" @click="upfile">
+                    <div class="ico"></div>
+                    <div class="text">上传图片</div>
+                    <input id="upfile" @change="change" type="file" name="" accept="image/gif, image/jpeg" style="display: none">
+                </div>
+            </div>
+        </transition>
+        <transition name="fade">
+            <div class="editlink" v-if="open" v-cloak>
+                <div class="dialog">
+                    <div class="title" v-if="action==2">添加快捷方式</div>
+                    <div class="title" v-else>修改快捷方式</div>
+                    <div class="form">
+                        <div class="ht">
+                            <div class="ti" :class="{focus:mc}">名称</div>
+                            <div class="ip">
+                                <input type="text" ref="mctext" v-model="mctext" @focus="mc=true" @blur="mc=false">
+                                <div class="line"></div>
+                            </div>
+                        </div>
+                        <div class="ht">
+                            <div class="ti" :class="{focus:url}">网址</div>
+                            <div class="ip">
+                                <input type="text" ref="urltext" v-model="urltext" @focus="url=true" @blur="url=false">
+                                <div class="line"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="btns">
+                        <div>
+                            <button type="button" class="del" @click="dellink" v-if="action==1">删除</button>
+                        </div>
+                        <div>
+                            <button type="button" class="cancel" @click="cancel">取消</button>
+                            <button type="button" class="ok" @click="addlink" v-if="full">完成</button>
+                            <button type="button" class="disabled" v-else>完成</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </transition>
+        <transition name="fade">
+            <div class="bgset" v-if="open1" v-cloak>
+                <div class="dialog">
+                    <div class="title"><i v-if="setxh>-1" @click="setxh=-1"></i><span v-if="setxh>-1">{{settype}}</span><span v-else>选择一个集合</span></div>
+                    <div class="imgs">
+                        <transition name="fade">
+                            <ul v-if="setxh>-1">
+                                <li v-for="(item,inx) in selimgs" @click="check(inx)"><img :src="item.url">
+                                    <div class="gou" v-if="item.select"></div>
+                                </li>
+                            </ul>
+                        </transition>
+                        <transition name="fade">
+                            <ul v-if="setxh==-1">
+                                <li v-for="(item,inx) in bgimg" @click="setxh=inx"><img :src="item.url">
+                                    <div class="text">{{item.text}}</div>
+                                </li>
+                            </ul>
+                        </transition>
+                    </div>
+                    <div class="btns">
+                        <div>
+                        </div>
+                        <div>
+                            <button type="button" class="cancel" @click="cancel1">取消</button>
+                            <button type="button" class="ok" v-if="choose" @click="setbg">完成</button>
+                            <button type="button" class="disabled" v-else>完成</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </transition>
+        <div class="all">
+            <div class="logoarea">
+                <div class="logo"></div>
+            </div>
+            <div class="inputs">
+                <transition name="fade">
+                    <div class="downlist" v-if="exp">
+                        <ul v-if="issearch">
+                            <li v-for="item in result" @click="search(item)">{{item}}</li>
+                        </ul>
+                        <ul v-else class="sug">
+                            <li v-for="item in sug" @click="search(item.q)">{{item.q}}</li>
+                        </ul>
+                    </div>
+                </transition>
+                <div class="fdj"></div>
+                <div class="input">
+                    <div class="text" v-if="plo">在 Google 上搜索，或者输入一个网址</div>
+                    <input type="text" @click.stop="exp=true" v-model="keyword">
+                </div>
+                <div class="voice"></div>
+            </div>
+            <div class="visited">
+                <ul>
+                    <li v-for="(item,xh) in visited">
+                        <a :href="item.url" target="_blank">
+                            <!-- <div class="img"><img :src="item.ico" v-if="item.ico"></div> -->
+                            <div class="img"><img :src="toico(item.url)"></div>
+                            <div class="text">{{item.text}}</div>
+                        </a>
+                        <span class="edit" @click="edit(xh)"></span>
+                    </li>
+                    <li v-if="visited.length<10">
+                        <a href="#" @click="add">
+                            <div class="img"><i></i></div>
+                            <div class="text">添加快捷方式</div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="google/bgs.js"></script>
+    <script src="google/storage.js"></script>
+    <script>
+    var visited = [{
+        text: '百度一下，你就知道',
+        url: 'https://www.baidu.com'
+    }, {
+        text: 'Google',
+        url: 'https://www.google.com'
+    }, {
+        text: '新浪',
+        url: 'https://www.sina.com.cn/'
+    }, {
+        text: '网易',
+        url: 'https://www.163.com/'
+    }, {
+        text: '雪球网',
+        url: 'https://www.xueqiu.com'
+    }, {
+        text: '今日头条',
+        url: 'https://www.toutiao.com/'
+    }, {
+        text: '淘宝网',
+        url: 'https://www.taobao.com'
+    }, {
+        text: '京东',
+        url: 'https://www.jd.com'
+    }]
+
+    new Vue({
+        el: '.google',
+        data: {
+            visited: visited,
+            bgimg: bgimg,
+            bg: 'google/body.jpg',
+            opacity: 0,
+            plo: true, //搜索TIP
+            open: false, //连接窗口是否打开
+            open1: false, //背景图片选择窗口是否打开
+            bgw: false, //背景编辑窗口是否打开
+            exp: false, //搜索窗口是否打开
+            issearch: false, //是搜索还是推荐
+            keyword: '', //搜索關鍵詞
+            result: [], //搜索出來的推薦
+            sug: [], //推荐搜索
+            action: 1, //1为编辑 2 为添加
+            editxh: 0, //编辑哪个连接
+            mctext: '', //增加的名称内容
+            urltext: '',
+            mc: false,
+            url: false,
+            full: false, //用来添加连接的时候文本同时不为空
+            setxh: -1, //选中图片类型
+            err: false //添加重复的网站
+        },
+        mounted() {
+            var _this = this
+            //var file = document.getElementById('upfile')
+            document.addEventListener('click', function() {
+                _this.bgw = false
+                _this.exp = false
+            });
+            //让背景有逐渐变亮
+            setTimeout(function() {
+                _this.opacity = 1
+            }, 0)
+            //让背景资源 文件缓存
+            if (storageUtil.getItem('bg')) {
+                this.bg = storageUtil.getItem('bg')
+            }
+            //让连接数据缓存
+            if (storageUtil.getItem('visited')) {
+                this.visited = storageUtil.getItem('visited')
+            }
+
+
+        },
+        computed: {
+            choose() {
+                if (this.setxh > -1) {
+                    var fi = this.selimgs.some(function(el) {
+                        return el.select == true;
+                    });
+                    return fi
+                }
+            },
+            settype() {
+                var _this = this
+                var fi = bgimg.filter(function(el, index) {
+                    return index == _this.setxh;
+                });
+                return fi[0].text
+            },
+            selimgs() {
+                var _this = this
+                var fi = bgimg.filter(function(el, index) {
+                    return index == _this.setxh;
+                });
+                fi[0].imgs.map(function(el) {
+                    _this.$set(el, 'select', false)
+                })
+                return fi[0].imgs
+            },
+        },
+        watch: {
+            open: {
+                immediate: true,
+                handler(value) {
+                    var _this = this
+                    if (value) {
+                        this.mc = true
+                        setTimeout(function() {
+                            _this.$refs.mctext.focus()
+                            _this.$refs.mctext.select()
+                        }, 0)
+                        if (this.action == 1) {
+                            this.mctext = this.visited[this.editxh].text
+                            this.urltext = this.visited[this.editxh].url
+                        } else {
+                            this.mctext = ''
+                            this.urltext = ''
+                        }
+
+                    } else {
+                        this.mc = false
+                        this.mctext = ''
+                        this.urltext = ''
+                    }
+                }
+            },
+            mctext: {
+                immediate: true,
+                handler(value) {
+                    if (value.length > 0 && this.urltext.length > 0) {
+                        this.full = true
+                    } else {
+                        this.full = false
+                    }
+                }
+            },
+            urltext: {
+                immediate: true,
+                handler(value) {
+                    if (value.length > 0 && this.mctext.length > 0) {
+                        this.full = true
+                    } else {
+                        this.full = false
+                    }
+                }
+            },
+            result: {
+                immediate: true,
+                handler(value) {
+                    if (value.length < 1) {
+                        this.exp = false
+                    } else {
+                        this.exp = true
+                    }
+                }
+            },
+            keyword: {
+                immediate: true,
+                handler(value) {
+                    var _this = this
+                    var value = value.replace(/\s*/g, "");
+                    if (value.length > 0) {
+                        this.plo = false
+                        this.issearch = true
+                        $.ajax({
+                            url: "http://suggestion.baidu.com/su",
+                            data: { "wd": value, "cb": "callback" },
+                            dataType: "jsonp",
+                            jsonpCallback: "callback",
+                            success: function(data) {
+                                _this.result = data.s
+                            }
+                        });
+
+                    } else {
+                        this.plo = true
+                        this.issearch = false
+                        $.ajax({
+                            url: "https://www.baidu.com/sugrec?prod=pc_his&from=pc_web",
+                            dataType: "jsonp",
+                            jsonpCallback: "callback",
+                            success: function(data) {
+                                _this.sug = data.g
+                            }
+                        });
+                    }
+                }
+            }
+        },
+        methods: {
+            search(item) {
+                window.open("https://www.baidu.com/s?wd=" + item)
+            },
+            setbg() {
+                if (this.setxh > -1) {
+                    var fi = this.selimgs.filter(function(el) {
+                        return el.select == true;
+                    });
+                    var url = fi[0].url
+                    url = url.replace('w156', 'w3840')
+                    url = url.replace('h117', 'h2160')
+                    storageUtil.setItem("bg", url, 20)
+                    this.bg = url
+                    this.open1 = false
+                    this.setxh = -1
+                }
+            },
+            check(xh) {
+                var _this = this
+                var fix = this.selimgs.filter(function(el, index) {
+                    return index != xh;
+                });
+                var fi = this.selimgs.filter(function(el, index) {
+                    return index == xh;
+                });
+                if (fix.length > 0) {
+                    fix.map(function(el) {
+                        _this.$set(el, 'select', false)
+                    })
+                    //this.$set(fix[0], 'select', false)
+                }
+                this.$set(fi[0], 'select', !fi[0].select)
+            },
+            opensetbg() {
+                this.bgw = false
+                this.open1 = true
+            },
+            cancel1() {
+                this.open1 = false
+                this.setxh = -1
+            },
+            toico(url) {
+                //var urlico='chrome-search://ntpicon/size/24@1x/'+url
+                var urlico = url + '/favicon.ico'
+                return urlico
+
+            },
+            upfile() {
+                document.getElementById('upfile').click()
+            },
+            change() {
+            	var _this=this
+                //file控件改变
+                //var url = window.URL.createObjectURL(event.target.files[0])
+                var reader = new FileReader();
+                reader.readAsDataURL(event.target.files[0]);
+                reader.onload = function(evt) {
+                	var url=evt.target.result
+                    storageUtil.setItem("bg", url, 20)
+                    _this.bg = url
+                };
+            },
+            dellink() {
+                this.visited.splice(this.editxh, 1)
+                storageUtil.setItem("visited", this.visited, 20)
+                this.open = false
+            },
+            addlink() {
+                var _this = this
+                if (this.action == 2) {
+                    var fi = this.visited.filter(function(el) {
+                        return el.url == _this.urltext;
+                    });
+                    if (fi.length > 0) {
+                        this.err = true
+                        setTimeout(function() {
+                            _this.err = false
+                        }, 2500)
+                    } else {
+                        this.visited.push({
+                            text: this.mctext,
+                            url: this.urltext,
+                            ico: ''
+                        })
+                        storageUtil.setItem("visited", this.visited, 20)
+                    }
+
+                    this.cancel()
+
+                } else {
+                    //var text = this.$refs.mctext.value
+                    //var url = this.$refs.urltext.value
+                    var fi = this.visited.filter(function(el) {
+                        return el.url == _this.urltext;
+                    });
+                    var xh = this.visited.indexOf(fi[0])
+                    if (fi.length > 0 && xh != this.editxh) {
+                        this.err = true
+                        setTimeout(function() {
+                            _this.err = false
+                        }, 2500)
+                    } else {
+                        this.$set(this.visited[this.editxh], 'text', this.mctext)
+                        this.$set(this.visited[this.editxh], 'url', this.urltext)
+                        storageUtil.setItem("visited", this.visited, 20)
+                    }
+
+                    this.cancel()
+                }
+            },
+            cancel() {
+                this.open = false
+            },
+            edit(xh) {
+                this.open = true
+                this.action = 1
+                this.editxh = xh
+            },
+            add() {
+                this.action = 2
+                this.open = true
+            }
+
+        }
+    })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,158 @@
+<body>
+    <div id="app">
+        <div class="collapse">
+            <div class="collapse-item" v-for="(item,inx) in list" :key="item" :class="{'is-active':activeNames.indexOf(inx)>-1}">
+                <div class="collapse-item-tab" @click.prevent="handleChange(event,inx)">{{item.title}}<i class="wbicon"></i></div>
+                <transition name="my" @enter="enter" @after-enter="afterenter" @leave="leave" @after-leave="afterleave">
+                    <div class="collapse-item-wrap" v-show="activeNames.indexOf(inx)>-1">
+                        <div class="collapse-item-content" v-html="item.content"></div>
+                    </div>
+                </transition>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script type="text/javascript">
+    var list = [{
+        'title': '一致性 Consistency',
+        'content': '<div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div><div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>'
+    }, {
+        'title': '反馈 Feedback',
+        'content': '<div>控制反馈：通过界面样式和交互动效让用户可以清晰的感知自己的操作；</div><div>页面反馈：操作后，通过页面元素的变化清晰地展现当前状态。</div>'
+    }, {
+        'title': '效率 Efficiency',
+        'content': '<div>简化流程：设计简洁直观的操作流程；</div><div>清晰明确：语言表达清晰且表意明确，让用户快速理解进而作出决策；</div><div>帮助用户识别：界面简单直白，让用户快速识别而非回忆，减少用户记忆负担。</div>'
+    }, {
+        'title': '可控 Controllability',
+        'content': ' <div>用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；</div><div>结果可控：用户可以自由的进行操作，包括撤销、回退和终止当前操作等。</div>'
+    }, ]
+    new Vue({
+        el: '#app',
+        data: {
+            activeNames: [0],
+            list: list
+        },
+        methods: {
+            handleChange(e, inx) {
+                if (this.activeNames.indexOf(inx) > -1) {
+                    var i = this.activeNames.indexOf(inx)
+                    this.activeNames.splice(i, 1)
+                } else {
+                    if (this.activeNames.length > 0) {
+                        this.activeNames = []
+                        this.activeNames.splice(0, 0, inx)
+
+                    } else {
+                        this.activeNames.splice(0, 0, inx)
+                    }
+                }
+            },
+            enter(el) {
+                var h = el.scrollHeight
+                el.style.setProperty('--h', h + 'px')
+            },
+            afterenter(el) {
+                el.removeAttribute('style')
+            },
+            leave(el) {
+                var h = el.scrollHeight
+                el.style.setProperty('--h', h + 'px')
+            },
+            afterleave(el) {
+                el.style.setProperty('--h', '')
+            }
+        }
+    })
+    </script>
+    <style>
+    * {
+        margin: 0px;
+        padding: 0px;
+        list-style: none;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, SimSun, sans-serif;
+    }
+
+    #app {
+        width: 100%;
+    }
+
+    .collapse-item.is-active .collapse-item-tab {
+        border-bottom-color: transparent;
+    }
+
+    .collapse-item-tab {
+        height: 48px;
+        line-height: 48px;
+        background-color: #fff;
+        color: #303133;
+        cursor: pointer;
+        border-bottom: 1px solid #ebeef5;
+        font-size: 13px;
+        font-weight: 500;
+        transition: border-bottom-color .3s;
+        outline: none;padding: 0 20px;
+    }
+
+    .collapse-item-tab i {
+        float: right;
+        margin-right: 10px
+    }
+
+    .collapse-item-tab i:before {
+        content: "\e795";
+    }
+
+    .collapse-item.is-active .collapse-item-tab i:before {
+        content: "\e794";
+    }
+
+    .collapse-item-wrap {
+        will-change: height;
+        overflow: hidden;
+        box-sizing: border-box;
+        border-bottom: 1px solid #ebeef5;
+        background: #fff
+    }
+
+    .collapse-item-content {
+        padding: 25px;
+        font-size: 13px;
+        color: #999;
+        line-height: 1.769230769230769;
+    }
+
+    .my-enter-active {
+        animation: my-in .3s ease-in-out;
+    }
+
+    .my-leave-active {
+        animation: my-out .3s ease-in-out;
+    }
+
+    @keyframes my-in {
+        0% {
+
+            height: 0
+        }
+
+        100% {
+            height: var(--h);
+
+        }
+    }
+
+    @keyframes my-out {
+        0% {
+            height: var(--h);
+        }
+
+        100% {
+            height: 0
+        }
+    }
+    </style>
+</body>

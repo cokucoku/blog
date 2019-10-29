@@ -1,0 +1,72 @@
+
+<head>
+    <meta charset="UTF-8">
+    <title>switch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="switch.css">
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_924531_bjux84rbnan.css">
+    <style type="text/css" media="screen">
+    #switch1,#switch2,#switch3 {
+        margin: 10px;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="switch1"></div>
+    <div id="switch2"></div>
+    <div id="switch3"></div>
+    <script src="switch.js"></script>
+    <script type="text/javascript">
+    new Switch(
+        '#switch1', {
+            cur: 1,
+            size:'s',
+            name: 'power', //在form表单里的name名称
+            start:{
+                xm:'关闭',
+                color:'#ccc'
+            },
+            end: {
+                xm:'开启',
+                color:'#46bd87'
+            },
+            switchback: function(sel) {
+                console.log(sel)
+            }
+        });
+    new Switch(
+        '#switch2', {
+            cur: 1,
+            name: 'power', //在form表单里的name名称
+            start:{
+                xm:'男',
+                color:'#f00'
+            },
+            end: {
+                xm:'女',
+                color:'#f90'
+            },
+            switchback: function(sel) {
+                console.log(sel)
+            }
+        });
+    new Switch(
+        '#switch3', {
+            cur: 1,
+            size:'l',
+            name: 'power', //在form表单里的name名称
+            start:{
+                xm:'年',
+                color:'#112'
+            },
+            end: {
+                xm:'月',
+                color:'#9ab'
+            },
+            switchback: function(sel) {
+                console.log(sel)
+            }
+        });
+    </script>
+</body>

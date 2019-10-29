@@ -1,0 +1,92 @@
+<div class="ht" id="sjc">
+    <div class="ti">时间戳</div>
+    <div class="tsource"><input type="text" name="" value="1554688300"></div>
+    <div class="zhuan" id="z1">>></div>
+    <div class="result"><input type="text" name="" value=""></div>
+</div>
+<div class="ht" id="week">
+    <div class="ti">周几</div>
+    <div class="tsource"><input type="text" name="" value="2019-04-08"></div>
+    <div class="zhuan" id="z2">>></div>
+    <div class="result"><input type="text" name="" value=""></div>
+</div>
+<div class="ht" id="day">
+    <div class="ti">多久前</div>
+    <div class="tsource"><input type="text" name="" value="2019-04-08 09:00:0"></div>
+    <div class="zhuan" id="z3">>></div>
+    <div class="result"><input type="text" name="" value=""></div>
+</div>
+<div class="ht" id="diff">
+    <div class="ti">时间差</div>
+    <div class="tsource"><input type="text" name="start" value="2019-04-08 09:00:00" style="width: 50%;"><input type="text" name="end" value="2019-04-09 11:19:10" style="width: 50%;"></div>
+    <div class="zhuan" id="z4">>></div>
+    <div class="result"><input type="text" name="" value=""></div>
+</div>
+<script src="https://libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="dateCollect.js"></script>
+<script>
+var date = new dateCollect();
+init()
+
+function init() {
+    let result1 = date.timetrans($('#sjc').find('.tsource').find('input').val())
+    let result2 = date.getweek($('#week').find('.tsource').find('input').val())
+    let result3 = date.dateago($('#day').find('.tsource').find('input').val())
+    let result4 = date.datediff($('#diff').find('.tsource').find('input[name=start]').val(),$('#diff').find('.tsource').find('input[name=end]').val())
+
+
+    $('#sjc').find('.result').find('input').val(result1)
+    $('#week').find('.result').find('input').val(result2)
+    $('#day').find('.result').find('input').val(result3)
+    $('#diff').find('.result').find('input').val(result4)
+
+}
+//console.log(date.timetrans(1554688300)) //时间戳处理
+//console.log(date.getweek('2019-04-08')); //日期对应周几
+//console.log(date.dateago('2019-04-08 09:00:00')); //日期对应几天前
+//console.log(date.datediff('2019-04-08 09:00:00', '2019-04-09 11:19:10')); //两个时间相差
+</script>
+<style>
+.ht {
+    display: flex;
+    height: 28px;
+    line-height: 28px;
+    margin-bottom: 15px
+}
+
+.ht .ti {
+    display: flex;
+    flex-shrink: 0;
+    min-width: 60px
+}
+
+.ht .tsource,
+.ht .result {
+    background: #fff;
+    flex-grow: 1;
+}
+
+.ht .tsource input,
+.ht .result input {
+    background: none;
+    border: none;
+    height: 100%;
+    padding: 0 10px;
+    width: 100%;
+    border: solid 1px #ddd;
+    outline: none;pointer-events: none
+}
+
+.ht .tsource input:focus,
+.ht .result input:focus {
+    border-color: #3eaf7c;
+}
+
+.ht .zhuan {
+    background: #3eaf7c;
+    color: #fff;
+    padding: 0 10px;
+    margin: 0 15px;
+    cursor: pointer;
+}
+</style>

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>计算器</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        * {
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0
+}
+
+body {
+    font-family: '微软雅黑';
+}
+
+[v-cloak] {
+    display: none
+}
+
+#app {
+    height: 100vh
+}
+
+.display {
+    background: #222;
+    color: #fff;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+
+}
+
+.pc .display {
+    height: 20vh
+}
+
+.mobile .display {
+    height: calc(100vh - 125vw)
+}
+
+.display .result {
+    font-size: 80px;
+    font-weight: 100;
+    line-height: 80px;
+    padding: 0 6px;
+}
+
+.display .result.sm {
+    font-size: 40px;
+}
+
+.panel {
+    color: #333;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.pc .panel {
+    height: 80vh
+}
+
+.panel .k {
+    border-bottom: solid 1px rgba(0, 0, 0, .3);
+    border-right: solid 1px rgba(0, 0, 0, .3)
+}
+
+.pc .panel .k {
+    width: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mobile .panel .k {
+    width: 25vw;
+    padding-bottom: calc(25vw - 1px);
+    position: relative;
+}
+
+.panel .k:nth-child(4n) {
+    border-right: none;
+    background-color: #f5923e;
+    color: #fff;
+}
+
+.panel .k:last-child {
+    border-right: none;
+    background-color: #f5923e;
+    color: #fff;
+}
+
+.panel .k.h {
+    background: #eee
+}
+
+.panel .k.zero {
+    width: 50vw
+}
+
+.panel .k span {
+
+    font-size: 10vmin;
+    font-weight: 100
+}
+
+.mobile .panel .k span {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="display">
+            <div class="result" :class="{sm:sm}" v-cloak>
+                {{result}}
+            </div>
+        </div>
+        <div class="panel">
+            <div class="k h" @click="reset"><span>AC</span></div>
+            <div class="k h" @click="handle_zf"><span>+/-</span></div>
+            <div class="k h" @click="handle_kou"><span>%</span></div>
+            <div class="k" @click="handle_ysf('/')"><span>÷</span></div>
+            <div class="k" @click="handle_num(7)"><span>7</span></div>
+            <div class="k" @click="handle_num(8)"><span>8</span></div>
+            <div class="k" @click="handle_num(9)"><span>9</span></div>
+            <div class="k" @click="handle_ysf('*')"><span>X</span></div>
+            <div class="k" @click="handle_num(4)"><span>4</span></div>
+            <div class="k" @click="handle_num(5)"><span>5</span></div>
+            <div class="k" @click="handle_num(6)"><span>6</span></div>
+            <div class="k" @click="handle_ysf('-')"><span>-</span></div>
+            <div class="k" @click="handle_num(1)"><span>1</span></div>
+            <div class="k" @click="handle_num(2)"><span>2</span></div>
+            <div class="k" @click="handle_num(3)"><span>3</span></div>
+            <div class="k" @click="handle_ysf('+')"><span>+</span></div>
+            <div class="k zero" @click="handle_num(0)"><span>0</span></div>
+            <div class="k" @click="handle_dot('.')"><span>.</span></div>
+            <div class="k" @click="handle_js"><span>=</span></div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+    var sUserAgent = navigator.userAgent.toLowerCase();
+    var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+    var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+    var bIsMidp = sUserAgent.match(/midp/i) == "midp";
+    var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
+    var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
+    var bIsAndroid = sUserAgent.match(/android/i) == "android";
+    var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
+    var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
+
+    if ((bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM)) {
+        document.getElementById('app').classList.add('mobile')
+    } else {
+        document.getElementById('app').classList.add('pc')
+    }
+    /*原理：
+
+    --计算结果=前运算数  运算符号  后运算数
+    --this.rs 前运算数  默认为0 后面运算符按下去的时候this.rs要计算，或者是被打断，被赋值为this.after 总之一直会有这个值
+    --this.after 后运算数  默认为空
+    1、数字按下去，this.after才有值，
+    2、运算符按下去，分为2个情况
+      1>如果this.after没有 那么
+      2>
+    3、显示屏显示到底是该显示this.rs  还是this.after  是根据this.after来决定
+    this.after 有值就显示this.after，否则显示this.rs
+    */
+    new Vue({
+        el: '#app',
+        data: {
+            rs: '0',
+            after: '',
+            ysf: '', //运算符
+            ysfnum: 0, //运算符次数
+            zf: 1, //正，负
+            sm: false
+        },
+        mounted() {},
+        methods: {
+            reset() { // OK了
+                this.rs = 0
+                this.after = ''
+                this.ysf = ''
+            },
+            handle_ysf(str) { //运算符动作 OK了
+                if (this.after) { //运算符前有输入值时
+                    if (!this.ysf) { //如果前面没按运算符就先把值先存储
+                        this.rs = this.after
+                    } else { //如果前面有运算符，就先计算
+                        this.yunsuan(this.ysf)
+                    }
+
+                }
+                this.after = ''
+                this.ysf = str
+            },
+            handle_num(number) { //数字动作 OK了
+                if (Number(this.after) == 0 && this.after.indexOf('.') < 0) {
+                    this.after = ''
+                }
+                this.after += String(number)
+            },
+            handle_dot(dot) { //小数点动作
+                if (!this.after) {
+                    this.after = this.rs
+                } else {
+                    if (this.after.indexOf('.') > 0) {
+                        return
+                    }
+                }
+                this.after += String(dot)
+
+            },
+            handle_js() { //=号动作 OK了
+                if (this.after) { //运算符前有输入值时
+                    if (!this.ysf) { //如果前面没按运算符就先把值先存储
+                        this.rs = this.after
+                    } else { //如果前面有运算符，就先计算
+                        this.yunsuan(this.ysf)
+                    }
+
+                }
+                this.ysf = '' //运算符清除
+                this.after = '' //输入值清除
+            },
+            handle_zf() { //正负动作  OK了
+                if (this.after) {
+                    this.after = -this.after
+                } else {
+                    this.rs = -this.rs
+                }
+            },
+            handle_kou() { //%动作  
+                if (this.after) {
+                    this.after = this.after * 0.01
+                } else {
+                    this.rs = this.rs * 0.01
+                }
+            },
+            yunsuan(str) {
+                console.log(this.rs, this.after, this.ysf)
+                
+                if (str == '+') {
+                    this.rs = Number(this.rs) + Number(this.after)
+                } else if (str == '-') {
+                    this.rs = Number(this.rs) - Number(this.after)
+                } else if (str == '*') {
+                    this.rs = Number(this.rs) * Number(this.after)
+                } else if (str == '/') {
+                    this.rs = Number(this.rs) / Number(this.after)
+                }
+                if(isFinite(this.rs)==false){
+                    this.rs=0
+                }
+
+            }
+        },
+        computed: {
+            result() {
+                if (!this.after) {
+                    var len = String(this.rs).length
+                    if (len > 9) {
+                        this.sm = true
+                    } else { this.sm = false }
+
+                    return this.rs
+                } else {
+                    var len = String(this.after).length
+                    if (len > 9) {
+                        this.sm = true
+                    } else { this.sm = false }
+
+                    return this.after
+                }
+            }
+        },
+        watch: {
+            keyword: {
+                immediate: true,
+                handler(value) {
+
+                }
+            }
+        }
+    })
+    //console.log(isFinite(Infinity))
+    </script>
+</body>
+
+</html>

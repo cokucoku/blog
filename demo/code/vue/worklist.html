@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>图片浏览</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <style type="text/css" media="screen">
+    * {
+        margin: 0px;
+        padding: 0px;
+        list-style: none;
+        box-sizing: border-box;
+    }
+
+    body {
+        font: 14px/1.5 "PingFang SC";
+        color: #282828;
+        background: #f4f4f4;
+    }
+
+    #app {
+        max-width: 1400px;
+        margin: 25px auto;
+    }
+
+    .tab {
+        background: #fff;
+        padding: 15px;
+        display: flex;
+    }
+
+    .tab li {
+        margin: 15px 30px;
+        cursor: pointer;
+    }
+
+    .tab li.on {
+        color: #f60
+    }
+
+    .list ul {
+        display: flex;
+        padding-top: 20px;
+        flex-wrap: wrap;
+    }
+
+    .list ul li {
+        width: 260px;
+        height: 195px;
+        border-radius: 4px;
+        margin: 0 20px 20px 0;
+        overflow: hidden;
+        position: relative;
+        transition: all .6s cubic-bezier(0.77, 0, 0.175, 1);
+    }
+
+    .list ul li i {
+        position: absolute;
+        background: rgba(255, 0, 0, .6);
+        color: #fff;
+        font-style: normal;
+        padding: 0 5px;
+        bottom: 0;
+        right: 0
+    }
+
+    .list ul li span {
+        position: absolute;
+        background: rgba(0, 0, 0, .6);
+        width: 16px;
+        height: 16px;
+        top: 0;
+        right: 0;
+        cursor: pointer;
+    }
+
+    .list ul li span:before {
+        content: "";
+        width: 1px;
+        height: 16px;
+        position: absolute;
+        background: rgba(255, 255, 255, .6);
+        transform: rotate(45deg);
+        left: 50%;
+    }
+
+    .list ul li span:after {
+        transform: rotate(45deg);
+        content: "";
+        width: 16px;
+        height: 1px;
+        position: absolute;
+        background: rgba(255, 255, 255, .6);
+        top: 50%;
+    }
+
+    .list ul li img {
+        width: 260px;
+        height: 195px;
+    }
+
+    .list ul li.my-enter {
+        opacity: 0;
+
+        width: 0px;
+    }
+
+    .list ul li.my-enter-to {
+        opacity: 1;
+
+        width: 260px;
+    }
+
+    .list ul li.my-leave {
+
+        width: 260px;
+        opacity: 1
+    }
+
+    .list ul li.my-leave-to {
+
+        opacity: 0;
+        width: 0px;
+    }
+
+    @media (max-width: 1200px) {}
+
+    @media(max-width: 994px) {
+
+    }
+
+    @media(max-width: 991px) and (min-width: 768px) {}
+
+    @media (max-width: 768px) {
+        .tab li {
+            margin: 0px 0;
+            width: 16.666666666667%
+        }
+    }
+    </style>
+    <div id="app">
+        <ul class="tab">
+            <li v-for="(item,inx) in worktype" :class={on:cur==inx} @click="chuli(inx)">{{item}}</li>
+        </ul>
+        <div class="list">
+            <transition-group tag="ul" name="my">
+                <li v-for="item in filterlist" :key="item" @dblclick="del(item.id)"><span></span><i>{{change(item.types)}}</i>
+                    <img :src="item.pic">
+                </li>
+            </transition-group>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+    var worktype = ['全部', '平面', '网页', '插画', '动漫', '摄影'] //0,1,2,3,4,5,
+    var work = [{
+        'id': 1,
+        'types': 1,
+        'pic': 'https://img.zcool.cn/community/0101cb5be95d68a80121ab5d2816ea.jpg@260w_195h_1c_1e_1o_100sh.jpg'
+    }, {
+        'id': 2,
+        'types': 4,
+        'pic': 'https://img.zcool.cn/community/0135cd5bebcf7ba80121ab5de1aec6.jpg@260w_195h_1c_1e_1o_100sh.jpg'
+    }, {
+        'id': 3,
+        'types': 2,
+        'pic': 'https://img.zcool.cn/community/010d605beacf40a8012092524ff775.jpg@260w_195h_1c_1e_1o_100sh.jpg'
+    }, {
+        'id': 4,
+        'types': 1,
+        'pic': 'https://img.zcool.cn/community/017bd65bece8b2a80121ab5d801161.jpg@260w_195h_1c_1e_1o_100sh.jpg'
+    }, {
+        'id': 5,
+        'types': 5,
+        'pic': 'https://img.zcool.cn/community/01c6005bece1f0a80121ab5d2e688d.jpg@260w_195h_1c_1e_1o_100sh.jpg'
+    }, {
+        'id': 6,
+        'types': 3,
+        'pic': 'https://img.zcool.cn/community/01c6005bece1f0a80121ab5d2e688d.jpg@260w_195h_1c_1e_1o_100sh.jpg'
+    }, {
+        'id': 7,
+        'types': 4,
+        'pic': 'https://img.zcool.cn/community/011b1e5bebb69ca80121ab5ddf030f.jpg@260w_195h_1c_1e_1o_100sh.jpg'
+    }, {
+        'id': 8,
+        'types': 3,
+        'pic': 'https://img.zcool.cn/community/01fdcd5bec02cda8012092529481b3.jpg@260w_195h_1c_1e_1o_100sh.jpg'
+    }, {
+        'id': 9,
+        'types': 2,
+        'pic': 'https://img.zcool.cn/community/018a1c5beb833ba80121ab5d844594.jpg@260w_195h_1c_1e_1o_100sh.jpg'
+    }, {
+        'id': 10,
+        'types': 1,
+        'pic': 'https://img.zcool.cn/community/01d0915be4037fa80121ab5d223989.jpg@260w_195h_1c_1e_1o_100sh.jpg'
+    }, {
+        'id': 11,
+        'types': 4,
+        'pic': 'https://img.zcool.cn/community/0129d05becf03ca80121ab5df3e4da.jpg@260w_195h_1c_1e_1o_100sh.jpg'
+    }, {
+        'id': 12,
+        'types': 2,
+        'pic': 'https://img.zcool.cn/community/01876f5bece818a801209252f02de7.jpg@260w_195h_1c_1e_1o_100sh.jpg'
+    }, {
+        'id': 13,
+        'types': 1,
+        'pic': 'https://img.zcool.cn/community/01535f5bebbf3da80121ab5def8e10.jpg@260w_195h_1c_1e_1o_100sh.jpg'
+    }, {
+        'id': 14,
+        'types': 5,
+        'pic': 'https://img.zcool.cn/community/017c1c5becc846a801209252d2812d.jpg@260w_195h_1c_1e_1o_100sh.jpg'
+    }, {
+        'id': 15,
+        'types': 2,
+        'pic': 'https://img.zcool.cn/community/01ddca5be79c13a801209252eb40ac.jpg@260w_195h_1c_1e_1o_100sh.jpg'
+    }, {
+        'id': 16,
+        'types': 5,
+        'pic': 'https://img.zcool.cn/community/0174795bec1ffba80120925225a922.jpg@260w_195h_1c_1e_1o_100sh.jpg'
+    }, {
+        'id': 17,
+        'types': 3,
+        'pic': 'https://img.zcool.cn/community/0158485bebc5eea80121ab5d496b30.jpg@260w_195h_1c_1e_1o_100sh.jpg'
+    }, {
+        'id': 18,
+        'types': 2,
+        'pic': 'https://img.zcool.cn/community/0162445be82ba3a80121ab5d29f66a.jpg@260w_195h_1c_1e_1o_100sh.jpg'
+    }, {
+        'id': 19,
+        'types': 1,
+        'pic': 'https://img.zcool.cn/community/0198e75bea9f81a80121ab5dbcf7cf.jpg@260w_195h_1c_1e_1o_100sh.jpg'
+    }, {
+        'id': 20,
+        'types': 3,
+        'pic': 'https://img.zcool.cn/community/017c7f5bea2d1ea80120925286a376.jpg@260w_195h_1c_1e_1o_100sh.jpg'
+    }, ]
+    new Vue({
+        el: '#app',
+        data: {
+            work: work,
+            worktype: worktype,
+            cur: 0
+        },
+        mounted() {},
+        methods: {
+            change(name) {
+                if (name == 1) {
+                    return "平面"
+                } else if (name == 2) {
+                    return "网页"
+                } else if (name == 3) {
+                    return "插画"
+                } else if (name == 4) {
+                    return "动漫"
+                } else if (name == 5) {
+                    return "摄影"
+                }
+            },
+            chuli(inx) {
+                this.cur = inx;
+                console.log(this.cur)
+
+            },
+            del(id) {
+                var a = this.work.filter(function(el) {
+                    return el.id == id;
+                });
+                var inx = this.work.indexOf(a[0])
+                this.work.splice(inx, 1)
+
+            }
+        },
+        filter: {},
+        computed: {
+            filterlist() {
+                var _this = this
+                var a = this.work.filter(function(el, index) {
+                    if (_this.cur == 0) {
+                        return el;
+                    } else {
+                        return el.types == _this.cur;
+                    }
+                });
+                return a
+
+
+            }
+        }
+    })
+    </script>
+</body>
+
+</html>

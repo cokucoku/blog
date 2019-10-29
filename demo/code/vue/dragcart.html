@@ -1,0 +1,434 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <title>实现的拖放添加购物车功能</title>
+    <style>
+    * {
+        margin: 0px;
+        padding: 0px;
+        list-style: none
+    }
+
+    .myapp {
+        display: flex;
+        height: 100vh
+    }
+
+    #div2 {
+        flex-grow: 1
+    }
+
+    #div2 ul li {
+        float: left;
+        width: 190px;
+        height: 210px;
+        border: 1px solid #ddd;
+        margin-right: 10px;
+    }
+
+    #div2 ul li img {
+        width: 100%;
+        height: 100%;
+    }
+
+    #div1 {
+        width: 350px;
+        flex-shrink: 0;
+        height: 100%;
+        border: 1px solid #ddd;
+        background-color: #F5F5F5;
+    }
+
+    .div_panel {
+        min-height: calc(100% - 40px);
+    }
+
+    .allMoney {
+        margin: 0 10px;
+    }
+
+    .allMoney .js {
+        float: right;
+        background: #f00;
+        color: #fff;
+        padding: 0 12px;
+        border-radius: 5px;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    table,
+    thead {
+        width: 100%;
+    }
+
+    tr th {
+        width: 25%;
+        height: 30px;
+        background-color: #23B7E5;
+        font-size: 16px;
+        padding: 2px 0px;
+        color: #fff;
+    }
+
+    tr td {
+        text-align: center;
+        padding: 15px 0px;
+        background-color: #fff;
+        font-size: 14px;
+        border-bottom: solid 1px #ddd
+    }
+
+    tr td a {
+        padding: 2px 5px;
+        margin: 0 5px;
+        border: 1px solid #ddd;
+        cursor: pointer;
+    }
+
+    tr td a.disabled {
+        pointer-events: none;
+        opacity: .2
+    }
+
+    [v-cloak] {
+        display: none;
+    }
+
+    .tips {
+        transition: all .3s cubic-bezier(0.77, 0, 0.175, 1);
+        z-index: 33111;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+    }
+
+    .tip {
+        position: absolute;
+        max-width: 520px;
+        width: 94%;
+        height: 300px;
+        z-index: 33;
+        background: #fff;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        border-radius: 5px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, .2)
+    }
+
+    .mark {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 11;
+        background: rgba(0, 0, 0, .4)
+    }
+
+    .tip .h1 {
+        font-size: 30px;
+        text-align: center;
+        padding: 80px 0 40px;
+    }
+
+    .tip .btn {
+        display: flex;
+        padding: 0 25px;
+    }
+
+    .tip .btn span {
+        width: 50%;
+        height: 52px;
+        line-height: 52px;
+        text-align: center;
+        border-radius: 5px;
+        margin: 0 20px;
+        cursor: pointer;
+    }
+
+    .tip .btn span:nth-child(1) {
+        background: #23B7E5;
+        color: #fff
+    }
+
+    .tip .btn span:nth-child(2) {
+        background: #efefef;
+        color: #333
+    }
+
+    .my-enter,
+    .my-leave-to {
+        opacity: 0
+    }
+
+    .my-enter-to,
+    .my-leave {
+        opacity: 1
+    }
+
+    @media screen and (max-width: 768px) {
+        .myapp {
+            flex-wrap: wrap;
+        }
+
+        #div1 {
+            width: 100%
+        }
+
+    }
+    </style>
+</head>
+
+<body>
+    <div class="myapp">
+        <transition name="my">
+            <div class="tips" v-if="kong" v-cloak>
+                <div class="tip">
+                    <div class="h1">你确定要清空购物车？</div>
+                    <div class="btn">
+                        <span @click="del">确定</span>
+                        <span @click="kong=false">取消</span>
+                    </div>
+                </div>
+                <div class="mark" @click="kong=false"></div>
+            </div>
+        </transition>
+        <transition name="my">
+            <div class="tips" v-if="err" v-cloak>
+                <div class="tip">
+                    <div class="h1">总金额超过，是否修改购物车？</div>
+                    <div class="btn">
+                        <span @click="err=false">确定</span>
+                    </div>
+                </div>
+                <div class="mark" @click="err=false"></div>
+            </div>
+        </transition>
+        <div id="div2">
+            <ul v-cloak>
+                <li v-for="item in prolist" @touchstart="touchstart(item.id,item.name,item.price,item.max)" @touchmove="touchmove" @touchend="touchend">
+                    <img :src="item.src" draggable="true" @dragstart="dragstart(item.id,item.name,item.price,item.max)">
+                </li>
+            </ul>
+        </div>
+        <div id="div1">
+            <div class="div_panel" @dragover="dragover" @drop="drop">
+                <table border="0" cellspacing="0" cellpadding="0">
+                    <thead>
+                        <tr>
+                            <th>名称</th>
+                            <th>单价</th>
+                            <th>数量</th>
+                            <th>价格</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(item,inx) in cartlist" v-cloak>
+                            <td>{{item.name}}</td>
+                            <td>{{item.price}}</td>
+                            <td><a @click="chuli(inx,item.id)">-</a>{{item.num}}<a :class="{disabled:item.num>=Math.floor(item.max/item.price)||!js}" @click="chuli2(item.id,item.max)">+</a></td>
+                            <td>￥{{item.price*item.num}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="allMoney">总价:<span id="totalMoney">{{totalMoney}}</span><span class="js" v-if="js">结算</span></p>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+    var cartlist = [
+        { id: 1, name: '数码手机', price: 400, num: 2 },
+        { id: 2, name: '家居用品', price: 300, num: 1 },
+    ]
+    var prolist = [
+        { id: 1, name: '数码手机', price: 400, src: 'https://img11.360buyimg.com/babel/s190x210_jfs/t1/18279/3/5399/38598/5c3d9d5dE16cc9382/fee1774d21f10d76.png!q90!cc_190x210', max: 4000 },
+        { id: 2, name: '家居用品', price: 300, src: 'https://img12.360buyimg.com/babel/s190x210_jfs/t1/21132/23/4656/41783/5c3325c1Ec48c37ad/94f31e05b46e1776.png!q90!cc_190x210', max: 4200 },
+        { id: 3, name: '生鲜水果', price: 200, src: 'https://img10.360buyimg.com/babel/s190x210_jfs/t1/15060/34/4632/41755/5c3343a7E5c62620f/b56361956c15b221.png!q90!cc_190x210', max: 4000 },
+    ]
+    new Vue({
+        el: '.myapp',
+        data: {
+            cartlist: [],
+            prolist: prolist,
+            teminfo: {},
+            limitMoney: 5000, //限制购物车总金额
+            kong: false, //判断弹框购物车
+            err: false, //判断弹框总金额超过
+            js: true, //是否出现结算按钮
+            inx: '', //存储弹框要删除
+            abs_x: 0,
+            abs_y: 0,
+            clonetarget: '',
+            down: false
+        },
+        mounted() {},
+        methods: {
+            del() {
+                this.cartlist.splice(this.inx, 1)
+                this.kong = false
+            },
+            touchstart(id, name, price, max) {
+                this.down = true
+                this.teminfo = {}
+                this.teminfo.id = id;
+                this.teminfo.name = name
+                this.teminfo.price = price
+                this.teminfo.max = max
+                //要複製
+                let target = event.target.parentNode;
+                this.abs_x = event.targetTouches[0].clientX - target.offsetLeft
+                this.abs_y = event.targetTouches[0].clientY - target.offsetTop
+                this.clonetarget = target.cloneNode(true)
+                this.clonetarget.style.cssText = "position:fixed;z-index:1000;opacity:.8;left:" + target.offsetLeft + "px;top:" + target.offsetTop + "px"
+                target.parentNode.appendChild(this.clonetarget)
+            },
+            touchmove() {
+                var _this = this
+                if (this.down) {
+                    let target = event.target.parentNode;
+                    let left = event.targetTouches[0].clientX - this.abs_x
+                    let top = event.targetTouches[0].clientY - this.abs_y
+                    this.clonetarget.style.cssText = "transition:none;position:fixed;z-index:1000;opacity:.8;left:" + left + "px;top:" + top + "px"
+                }
+            },
+            touchend() {
+                var _this = this
+                this.down = false
+                let target = event.target.parentNode;
+                //判斷是否要加入購物車
+                let top = this.clonetarget.offsetTop
+                let width = this.clonetarget.offsetWidth
+                let aimt = document.getElementById('div1')
+                if (top + width > aimt.offsetTop) {
+                    var id = String(this.teminfo.id);
+                    var e = this.cartlist.every(function(el, inx) {
+                        var cid = String(el.id)
+                        return cid.indexOf(id) < 0
+                    })
+                    if (e == true) {
+                        //如果ID不一样就可以增加
+                        this.cartlist.push(this.teminfo)
+                        var a = this.cartlist.filter(function(el) {
+                            var cid = String(el.id)
+                            return cid.indexOf(id) > -1
+                        });
+                        this.$set(a[0], 'num', 1)
+
+                    } else {
+                        var a = this.cartlist.filter(function(el) {
+                            var cid = String(el.id)
+                            return cid.indexOf(id) > -1
+                        });
+                        var totalnum = Math.floor(a[0].max / a[0].price);
+                        if (a[0].num < totalnum) {
+                            this.$set(a[0], 'num', a[0].num + 1)
+                        }
+                    }
+                }
+                target.parentNode.removeChild(this.clonetarget)
+            },
+            dragstart(id, name, price, max) {
+                this.teminfo = {}
+                this.teminfo.id = id;
+                this.teminfo.name = name
+                this.teminfo.price = price
+                this.teminfo.max = max
+            },
+            dragover() {
+                event.preventDefault();
+
+            },
+            drop() {
+                var _this = this
+                event.preventDefault();
+                var id = String(this.teminfo.id);
+                var e = this.cartlist.every(function(el, inx) {
+                    var cid = String(el.id)
+                    return cid.indexOf(id) < 0
+                })
+                if (e == true) {
+                    //如果ID不一样就可以增加
+                    this.cartlist.push(this.teminfo)
+                    var a = this.cartlist.filter(function(el) {
+                        var cid = String(el.id)
+                        return cid.indexOf(id) > -1
+                    });
+                    this.$set(a[0], 'num', 1)
+
+                } else {
+                    var a = this.cartlist.filter(function(el) {
+                        var cid = String(el.id)
+                        return cid.indexOf(id) > -1
+                    });
+                    var totalnum = Math.floor(a[0].max / a[0].price);
+                    if (a[0].num < totalnum) {
+                        this.$set(a[0], 'num', a[0].num + 1)
+                    }
+                }
+
+            },
+            chuli(inx, id) {
+                var a = this.cartlist.filter(function(el, index) {
+                    return el.id == id
+                });
+                var num = a[0].num - 1
+                if (num < 1) {
+                    if (this.cartlist.length == 1) {
+                        this.kong = true
+                        this.inx = inx
+                    } else {
+                        this.cartlist.splice(inx, 1)
+
+                    }
+                } else {
+                    this.$set(a[0], 'num', num)
+                }
+            },
+            chuli2(id, max) {
+                var a = this.cartlist.filter(function(el, index) {
+                    return el.id == id
+                });
+                var num = a[0].num + 1
+                var totalnum = Math.floor(a[0].max / a[0].price);
+                if (num > totalnum) {
+                    num = totalnum
+                }
+                this.$set(a[0], 'num', num)
+            }
+        },
+        computed: {
+            totalMoney() {
+                var totalprice = 0;
+                this.cartlist.map(function(el) {
+                    totalprice += el.num * el.price
+                })
+                return totalprice
+            }
+        },
+        watch: {
+            totalMoney: {
+                immediate: true,
+                handler(value) {
+                    if (value > this.limitMoney) {
+                        this.err = true
+                        this.js = false
+                    } else {
+                        this.js = true
+
+                    }
+
+                }
+            }
+        }
+    })
+    </script>
+</body>
+
+</html>

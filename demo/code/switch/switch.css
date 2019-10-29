@@ -1,0 +1,45 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.lee-switch {
+    position: relative;
+    background: currentColor;
+    transition: all .3s;
+    cursor: pointer;
+}
+.lee-switch input{display: none}
+.lee-switch .lee-wz {
+	white-space: nowrap;
+    position: absolute;
+    top: 50%;
+    transition: all .3s;
+    color: #fff;
+}
+
+.lee-switch .lee-quan {
+    position: absolute;
+    background-color: #fff;
+    border-radius: 100%;
+    top: 50%;
+    transition: all .3s;
+}
+
+.lee-switch.start .lee-quan{left:1px;transform: translateY(-50%);}
+.lee-switch.start .lee-wz{left: 100%;transform: translate(calc(-100% - 10px),-50%);}
+.lee-switch.end .lee-quan{left:100%;transform: translate(calc(-100% - 1px),-50%);}
+.lee-switch.end .lee-wz{left:0;transform: translate(10px,-50%);}
+
+.lee-switch.s{width: 50px;font-size: 12px;height: 14px;border-radius: 7px;}
+.lee-switch.s  .lee-wz{line-height: 12px;height: 12px;}
+.lee-switch.s  .lee-quan{width: 12px;height: 12px;}
+.lee-switch.m{width: 60px;font-size: 14px;height: 20px;border-radius: 10px;}
+.lee-switch.m  .lee-wz{line-height: 14px;height: 14px;}
+.lee-switch.m  .lee-quan{width: 18px;height: 18px;}
+.lee-switch.l{width: 70px;font-size: 16px;height: 26px;border-radius: 13px;}
+.lee-switch.l  .lee-wz{line-height: 16px;height: 16px;}
+.lee-switch.l  .lee-quan{width: 24px;height: 24px;}

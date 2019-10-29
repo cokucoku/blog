@@ -1,0 +1,213 @@
+.prettfyform input[type=radio],
+.prettfyform input[type=checkbox] {
+    display: none
+}
+
+.prettfyform label {
+    position: relative;
+    display: inline-block;
+    line-height: inherit;
+    padding-left: var(--h);
+    overflow: hidden;
+}
+
+.Minimal label:before,
+.Square label:before {
+    border: solid 1px #ccc;
+    box-sizing: border-box;
+    transition: all .6s
+}
+
+.Minimal label.disabled:before,.Square label.disabled:before{border:solid 1px #e6e6e6;}
+
+
+/*默认没选的时候哪种风格那种皮肤都是灰色边框*/
+
+.prettfyform label.radio:before,
+.prettfyform label.checkbox:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    margin-top: var(--hf);
+    width: var(--h);
+    height: var(--h);
+}
+
+
+
+/*单选 BEGIN*/
+
+.prettfyform label.radio:before {
+    border-radius: 100%;
+}
+
+
+
+.Minimal label:hover:before,
+.Square label:hover:before {
+    border: solid 2px var(--color);
+}
+.Minimal .disabled:hover:before,.Square .disabled:hover:before{
+    border-color: #e6e6e6;
+    border-width: 1px;
+}
+
+.Minimal label.radio.checked:after {
+    /*Minimal 风格*/
+    content: "";
+    position: absolute;
+    left: calc(var(--h)/4);
+    top: 50%;
+    margin-top: calc(var(--hf)/2);
+    width: calc(var(--h)/2);
+    height: calc(var(--h)/2);
+    border-radius: 100%;
+    background: var(--color)
+}
+.Minimal label.disabled.radio.checked:after{background: #e6e6e6}
+
+
+.Square label.radio.checked:before {
+    /*Square 风格*/
+    background: var(--color);
+    border: solid 1px var(--color);
+}
+.Square label.radio.disabled.checked:before{background: #e6e6e6;border:none;}
+.Square label.radio.checked:after {
+    /*Square 风格*/
+    /*content: "\e60f";*/
+    content: "";
+    background: url(gou.png);
+    background-size: cover;
+    position: absolute;
+    z-index: 33;
+    left: 0;
+    top: 50%;
+    margin-top: var(--hf);
+    width: var(--h);
+    height: var(--h);
+}
+
+.Flat label.radio:before {
+    border: solid calc(var(--h)/8) #ccc;
+    box-sizing: border-box;
+    
+}
+.Flat label.disabled.radio:before{border-color: #e6e6e6}
+.Flat label.radio.checked:before {
+    /*Flat 风格*/
+    border: solid calc(var(--h)/8) var(--color);
+}
+.Flat label.disabled.radio.checked:before {border-color: #e6e6e6}
+
+.Flat label.radio.checked:after {
+    /*Flat 风格*/
+    content: "";
+    position: absolute;
+    left: calc(var(--h)/3);
+    top: 50%;
+    margin-top: calc(var(--hf)/3);
+    width: calc(var(--h)/3);
+    height: calc(var(--h)/3);
+    border-radius: 100%;
+    background: var(--color);
+}
+.Flat label.disabled.radio.checked:after{background: #e6e6e6}
+.Block label {
+    background: #ccc;
+    padding-right: var(--h)
+}
+
+.Block label.checked {
+    background: var(--color);
+    color: #fff
+}
+.Block label.disabled.checked {
+    background: #e6e6e6;
+
+}
+
+.Block label.checked:before {
+    content: "";
+    background: url(gou.png);
+    background-size: cover;
+    position: absolute;
+    z-index: 33;
+    left: 0;
+    top: 50%;
+    margin-top: var(--hf);
+    width: var(--h);
+    height: var(--h);
+}
+
+
+
+/*单选 END*/
+
+
+/*多选 BEGIN*/
+
+.Minimal label.checkbox.checked:after {
+    /*Minimal 风格*/
+    content: "";
+    background: url(gou.png);
+    background-size: cover;
+    position: absolute;
+    left: var(--lf);
+    top: 50%;
+    width: var(--h);
+    height: var(--h);
+    margin-top: var(--hf);
+    filter: drop-shadow(calc(var(--h)) 0px 0px var(--color))
+}
+.Minimal label.disabled.checkbox.checked:after{filter: drop-shadow(calc(var(--h)) 0px 0px #e6e6e6)}
+.Square label.checkbox.checked:before {
+    /*Square 风格*/
+    background: var(--color);
+    border: solid 1px var(--color);
+}
+.Square label.disabled.checkbox.checked:before {
+    background: #e6e6e6;border:none;
+}
+.Square label.checkbox.checked:after {
+    /*Square 风格*/
+    content: "";
+    background: url(gou.png);
+    background-size: cover;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: var(--h);
+    height: var(--h);
+    margin-top: var(--hf);
+}
+
+.Flat label.checkbox:before {
+    background: #ccc;
+    border-radius: calc(var(--h)/4);
+    transition: all .6s
+}
+
+.Flat label.checkbox.checked:before {
+    /*Flat 风格*/
+    background: var(--color);
+}
+.Flat label.disabled.checkbox.checked:before{background: #e6e6e6}
+
+.Flat label.checkbox.checked:after {
+    /*Flat 风格*/
+    content: "";
+    background: url(gou.png);
+    background-size: cover;
+    position: absolute;
+    z-index: 33;
+    left: 0;
+    top: 50%;
+    margin-top: var(--hf);
+    width: var(--h);
+    height: var(--h);
+}
+
+
+/*多选 END*/

@@ -1,0 +1,21 @@
+<link rel="stylesheet" href="prettfyform.css">
+<div id="myform1">
+    <label>
+        <input type="radio" name="sex" value="男" disabled checked>男</label>
+    <label>
+        <input type="radio" name="sex" value="女">女</label>
+    <label>
+        <input type="checkbox" name="love" value="读书" disabled checked>读书</label>
+    <label>
+        <input type="checkbox" name="love" value="唱歌">唱歌</label>
+    <label>
+        <input type="checkbox" name="love" value="画画">画画</label>
+</div>
+<script src="https://libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="prettfyform.js"></script>
+<script>
+new Prettfyform("#myform1", {
+    "style": "Flat", //风格 Square Minimal Flat Block
+    "theme": "#3eaf7c"
+})
+</script>

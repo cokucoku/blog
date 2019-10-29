@@ -1,0 +1,77 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.LeePage {
+    display: flex;
+    overflow: hidden;
+    justify-content: center;align-items: center;
+}
+
+.LeePage span {
+    background-color: #f9f9f9;
+    border: solid 1px #dedede;
+    padding: 4px 8px;
+    margin: 0 2px;
+    cursor: pointer;
+}
+
+.LeePage span.disabled{pointer-events: none;opacity: .4}
+.LeePage .gopage{display: flex;align-items: center;margin-left: 4px;}
+.LeePage i{font-style: normal;}
+.LeePage .gopage input{border:solid 1px #dedede;width: 40px;margin:0 5px;outline: none;text-align: center;}
+
+
+.LeePage.s {
+    font-size: 12px;
+    line-height: 12px;
+}
+
+.LeePage.m {
+    font-size: 14px;
+    line-height: 14px;
+}
+
+.LeePage.l {
+    font-size: 16px;
+    line-height: 16px;
+}
+
+.LeePage span.morenext:before,.LeePage span.moreprev:before{content: '···';}
+.LeePage span.morenext.ico:before{content: '>';}
+.LeePage span.moreprev.ico:before{content: '<';}
+
+
+
+.LeePage.s span.morenext.ico,.LeePage.s span.moreprev.ico{line-height: 12px;}
+.LeePage.m span.morenext.ico,.LeePage.m span.moreprev.ico{line-height: 14px;}
+.LeePage.l span.morenext.ico,.LeePage.l span.moreprev.ico{line-height: 16px;}
+
+
+
+
+.LeePage span.cur{pointer-events: none;}
+.LeePage.black span.cur {
+    background: #111;color: #fff;border-color: #111
+}
+
+.LeePage.blue span.cur {
+    background: #409eff;color: #fff;border-color: #409eff
+}
+
+.LeePage.red span.cur {
+    background: #f00;color: #fff;border-color: #f00
+}
+
+.LeePage.yellow span.cur {
+    background: #fa0;color: #fff;border-color: #fa0
+}
+
+.LeePage.green span.cur {
+    background: #67c23a;color: #fff;border-color: #67c23a
+}
+.LeePage.green span:hover{color:#67c23a }

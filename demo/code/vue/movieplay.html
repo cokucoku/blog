@@ -1,0 +1,161 @@
+    <style>
+    /*
+    FFF6F5
+    FFDDDC
+    f42429
+    */
+    * {
+        margin: 0px;
+        padding: 0px;
+        list-style: none
+    }
+
+    #movie ul {
+        display: flex;
+    }
+
+    #movie ul li {
+        background: #FFDDDC;
+        padding: 10px;
+        cursor: pointer;
+        margin: 10px;
+    }
+
+    #movie ul li.on {
+        background: #f42429
+    }
+
+    #movie ul li img {
+        width: 160px;
+        height: 224px;
+    }
+
+    .tips {
+        width: 500px;
+        height: 300px;
+        background: #fff;
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        margin-left: -250px;
+        margin-top: -150px;
+        border: solid 1px #FFDDDC;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        z-index: 44;
+        transition: all .4s cubic-bezier(0.77, 0, 0.175, 1);
+    }
+
+    .tips h1 {
+        color: #f42429
+    }
+
+    [v-cloak] {
+        display: none;
+    }
+
+    .my-enter-active,
+    .my-leave-active {}
+
+    .my-enter,
+    .my-leave-to {
+        transform: translateY(calc(-100% - 302px));
+    }
+
+    .my-enter-to,
+    .my-leave {
+        opacity: 1;
+
+    }
+
+    .myu-enter,
+    .myu-leave-to {
+        opacity: 0;
+    }
+
+    .myu-enter-to,
+    .myu-leave {
+        opacity: 1;
+    }
+
+    .mark {
+        background: rgba(0, 0, 0, .6);
+        position: fixed;
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        transition: all .9s cubic-bezier(0.77, 0, 0.175, 1);
+    }
+    </style>
+
+
+<body>
+    <div class="center-wrap" id="movie">
+        <transition name="myu">
+            <div class="mark" v-if="err" v-cloak @click="err=''"></div>
+        </transition>
+        <transition name="my">
+            <div class="tips" v-if="err" v-cloak>
+                <div class="ok" v-if="err==2">您选择的电影<h1>{{choose}}</h1>已经在{{ctime}}点播放了
+                </div>
+                <div class="no" v-if="err==1">您选择的电影<h1>{{choose}}</h1>要在{{ctime}}点后播放,请耐心等待
+                </div>
+            </div>
+        </transition>
+        <ul>
+            <li @click="chuli(item)" v-for="item in datas" :class="{on:item.moviename==choose}"><img :src="item.pic"></li>
+        </ul>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+    /*
+
+    请根据描述编写相应的代码：某电影网站给用户提供两部电影播放，A电影和B电影，A电影只能在每天20：00以后才能播，B电影只能在每天21：00后才能播，用户只能选择其中一部播放。交互提醒要求：
+    1、用户早于20点时选择A电影提交时请alert（'您选择的电影A要在20点后播放,请耐心等待'）；
+    2、用户迟于20点时选择A电影提交时请alert（'您选择的电影A已经在20点播放了'）；
+    3、用户早于21点时选择B电影提交时请alert（'您选择的电影B要在21点后播放,请耐心等待'）；
+    4、用户迟于21点时选择B电影提交时请alert（'您选择的电影B已经在21点播放了'）；
+
+    */
+    var datas = [{
+        moviename: "流浪的地球",
+        pic: 'https://img.alicdn.com/bao/uploaded/i2/TB1DKsvErvpK1RjSZPiXXbmwXXa_.jpg_160x240.jpg',
+        playtime: '20'
+    }, {
+        moviename: "飞驰人生",
+        pic: 'https://img.alicdn.com/bao/uploaded/i1/TB1JVy.FzDpK1RjSZFrXXa78VXa_.jpg_160x240.jpg',
+        playtime: '21'
+    }]
+    new Vue({
+        el: '#movie',
+        data: {
+            datas: '',//电影数据
+            choose: '',//选中的电影名称
+            err: '',//错误码，存储1,2
+            ctime: ''//
+        },
+        beforeMount() {
+            this.datas = datas
+            //this.choose = datas[0].moviename
+        },
+        methods: {
+            chuli(el) {
+                this.choose = el.moviename
+                this.ctime = el.playtime
+                var date = new Date()
+                var h = date.getHours()
+                if (h < this.ctime) {
+                    this.err = 1
+                } else {
+                    this.err = 2
+                }
+            }
+        }
+    })
+    </script>
+</body>

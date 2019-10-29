@@ -1,0 +1,53 @@
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>select</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="select.css">
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_924531_bjux84rbnan.css">
+    <style type="text/css" media="screen">
+    #select1,#select2,#select3 {
+        margin: 30px;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="select1"></div>
+    <div id="select2"></div>
+    <div id="select3"></div>
+    <script src="select.js"></script>
+    <script type="text/javascript">
+    new Select(
+        '#select1', {
+            sel: 1,
+            zindex:3,
+            name: 'mx', //在form表单里的name名称
+            option: ['周星驰', '周润发', '李连杰', '成龙', '古天乐', '林家栋', '刘青云'],
+            selback: function(sel) {
+                console.log(sel)
+            }
+        });
+    new Select(
+        '#select2', {
+            sel: 3,
+            zindex:2,
+            name: 'mx', //在form表单里的name名称
+            option: ['阿里巴巴', '腾讯', '百度', '小米', '京东', '拼多多', '美团'],
+            selback: function(sel) {
+                console.log(sel)
+            }
+        });
+    new Select(
+        '#select3', {
+            sel: 6,
+            zindex:1,
+            name: 'mx', //在form表单里的name名称
+            option: ['福州', '厦门', '泉州', '漳州', '龙岩', '三明', '南平', '莆田', '宁德'],
+            selback: function(sel) {
+                console.log(sel)
+            }
+        });
+    </script>
+</body>

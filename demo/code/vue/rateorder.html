@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>vue.jss</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+</head>
+
+<body>
+    <div id="app">
+        <div class="pinform">
+            <div class="ht">
+                <div class="ti">商品评分</div>
+                <div class="ipt">
+                    <ul>
+                        <li v-for="(item,inx) in star" :class="{active:on>=inx+1}" @mouseover="mouseover(inx)" @mouseout="mouseout" @click="setcur(inx)"></li>
+                    </ul>
+                    <div class="result">
+                        <div class="fen" :class="{red:on>=1||cur>=1}"><i v-if="on>=1||cur>=1">{{star[on-1].score}}</i><i v-else>0</i>分</div>
+                        <div class="ms"><span v-if="on>=1||cur>=1">{{star[on-1].ms}}</span><span v-else></span></div>
+                    </div>
+                    <input type="hidden" name="fen" v-model="cur">
+                </div>
+            </div>
+            <div class="ht">
+                <div class="ti">评价内容</div>
+                <div class="ipt">
+                    <textarea name="pinnr"></textarea>
+                </div>
+            </div>
+            <div class="ht">
+                <div class="ti"></div>
+                <div class="ipt">
+                    <button type="submit" id="pt_pj">发表评价</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script type="text/javascript">
+    var star = [{
+            'score': 1,
+            'ms': '差得太离谱，与卖家描述的严重不符，非常不满!'
+        },
+        {
+            'score': 2,
+            'ms': '部分有破损，与卖家描述的不符，不满意!'
+        },
+        {
+            'score': 3,
+            'ms': '质量一般，没有卖家描述的那么好!!'
+        },
+        {
+            'score': 4,
+            'ms': '质量不错，与卖家描述的基本一致，还是挺满意的!'
+        },
+        {
+            'score': 5,
+            'ms': '质量非常好，与卖家描述的完全一致，非常满意!'
+        }
+    ]
+
+    new Vue({
+        el: '#app',
+        data: {
+            star: star,
+            on: 0,
+            cur: 0
+        },
+        mounted() {
+
+        },
+        methods: {
+            mouseover(i) {
+                this.on = i + 1
+
+            },
+            mouseout() {
+                if (this.cur) {
+                    this.on = this.cur
+                } else {
+                    this.on = 0
+                }
+
+            },
+            setcur(i) {
+                this.cur = i + 1
+            }
+        }
+    })
+    </script>
+    <style>
+    * {
+        margin: 0px;
+        padding: 0px;
+        list-style: none;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, SimSun, sans-serif;
+        font-size: 12px;
+        color: #444;
+    }
+
+    #app {
+        padding: 20px;
+    }
+
+    .pinform {
+        padding: 30px;
+        border: solid 1px #eee;
+    }
+
+    .pinform .ht {
+        display: flex;
+        padding-bottom: 30px;
+    }
+
+    .pinform .ht .ti {
+        width: 80px;flex-shrink: 0
+    }
+
+    .pinform .ht .ipt,
+    .pinform .ht .ipt .result {
+        flex-grow: 1;
+        display: flex;
+    }
+
+    .pinform .ht .ipt li {
+        width: 16px;
+        height: 16px;
+        display: block;
+        float: left;
+        cursor: pointer;
+        background: url(commstar.png);
+    }
+
+    .pinform .ht .ipt li.active {
+        background-position: 0 -16px;
+    }
+
+    .pinform .ht .ipt textarea {
+        height: 146px;
+        border: solid 1px #eeeeee;
+        width: 100%;
+    }
+
+    .pinform .ht .ipt #pt_pj {
+        font-size: 18px;
+        background: #e93536;
+        border-radius: 8px;
+        width: 254px;
+        height: 46px;
+        line-height: 46px;
+        text-align: center;
+        color: #fff;
+        border: none;
+    }
+
+    .pinform .ht .ipt .result {
+        color: #999
+    }
+
+    .pinform .ht .ipt .result .fen {
+        margin: 0 5px;
+    }
+
+    .pinform .ht .ipt .result .fen.red {
+        color: #e93536
+    }
+
+    .pinform .ht .ipt .result .fen i {
+        font-style: normal;
+    }
+    @media screen and (max-width: 768px) {
+        .pinform .ht .ipt{flex-wrap: wrap;}
+        .pinform .ht .ipt ul{width: 100%}
+        .pinform .ht .ipt .result{padding-top: 10px;}
+    }
+    </style>
+</body>
+
+</html>

@@ -1,0 +1,202 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <title>抽奖</title>
+    <style>
+    * {
+        margin: 0;
+        padding: 0px;
+        list-style: none;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-size: 16px;
+        background: url(https://img.zcool.cn/community/0191aa5a30c873a80120ba38f9834f.jpg@2o.jpg) center -220px no-repeat;
+    }
+
+    #app {
+        /*height: 1080px;*/
+        width: 1000px;
+        margin: 198px auto 0;
+        height: 662px;
+        background: rgba(0, 0, 0, .0);
+        position: relative;overflow: hidden;
+    }
+
+    .fk {
+        width: 184px;
+        height: 184px;
+        border: solid 6px #ff0;
+        position: absolute;
+        top: 48px;
+        left: 12px;
+        background: rgba(0, 0, 0, .4);
+        transition: all .05s;
+    }
+
+    .btn {
+        width: 570px;
+        height: 184px;
+        position: absolute;
+        top: 240px;
+        left: 204px;
+    }
+
+    .tips {
+        border-radius: 15px;
+        background: rgba(0, 0, 0, .8);
+        width: 30%;
+        height: 50%;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-left: -15%;
+        margin-top: -18%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .tips h4 {
+        font-size: 46px;
+        display: block;
+        text-align: center;
+        color: #f20;
+    }
+
+    .tipsn div {
+        font-size: 36px;
+        padding: 20px;
+        color: #fff;
+    }
+    .st-enter-active,.st-leave-active{transition: all .6s;}
+    .st-enter,.st-leave-to{opacity: 0;transform: scale(.3) rotateX(180deg);}
+    .st-enter-to,.st-leave{opacity: 1;transform: scale(1);}
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="fk" :style="fkstyle"></div>
+        <div class="btn" @click="go"></div>
+        <transition name="st">
+            <div class="tips" v-if="stop">
+                <div class="tipsn">
+                    <h4>恭喜你！</h4>
+                    <div>獲得{{cur.gift}}</div>
+                </div>
+            </div>
+        </transition>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+    new Vue({
+        el: '#app',
+        data: {
+            stop: false,
+            cur: [], //最后要停的点信息
+            stops: 3, //这个是最后要停的点
+            pos: [{
+                left: 12,
+                top: 48,
+                gift: '积分10点'
+            }, {
+                left: 204,
+                top: 48,
+                gift: 'iphone 7'
+            }, {
+                left: 400,
+                top: 48,
+                gift: '代金券50元'
+            }, {
+                left: 592,
+                top: 48,
+                gift: '智能手表'
+            }, {
+                left: 784,
+                top: 48,
+                gift: '代金券30元'
+            }, {
+                left: 784,
+                top: 240,
+                gift: '积分10点'
+            }, {
+                left: 784,
+                top: 432,
+                gift: 'iphone 7'
+            }, {
+                left: 592,
+                top: 432,
+                gift: '代金券20元'
+            }, {
+                left: 400,
+                top: 432,
+                gift: '感谢参与'
+            }, {
+                left: 204,
+                top: 432,
+                gift: '代金券100元'
+            }, {
+                left: 12,
+                top: 432,
+                gift: '智能手表'
+            }, {
+                left: 12,
+                top: 240,
+                gift: '感谢参与'
+            }]
+        },
+        mounted() {
+
+        },
+        methods: {
+            go() {
+                var _this = this,
+                    i = 0,
+                    num = 0;
+                _this.stop = false;
+                var mysei = setInterval(function() {
+                    _this.cur = _this.pos[i]
+                    i++
+                    if (i >= 12) {
+                        num++
+                        i = 0
+                    }
+                    if (num > 6) {
+                        _this.stops = parseInt(Math.random(1) * 11)
+                        clearInterval(mysei)
+                        var j = 0;
+                        var ms = setInterval(function() {
+                            _this.cur = _this.pos[j]
+                            j++
+                            if (j >= _this.stops) {
+                                _this.stop = true
+                                clearInterval(ms)
+                            }
+
+                        }, 130)
+
+                    }
+                }, 50)
+
+            }
+
+        },
+        computed: {
+            fkstyle() {
+                return 'left:' + this.cur.left + 'px;top:' + this.cur.top + 'px'
+            }
+
+        }
+    })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+    <ul id="list" class="list">
+        <li><i></i>首页</li>
+        <li>公司简介</li>
+        <li>公司新闻</li>
+        <li>产品中心</li>
+        <li>联系我们</li>
+        <li>工程案例</li>
+        <li>解决方案</li>
+        <li>发展历程</li>
+    </ul>
+    <style type="text/css" media="screen">
+    * {
+        margin: 0px;
+        padding: 0px;
+        list-style: none;box-sizing: border-box;
+    }
+
+    body {
+        background: #3eaf7c;
+        padding: 25px;
+        color: #464637;
+        font-size: 20px;
+        font-family: roboto, sans-serif;
+        font-weight: 300;
+    }
+
+    .list {
+        padding: 20px 0;
+        max-width: 360px;
+        background-color: #fff;
+    }
+
+    .list li {
+        background-color: #fff;
+        padding: 10px 40px;
+        cursor: move;
+    }
+
+    .list li:first-letter {
+        text-transform: uppercase
+    }
+
+    .list .ghost {
+        opacity: .4;
+        background-color: #f4e2c9;
+    }
+    </style>
+    <script src="sortable.js"></script>
+    <script type="text/javascript">
+    var list = document.getElementById("list");
+    new sortable(list);
+    </script>

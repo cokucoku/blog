@@ -1,0 +1,44 @@
+ * {
+     margin: 0px;
+     padding: 0px;
+     list-style: none;
+     box-sizing: border-box;
+ }
+
+ .citys {
+     display: flex;
+     padding: 100px;
+ }
+
+ .citys .k {
+     width: 25%;
+     height: 600px;
+     border: solid 1px #ddd;
+     margin: 0 15px;
+ }
+
+ .citys .k li {
+     height: 24px;
+     padding: 0 15px;transition: all 1s
+ }
+
+ .citys .k li.on {
+     background-color: #258ffc
+ }
+
+ .citys .k ul {height: 600px;
+     overflow-y: auto;position: relative;overflow-x: hidden;
+ }
+
+ .slide-leave-to{
+     opacity: 0;
+     transform: translateX(100%);
+ }
+ .slide-enter {
+    transform: translateX(-100%);}
+
+ .slide-leave-active {
+     position: absolute;
+     width: 100%;
+     z-index: 1;
+ }

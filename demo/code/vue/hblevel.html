@@ -1,0 +1,381 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>[实战]52拖动合并数字</title>
+    <style>
+    * {
+        margin: 0px;
+        padding: 0px;
+        list-style: none;
+        box-sizing: border-box;
+    }
+
+    .nums {
+        padding: 10px;
+        position: relative;
+    }
+
+    .ok {
+        position: absolute;
+        z-index: 3;
+        background-color: rgba(0, 0, 0, 1);
+        width: 90px;
+        height: 90px;
+        line-height: 90px;
+        text-align: center;
+        color: #fff;
+        transition: all .2s;
+        border-radius: 6px;
+    }
+
+    .nums li {
+        width: 80px;
+        height: 80px;
+        cursor: pointer;
+        border-radius: 6px;
+        border: solid 1px #ddd;
+        position: relative;
+        text-align: center;
+        line-height: 80px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        display: inline-block;
+        transition: all .2s
+    }
+
+    .nums li.ov {
+        border-color: #f60;
+    }
+
+    .nums li.gray i,
+    .nums li.gray {
+        background-color: #ddd
+    }
+
+    .nums li.green i,
+    .nums li.green {
+        background-color: green
+    }
+
+    .nums li.yellow i,
+    .nums li.yellow {
+        background-color: #fc0
+    }
+
+    .nums li i {
+        color: #fff;
+        line-height: 20px;
+        width: 20px;
+        height: 20px;
+        background-color: #f60;
+        border-radius: 100%;
+        text-align: center;
+        display: block;
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        transform: translate(50%, -50%);
+        transition: all .4s
+    }
+
+    .nums .list-leave-active {
+        position: absolute;
+    }
+
+    .nums .list-enter,
+    .nums .list-leave-to {
+        opacity: 0;
+        transform: translateY(10%) scale(0);
+    }
+
+    .fade-enter,
+    .fade-leave-to {
+        opacity: 0;
+        transform: scaleY(0) scaleX(6);
+    }
+
+    .fade-enter-to,
+    .fade-leave {
+        opacity: 1;
+        transform: scale(1);
+    }
+    </style>
+</head>
+
+<body>
+    <div class="nums">
+        <transition name="fade">
+            <div class="ok" v-if="ok" :style="{left:okl+'px',top:okt+'px'}">合并成功</div>
+        </transition>
+        <transition-group name="list" tag="ul">
+            <li :class="color(item.level)" :style="style(item)" draggable v-for="(item,inx) in mydata" :key="item" @dragstart="dragstart(item,inx)" @dragover="dragover" @dragenter="dragenter(item)" @dragleave="dragleave(item)" @dragend="dragend" @drop="drop(item,inx)" @touchstart="touchstart(item,inx)" @touchmove="touchmove" @touchend="touchend">{{item.name}}<i>{{item.level}}</i></li>
+        </transition-group>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+    var levelinfo = [{
+        name: '社区新鱼',
+        level: 1
+    }, {
+        name: '初级小鱼',
+        level: 2
+    }, {
+        name: '中级小鱼',
+        level: 3
+    }, {
+        name: '高级小鱼',
+        level: 4
+    }, {
+        name: '青铜小鱼',
+        level: 5
+    }, {
+        name: '黄金小鱼',
+        level: 6
+    }, {
+        name: '白金小鱼',
+        level: 7
+    }, {
+        name: '钻石小鱼',
+        level: 8
+    }, {
+        name: '社区老鱼',
+        level: 9
+    }, ]
+    var mydata = [{
+        name: '高级小鱼',
+        level: 4
+    }, {
+        name: '社区新鱼',
+        level: 1
+    }, {
+        name: '初级小鱼',
+        level: 2
+    }, {
+        name: '社区新鱼',
+        level: 1
+    }, {
+        name: '社区新鱼',
+        level: 1
+    }, {
+        name: '社区新鱼',
+        level: 1
+    }, {
+        name: '社区新鱼',
+        level: 1
+    }, {
+        name: '初级小鱼',
+        level: 2
+    }, {
+        name: '初级小鱼',
+        level: 2
+    }, {
+        name: '社区新鱼',
+        level: 1
+    }, {
+        name: '中级小鱼',
+        level: 3
+    }]
+    new Vue({
+        el: '.nums',
+        data: {
+            mydata: mydata,
+            draglevel: '', //捉的level，判断到时候是否相等，相等才消除
+            dragtarget: '', //捉的目标，捉与放不能是同一个target
+            clonetarget: '', //克隆的
+            xdel: '', //存放需要删除数据索引
+            ok: false,
+            okl: 0, //保存合并成功的LEFT值
+            okt: 0, //保存合并成功的Top值
+            droptarget: '', //移動端放的目標
+            droplevel:'',
+            xh:'',//保存目標的序號
+            abs_x: 0,
+            abs_y: 0,
+            down: false, //是否按下
+            offset: [] //保存各OFFSETTOP,LEFT
+        },
+        mounted() {
+            var _this = this
+            var allli = Array.from(document.getElementsByClassName('nums')[0].getElementsByTagName('li'))
+            allli.forEach(function(el, inx) {
+                _this.offset.push({ inx: inx, left: el.offsetLeft, top: el.offsetTop })
+            });
+        },
+        computed: {},
+        watch: {},
+        methods: {
+            style(item) {
+                var styles = {}
+                if (item.select) {
+                    styles['opacity'] = '.3'
+                }
+                if (item.to) {
+                    styles['border'] = 'dashed 1px red'
+                }
+                return styles
+            },
+            color(level) {
+                if (level <= 2) {
+                    return 'gray'
+                } else if (level <= 4) {
+                    return 'green'
+                } else {
+                    return 'yellow'
+                }
+
+            },
+            dragstart(item, xh) {
+                this.draglevel = item.level
+                this.dragtarget = event.target
+                this.xdel = xh
+                this.$set(item, 'select', true)
+
+            },
+            dragover() {
+                event.preventDefault();
+            },
+            dragenter(item) {
+                this.$set(item, 'to', true)
+            },
+            dragleave(item) {
+                this.$set(item, 'to', false)
+            },
+            dragend() {
+                var _this = this
+                this.mydata.map(function(item, index) {
+                    _this.$set(item, 'select', false)
+                    _this.$set(item, 'to', false)
+                });
+            },
+            drop(item, xh) {
+                event.preventDefault();
+                var _this = this
+                if (item.level == this.draglevel && event.target != this.dragtarget) {
+                    //console.log("s")
+                    var newlevel = item.level + 1
+                    this.$set(item, 'level', newlevel)
+                    var fi = levelinfo.filter(function(el) {
+                        return el.level == newlevel;
+                    });
+                    this.$set(item, 'name', fi[0].name)
+                    this.mydata.splice(this.xdel, 1)
+                    this.ok = true
+                    if (this.xdel < xh) {
+                        this.okl = event.target.offsetLeft - event.target.offsetWidth - 10
+                    } else {
+                        this.okl = event.target.offsetLeft
+                    }
+                    setTimeout(function() {
+                        _this.ok = false
+
+                    }, 1500)
+                } else if (item.level != this.draglevel && event.target != this.dragtarget) {
+                    if (this.xdel < xh) {
+                        this.mydata.splice(xh + 1, 0, this.mydata[this.xdel])
+                        this.mydata.splice(this.xdel, 1)
+                    } else {
+                        this.mydata.splice(xh, 0, this.mydata[this.xdel])
+                        this.mydata.splice(this.xdel + 1, 1)
+                    }
+
+                }
+            },
+            touchstart(item, xh) {
+                this.down = true
+                this.draglevel = item.level
+                this.dragtarget = event.target
+                this.xdel = xh
+                this.$set(item, 'select', true)
+                //要複製
+                let target = event.target;
+                this.abs_x = event.targetTouches[0].clientX - target.offsetLeft
+                this.abs_y = event.targetTouches[0].clientY - target.offsetTop
+                this.clonetarget = target.cloneNode(true)
+                this.clonetarget.style.cssText = "position:fixed;z-index:1000;opacity:.8;left:" + target.offsetLeft + "px;top:" + target.offsetTop + "px"
+                target.parentNode.appendChild(this.clonetarget)
+
+            },
+            touchmove() {
+                var _this = this
+                if (this.down) {
+                    let target = event.target;
+                    let halfh = target.offsetHeight / 2
+                    let halfl = target.offsetWidth / 2
+                    let left = event.targetTouches[0].clientX - this.abs_x
+                    let top = event.targetTouches[0].clientY - this.abs_y
+                    this.clonetarget.style.cssText = "transition:none;position:fixed;z-index:1000;opacity:.8;left:" + left + "px;top:" + top + "px"
+                    let rs = this.offset.filter(function(el, index) {
+                        return left - el.left >= -halfl && left - el.left <= halfl && top - el.top >= -halfh && top - el.top <= halfh
+                    });
+                    var fi = this.mydata.filter(function(item, index) {
+                        if (rs.length > 0) {
+                            return index == rs[0].inx
+                        }
+                    });
+                    if (rs.length > 0) {
+                        this.mydata.map(function(elem) {
+                            _this.$set(elem, 'to', false)
+                        })
+                        this.$set(fi[0], 'to', true)
+                        this.droptarget = document.getElementsByClassName('nums')[0].getElementsByTagName('li')[rs[0].inx]
+                        this.droplevel=fi[0].level
+                        this.xh=rs[0].inx
+                    }
+
+                }
+            },
+            touchend() {
+                var _this = this
+                this.down = false
+                let target = event.target;
+                target.parentNode.removeChild(this.clonetarget)
+                this.mydata.map(function(item, index) {
+                    _this.$set(item, 'select', false)
+                    _this.$set(item, 'to', false)
+                });
+                //判斷是否合併
+                if (this.droplevel == this.draglevel && this.droptarget != this.dragtarget) {
+                    //console.log("s")
+                    var newlevel = this.droplevel + 1
+                    var fi = levelinfo.filter(function(el) {
+                        return el.level == newlevel;
+                    });
+                    var fii = this.mydata.filter(function(el,inx) {
+                        return inx == _this.xh;
+                    });
+                    this.$set(fii[0], 'level', newlevel)
+                    this.$set(fii[0], 'name', fi[0].name)
+                    this.mydata.splice(this.xdel, 1)
+                    this.ok = true
+                    if (this.xdel < this.xh) {
+                        this.okl = this.droptarget.offsetLeft - this.droptarget.offsetWidth - 10
+                        //this.okt = this.droptarget.offsetTop - this.droptarget.offsetHeight - 10
+                    } else {
+                        this.okl = this.droptarget.offsetLeft
+                       
+                    }
+                     this.okt = this.droptarget.offsetTop
+                    setTimeout(function() {
+                        _this.ok = false
+                    }, 1500)
+                } else if (this.droplevel != this.draglevel && this.droptarget != this.dragtarget) {
+                    if (this.xdel < this.xh) {
+                        this.mydata.splice(this.xh + 1, 0, this.mydata[this.xdel])
+                        this.mydata.splice(this.xdel, 1)
+                    } else {
+                        this.mydata.splice(this.xh, 0, this.mydata[this.xdel])
+                        this.mydata.splice(this.xdel + 1, 1)
+                    }
+
+                }
+            }
+
+        }
+    })
+    </script>
+</body>
+
+</html>

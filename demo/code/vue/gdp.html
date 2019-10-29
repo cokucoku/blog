@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>[实战]53金砖五国近十年GDP</title>
+    <style>
+    * {
+        margin: 0px;
+        padding: 0px;
+        list-style: none;
+        box-sizing: border-box;
+    }
+
+    .k {
+        margin: 20px;
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        font-weight: bold;transition: transform 2s;
+    }
+
+    .k .country {
+        flex-shrink: 0;
+        padding-right: 10px;
+    }
+
+    .k .fk {
+        height: 16px;
+        width: 40%;
+        border-radius: 8px;
+        transition: all 1s
+    }
+
+    .k .shuju {
+        flex-shrink: 0;
+        padding-left: 10px;
+        font-size: 12px;
+    }
+
+    .btns {
+        display: flex;flex-wrap: wrap;
+    }
+
+    .btns .btn {
+        font-size: 13px;
+        height: 22px;
+        border-radius: 3px;
+        border: solid 1px #dedede;
+        background-color: #fff;
+        margin-left: 8px;
+        padding: 0 4px;
+        line-height: 22px;margin-bottom: 8px;
+        cursor: pointer;
+    }
+
+    .btns .btn.cur {
+        color: #fff;
+        background-color: #fc0;
+        border-color: #fc0
+    }
+    </style>
+</head>
+
+<body>
+    <div class="nums">
+        <transition-group name="flip-list" tag="div">
+            <div class="k" v-for="item in sortmydata" :key="item">
+                <div class="country" :style="'color:'+item.color">{{item.country}}</div>
+                <div class="fk" :style="'width:'+bai(item.gdp,curyear)+'%;background:'+item.color"></div>
+                <div class="shuju" :style="'color:'+item.color">{{get(item.gdp,curyear)}}亿美元</div>
+            </div>
+        </transition-group>
+        <div class="btns">
+            <div class="btn" :class="{cur:curyear==item}" v-for="item in year" @click="curyear=item">{{item}}</div>
+        </div>
+        <script src="bus/gdp.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
+        <script>
+        new Vue({
+            el: '.nums',
+            data: {
+                year: ['2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', ],
+                mydata: gdp,
+                curyear: 2007
+
+            },
+            mounted() {
+            },
+            computed: {
+                sortmydata() {
+                    return this.mydata.sort(this.sortnumber)
+                }
+            },
+            watch: {
+                curyear: {
+                    immediate: true,
+                    //deep: true,
+                    handler(value) {
+                        var _this = this
+                        this.mydata.map(function(elem) {
+                            _this.$set(elem, 'curpower', _this.get(elem.gdp, _this.curyear))
+                        })
+                    }
+                }
+            },
+            methods: {
+                sortnumber(a, b) {
+                    return b.curpower - a.curpower
+                },
+                bai(item, curyear) {
+                    return this.get(item, curyear) / 200000 * 100
+                },
+                get(item, curyear) {
+                    var _this = this
+                    var fi = item.filter(function(el) {
+                        return Object.keys(el) == _this.curyear;
+                    });
+                    return fi[0][_this.curyear]
+                }
+            }
+        })
+        </script>
+</body>
+
+</html>

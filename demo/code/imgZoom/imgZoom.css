@@ -1,0 +1,199 @@
+.mark {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+    z-index: 999;
+    background: rgba(0, 0, 0, .8);
+    display: none;
+    padding: 0;
+}
+.myprogress{height: 4px;width: 100%;position: fixed;top: 0;left: 0;z-index: 1000}
+.myprogress .jd{background: #1395e0;height: 100%;transition: all 1s}
+
+/*文章圖片放大CSS*/
+
+.zoomimg {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 1000;
+    display: none;
+    left: 0;
+    top: 0;
+}
+
+.zoomimg .close {
+    cursor: pointer;
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    transform: rotate(45deg);
+    right: 20px;
+    top: 20px;
+    opacity: .6;
+    z-index: 3333;
+}
+
+.zoomimg .close span {
+    background: #fff;
+    display: block;
+    position: absolute;
+}
+
+.zoomimg .close span:first-child {
+    height: 2px;
+    width: 64px;
+    top: 50%;
+    margin-top: -1px;
+}
+
+.zoomimg .close span:last-child {
+    height: 64px;
+    width: 2px;
+    left: 50%;
+    margin-left: -1px;
+}
+
+.zoomimg .imgsrc {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    overflow: auto;
+}
+
+.zoomimg .imgsrc img {
+    opacity:  0;
+}
+
+.zoomimg .imgsrc .imgslide-action {
+    position: fixed;
+    top: 0;
+    width: calc(50% - 8px);
+    height: 100%
+}
+
+.zoomimg .imgsrc .imgslide-prev {
+    z-index: 7;
+    left: 0;
+    cursor: url(http://i3.sinaimg.cn/edu/images/slidenews/arr_left.cur), auto;
+}
+
+.zoomimg .imgsrc .imgslide-next {
+     z-index: 7;
+    right: 16px;
+    cursor: url(http://i3.sinaimg.cn/edu/images/slidenews/arr_right.cur), auto;
+}
+
+.zoomimg .ms {
+    position: fixed;
+    bottom: 0px;
+    left: 0;
+    width: 100%;
+    font-size: 36px;
+    color: #ddd;
+    padding: 10px;    
+}
+.zoomimg .ms div{max-height: 56px;
+    overflow: auto;}
+
+.zoomimg .ms .cur {
+    color: #f00
+}
+
+.zoomimg .ms p {
+    display: inline;
+    padding-left: 20px;
+}
+.zoomimg .img img.effect-fade {
+    animation: efade 1s both;
+}
+.zoomimg .img img.effect-left {
+    animation: eleft 1s both;
+}
+.zoomimg .img img.effect-right {
+    animation: eright 1s both;
+}
+.zoomimg .img img.effect-up {
+    animation: eup 1s both;
+}
+.zoomimg .img img.effect-down {
+    animation: edown 1s both;
+}
+.zoomimg .img img.effect-rotation {
+    animation: erotation 2s both;
+}
+.zoomimg .img img.effect-scale {
+    animation: escale 1s both;
+}
+
+@keyframes efade {
+    0% {
+       opacity: 0
+    }
+    100% {
+        opacity:  1;
+    }
+}
+@keyframes eleft {
+    0% {
+        
+        transform: translateX(-100%);
+    }
+    100% {
+        opacity:  1;
+        transform: translateX(0);
+    }
+}
+@keyframes eright {
+    0% {
+        
+        transform: translateX(100%);
+    }
+    100% {
+        opacity:  1;
+        transform: translateX(0);
+    }
+}
+@keyframes eup{
+    0% {
+        
+        transform: translateY(-100%);
+    }
+    100% {
+        opacity:  1;
+        transform: translateY(0);
+    }
+}
+@keyframes edown {
+    0% {
+        
+        transform: translateY(-100%);
+    }
+    100% {
+        opacity:  1;
+        transform: translateY(0);
+    }
+}
+@keyframes erotation {
+    0% {
+        transform: rotateY(0deg) translateX(-100%)  skewX(15deg);
+    }
+    100% {
+        opacity:  1;
+        transform: rotateY(180deg)  translateX(0);
+
+        
+    }
+}
+@keyframes escale {
+    0% {
+        transform:scale(4);
+    }
+    100% {
+        opacity:  1;
+        transform: transform:scale(1);
+        
+    }
+}

@@ -1,0 +1,23 @@
+var music=[{
+	name:'Five Hundred Miles',
+	author:'Justin Timberlake',
+	//url:'bus/play/1.m4a'
+	 url:'http://27.152.180.21/amobile.music.tc.qq.com/C400000k1C7z2xlhfD.m4a?guid=8660331000&vkey=C3341FB0707A1AA1620E568462DA1C1A6E09F8FDEE2F26FCA188F4B67F8AF8FE2EDD572204989E8E048F8C2AA29F907B1C7D0E39EDE521E9&uin=0&fromtag=66'
+},
+{
+	name:'庐州月',
+	author:'许嵩',
+	//url:'bus/play/1.m4a'
+	 url:'http://27.152.180.16/amobile.music.tc.qq.com/C400003LC2Uf2cRodm.m4a?guid=8660331000&vkey=0BC875EA49FD87894565C8E420C52965D0871C52A11256B07AA8E31C28B671A96767114651A9D22F7BF3A3599CE875145B009BC33CD7FC83&uin=0&fromtag=66'
+},
+{
+	name:'断桥残雪',
+	author:'许嵩',
+	//url:'bus/play/2.m4a'
+	 url:'http://ws.stream.qqmusic.qq.com/C400002zCpfX1fiWS5.m4a?guid=8660331000&vkey=EE8583A5A7C560F755AE92C0695A7D2BECCC910D3A6B9964564880DA86FE4B8936A641EA08625109607B69F7D1573A6185D3C7B6637B41B3&uin=0&fromtag=66'
+},{
+	name:'有何不可',
+	author:'许嵩',
+	//url:'bus/play/3.m4a'
+	 url:'http://ws.stream.qqmusic.qq.com/C4000043aj132xwlEf.m4a?guid=8660331000&vkey=CB847E65452C6ED8C8AC5E83C520FEC58C81768371141353CA4CFB8911813F32A0B3A0A93B673CBE13B49DD444052F6AA9E2BB6119C72CAE&uin=0&fromtag=66'
+}]

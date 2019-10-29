@@ -1,0 +1,585 @@
+* {
+    margin: 0px;
+    padding: 0;
+    list-style: none;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none
+}
+
+[v-cloak] {
+    display: none;
+}
+
+.google {
+    height: 100vh
+}
+
+.google .bg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0;
+    transition: opacity 700ms;
+
+}
+
+.google .all {
+    position: relative;
+}
+
+.google .all .logoarea {
+    padding-top: 165px;
+}
+
+.google .all .logoarea .logo {
+    width: 272px;
+    height: 92px;
+    margin: 0 auto;
+    -webkit-mask-image: url(../google/goo.svg);
+    background: #eee;overflow: hidden;
+}
+
+.google .all .inputs {
+    width: 584px;
+    height: 44px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 22px;
+    margin-top: 32px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .6);
+}
+
+.google .all .inputs .fdj {
+    width: 24px;
+    height: 24px;
+    -webkit-mask-image: url(../google/fdj.svg);
+    background: #757575;
+    margin-left: 16px;
+}
+
+.google .all .inputs .input {
+    flex-grow: 1;
+    height: 44px;
+    position: relative;
+}
+
+.google .all .inputs .input .text {
+    position: absolute;
+    font-size: 16px;
+    color: #757575;
+    width: 100%;
+    line-height: 16px;
+    padding: 14px 0;
+}
+
+.google .all .inputs .downlist {
+    position: absolute;
+    width: 100%;
+    top: 46px;
+    padding: 22px 0px;
+
+    background: #fff;
+    border-radius: 22px;
+    z-index: 12;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .6);
+}
+
+.google .all .inputs ul {
+
+    font-size: 15px;
+    color: #555;
+
+    line-height: 28px;
+
+
+}
+
+.google .all .inputs ul li {
+    padding: 0 22px;
+}
+
+.google .all .inputs ul li:hover {
+    background: #f4f4f4
+}
+
+.google .all .inputs ul.sug li {
+    color: #7A77C8
+}
+
+
+.google .all .inputs .input input {
+    width: 100%;
+    height: 100%;
+    outline: none;
+    border: none;
+    font-size: 16px;
+    color: #757575;
+    position: absolute;
+    background: none;
+}
+
+.google .all .inputs .voice {
+    width: 20px;
+    height: 20px;
+    margin-right: 16px;
+    background: url(../google/vo.svg);
+    background-size: cover;
+}
+
+.google .all .visited {
+    width: 560px;
+    margin: 0 auto;
+    padding-top: 30px
+}
+
+.google .all .visited ul {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.google .all .visited li {
+    width: 112px;
+    height: 112px;
+    position: relative;
+}
+
+
+.google .all .visited li .edit {
+    width: 20px;
+    height: 20px;
+    -webkit-mask-image: url(../google/edit_menu.svg);
+    background: #fff;
+    display: block;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: cover;
+    right: 3px;
+    top: 5px;
+    position: absolute;
+    cursor: pointer;
+    opacity: 0;
+}
+
+.google .all .visited li .edit:hover {
+    opacity: .7
+}
+
+.google .all .visited li a {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.google .all .visited li:hover {
+    background: rgba(255, 255, 255, .2);
+    border-radius: 5px;
+}
+
+.google .all .visited li:hover .edit {
+    opacity: 1
+}
+
+.google .all .visited li .img {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 15px;
+    background: #fff;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.google .all .visited li .img i {
+    width: 16px;
+    height: 16px;
+    background: url(../google/add_link.svg) no-repeat center;
+    display: block
+}
+
+.google .all .visited li .img img {
+    width: 24px;
+    height: 24px;
+    object-fit: cover;
+    border-radius: 100%;
+}
+
+.google .all .visited li .text {
+    color: #fff;
+    font-size: 12px;
+    height: 18px;
+    overflow: hidden;
+    line-height: 18px;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 90%;
+    text-shadow: 0 0 6px rgba(0, 0, 0, 0.35)
+}
+
+.google .editbg {
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    border-radius: 100%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+.google .editbg i {
+    width: 16px;
+    height: 16px;
+    -webkit-mask-image: url(../google/edit.svg);
+    background: #fff;
+    display: block;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: cover;
+}
+
+.google .editbg:hover {
+    background: rgba(255, 255, 255, .3)
+}
+
+.google .editlink {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background: rgba(255, 255, 255, .6);
+    z-index: 10
+}
+
+.google .editlink .dialog {
+    position: fixed;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+    width: 350px;
+    padding: 16px;
+    z-index: 11;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.google .editlink .dialog .title {
+    color: #333;
+    font-size: 15px;
+    line-height: 24px;
+    margin-bottom: 16px;
+}
+
+.google .editlink .dialog .btns {
+    height: 32px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.google .editlink .dialog .form .ht {
+    margin-bottom: 16px;
+}
+
+.google .editlink .dialog .form .ht .ti {
+    color: #888;
+    font-size: 12px;
+    line-height: 12px;
+    margin-bottom: 3px;
+}
+
+.google .editlink .dialog .form .ht .ti.focus {
+    color: #1a73e8
+}
+
+.google .editlink .dialog .form .ht .ip {
+    height: 34px;
+    background: #f1f3f4;
+    border-radius: 3px;
+    position: relative;
+}
+
+.google .editlink .dialog .form .ht .ip .line {
+    position: absolute;
+    width: 0px;
+    height: 2px;
+    background: linear-gradient(to right, #42a2f4 30%, #6c00b0, #42a2f4 70%);
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    transition: all .3s
+}
+
+.google .editlink .dialog .form .ht .ip input {
+    background: none;
+    border: none;
+    outline: none;
+    width: 100%;
+    height: 100%;
+    padding: 0 10px;
+}
+
+.google .editlink .dialog .form .ht .ip input:focus+.line {
+    width: 100%
+}
+
+/*.google .editlink .dialog .form .ht .focus + .ip .line {
+        width: 100%
+    }*/
+
+
+
+.google button {
+    border: none;
+    border-radius: 4px;
+    font-size: 12px;
+    height: 32px;
+    padding: 0 16px;
+    outline: none;
+}
+
+button.del,
+button.cancel {
+    background-color: white;
+    border: 1px solid #dedede;
+    color: #1a73e8;
+}
+
+button.disabled {
+    background-color: #dedede;
+    border: 1px solid #dedede;
+    color: #777;
+}
+
+button.ok {
+    background-color: #1a73e8;
+    border: 1px solid #1a73e8;
+    color: #fff;
+}
+
+.google .editbgdialog {
+    position: fixed;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+    width: 325px;
+    z-index: 11;
+    right: 16px;
+    bottom: 44px;
+    padding-bottom: 16px;
+}
+
+.google .editbgdialog .title {
+    color: #333;
+    font-size: 15px;
+    height: 46px;
+    padding: 16px 0 0 16px;
+}
+
+.google .editbgdialog .ht {
+    display: flex;
+    height: 40px;
+    align-items: center;
+}
+
+.google .editbgdialog .ht:hover {
+    background: #f1f3f4
+}
+
+.google .editbgdialog .ht .ico {
+    margin: 0 16px;
+    background: #f1f3f4;
+    width: 24px;
+    height: 24px;
+    border-radius: 100%;
+}
+
+.google .editbgdialog .ht .text {
+    font-size: 13px;
+    color: #555
+}
+
+.google .editbgdialog .ht.set .ico {
+    background: url(../google/img.svg);
+    background-size: cover;
+}
+
+.google .editbgdialog .ht.up .ico {
+    background-image: url(../google/up.svg);
+    background-size: 16px 16px;
+    background-repeat: no-repeat;
+    background-position: center center
+}
+
+.google .bgset {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background: rgba(255, 255, 255, .6);
+    z-index: 10
+}
+
+.google .bgset .dialog {
+    position: fixed;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+    width: 517px;
+    padding: 16px;
+    z-index: 11;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.google .bgset .dialog .title {
+    color: #333;
+    font-size: 15px;
+    line-height: 24px;
+    margin-bottom: 16px;
+    display: flex
+}
+
+.google .bgset .dialog .title i {
+    width: 24px;
+    height: 24px;
+    background: url(../google/prev.svg);
+    margin-right: 16px;
+}
+
+.google .bgset .dialog .btns {
+    height: 32px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.google .bgset .dialog .imgs ul {
+    display: flex;
+    flex-wrap: wrap;
+    position: absolute;
+}
+
+.google .bgset .dialog .imgs {
+    height: 255px;
+    position: relative;
+}
+
+.google .bgset .dialog .imgs ul li {
+    width: 31.333333%;
+    margin-right: 2%;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.google .bgset .dialog .imgs ul li .text {
+    background: rgba(0, 0, 0, .6);
+    width: 100%;
+    height: 34px;
+    line-height: 34px;
+    padding: 0 10px;
+    color: #fff;
+    font-size: 14px;
+    position: absolute;
+    bottom: 0;
+    left: 0
+}
+
+.google .bgset .dialog .imgs ul li .gou {
+    width: 28px;
+    height: 28px;
+    position: absolute;
+    background: url(../google/gou.svg) #fff;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-size: cover;
+    border-radius: 100%
+}
+
+.google .bgset .dialog .imgs ul li img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/*切换效果*/
+.slide-enter-active,
+.slide-leave-active {
+    transition: all .3s;
+}
+
+.slide-enter,
+.slide-leave-to {
+    opacity: 0;
+    transform: translateY(100%);
+}
+
+.scale-enter-active,
+.scale-leave-active {
+    transition: all .3s;
+}
+
+.scale-enter,
+.scale-leave-to {
+    transform: scale(0);
+}
+
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: all .1s;
+}
+
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
+}
+
+.err {
+    position: fixed;
+    z-index: 11;
+    background: rgba(0, 0, 0, .8);
+    border-radius: 13px;
+    width: 120px;
+    height: 120px;
+    left: 50%;
+    top: 50%;
+    margin-left: -60px;
+    margin-top: -60px;
+    white-space: nowrap;
+    color: #fff;
+}
+
+.err p {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+@media screen and (max-width: 768px) {
+    .google .all .inputs{width: 94%}
+    .google .all .visited{width: 94%}
+    .google .all .visited li{width:25%}
+}

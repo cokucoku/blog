@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta name="author" content="Leeao">
+  
+  
+  <title>倾力总结40条常见的移动端Web页面问题解决方案 | Leeao个人博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="前端,移动端,web,">
+  
+
+  
+  <meta name="description" content="前端技术,js,html5,css3,vue">
+
+  
+  <script src="https://hm.baidu.com/hm.js?10fbae7c1a6c78cc96943d97655a97da"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz","appkey":"WaR7nrzhliHj9aVwdQzkdlGd","comment":false,"count":false},
+    welcome: {"enable":true,"interval":30},
+    start_time: "2019-03-10",
+    passwords: ["efe07af7441da2b69c4a41e42e73be4db47f66010a56900788a458354a7373ec", ],
+    is_post: true,
+    lock: false,
+    author: "Leeao",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+<script src="/demo/code/vue/bus/play/music.js"></script>
+<script src="/demo/code/vue/bus/play/slider.js" .js"></script>
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+    <link rel="apple-touch-icon" href="/images/favicon.ico">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+ <link href="https://at.alicdn.com/t/font_1468805_o85uzwp8pui.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+<link rel="stylesheet" href="/demo/code/vue/bus/play/slider.css">
+
+  
+</head>
+  <body style="background-image: url(https://w.wallhaven.cc/full/ne/wallhaven-ne5ekn.jpg)">
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">Leeao</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 工作的你更帅气</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/aboutme/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/cokucoku/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/aboutme/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2019-03-28
+    </span>
+    
+      <span>
+        | <a href="/categories/前端/"><i class="fa fa-bookmark"></i>前端</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    倾力总结40条常见的移动端Web页面问题解决方案
+  </h1>
+  
+  <article class="passage-article">
+    <h2 id="1、安卓浏览器看背景图片，有些设备会模糊。"><a href="#1、安卓浏览器看背景图片，有些设备会模糊。" class="headerlink" title="1、安卓浏览器看背景图片，有些设备会模糊。"></a>1、安卓浏览器看背景图片，有些设备会模糊。</h2><p>用同等比例的图片在PC机上很清楚，但是手机上很模糊，原因是什么呢？</p>
+<p>经过研究，是devicePixelRatio作怪，因为手机分辨率太小，如果按照分辨率来显示网页，这样字会非常小，所以苹果当初就把iPhone 4的960640分辨率，在网页里只显示了480320，这样devicePixelRatio＝2。现在android比较乱，有1.5的，有2的也有3的。</p>
+<p>想让图片在手机里显示更为清晰，必须使用2x的背景图来代替img标签（一般情况都是用2倍）。例如一个div的宽高是100100，背景图必须得200200，然后background-size:contain;，这样显示出来的图片就比较清晰了。</p>
+<p>代码如下：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">background</span>:url(<span class="string">../images/icon/all.png</span>) no-repeat center center;</span><br><span class="line"><span class="attribute">-webkit-background-size</span>:<span class="number">50px</span> <span class="number">50px</span>;</span><br><span class="line"><span class="attribute">background-size</span>: <span class="number">50px</span> <span class="number">50px</span>;</span><br><span class="line"><span class="attribute">display</span>:inline-block;</span><br><span class="line"><span class="attribute">width</span>:<span class="number">100%</span>;</span><br><span class="line"><span class="attribute">height</span>:<span class="number">50px</span>;</span><br></pre></td></tr></table></figure>
+<p>或者指定 background-size:contain;都可以，大家试试！</p>
+<h2 id="2、图片加载"><a href="#2、图片加载" class="headerlink" title="2、图片加载"></a>2、图片加载</h2><p>若您遇到图片加载很慢的问题，对这种情况，手机开发一般用canvas方法加载：</p>
+<p>具体的canvas API 参见：<a href="http://javascript.ruanyifeng.com/htmlapi/canvas.html" target="_blank" rel="noopener">http://javascript.ruanyifeng.com/htmlapi/canvas.html</a></p>
+<p>下面举例说明一个canvas的例子：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">canvas</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>js动态加载图片和li 总共举例17张图片！</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> total=<span class="number">17</span>;</span><br><span class="line"><span class="keyword">var</span> zWin=$(<span class="built_in">window</span>);</span><br><span class="line"><span class="keyword">var</span> render=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> padding=<span class="number">2</span>;</span><br><span class="line">  <span class="keyword">var</span> winWidth=zWin.width();</span><br><span class="line">  <span class="keyword">var</span> picWidth=<span class="built_in">Math</span>.floor((winWidth-padding*<span class="number">3</span>)/<span class="number">4</span>);</span><br><span class="line">  <span class="keyword">var</span> tmpl =<span class="string">''</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">1</span>;i&lt;=totla;i++)&#123;</span><br><span class="line">  <span class="keyword">var</span> p=padding;</span><br><span class="line">  <span class="keyword">var</span> imgSrc=<span class="string">'img/'</span>+i+<span class="string">'.jpg'</span>;</span><br><span class="line">  <span class="keyword">if</span>(i%<span class="number">4</span>==<span class="number">1</span>)&#123;</span><br><span class="line">   p=<span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  tmpl +=<span class="string">'&lt;li style="width:'</span>+picWidth+<span class="string">'px;height:'</span>+picWidth+<span class="string">'px;padding-left:'</span>+p+<span class="string">'px;padding-top:'</span>+padding+<span class="string">'px;"&gt;&lt;canvas id="cvs_'</span>+i+<span class="string">'"&gt;&lt;/canvas&gt;&lt;/li&gt;'</span>;</span><br><span class="line">  <span class="keyword">var</span> imageObj = <span class="keyword">new</span> Image();</span><br><span class="line">  imageObj.index = i;</span><br><span class="line">  imageObj.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> cvs =$(<span class="string">'#cvs_'</span>+<span class="keyword">this</span>.index)[<span class="number">0</span>].getContext(<span class="string">'2d'</span>);</span><br><span class="line">    cvs.width = <span class="keyword">this</span>.width;</span><br><span class="line">    cvs.height=<span class="keyword">this</span>.height;</span><br><span class="line">    cvs.drawImage(<span class="keyword">this</span>,<span class="number">0</span>,<span class="number">0</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  imageObj.src=imgSrc;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">render();</span><br></pre></td></tr></table></figure>
+<h2 id="3、假如手机网站不用兼容IE浏览器，一般我们会使用zeptojs。"><a href="#3、假如手机网站不用兼容IE浏览器，一般我们会使用zeptojs。" class="headerlink" title="3、假如手机网站不用兼容IE浏览器，一般我们会使用zeptojs。"></a>3、假如手机网站不用兼容IE浏览器，一般我们会使用zeptojs。</h2><p>zeptojs内置Touch events方法，具体可以看<a href="http://zeptojs.com/#Touch" target="_blank" rel="noopener">http://zeptojs.com/#Touch</a> events</p>
+<p>看了一下zeptio新版的API，已经支持IE10以上浏览器，对zeptojs可以选择使用！</p>
+<h2 id="4、防止手机中网页放大和缩小。"><a href="#4、防止手机中网页放大和缩小。" class="headerlink" title="4、防止手机中网页放大和缩小。"></a>4、防止手机中网页放大和缩小。</h2><p>这点是最基本的，最为手机网站开发者来说应该都知道的，就是设置meta中的viewport</p>
+<p>还有就是，有些手机网站我们看到如下声明：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd"&gt;</span></span><br></pre></td></tr></table></figure>
+<p>设置了DTD的方式是XHTML的写法，假如我们页面运用的是html5，可以不用设置DTD,直接声明&lt;!DOCTYPE html&gt;。</p>
+<p>使用viewport使页面禁止缩放。 通常把user-scalable设置为0来关闭用户对页面视图缩放的行为<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"user-scalable=0"</span> /&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>但是为了更好的兼容，我们会使用完整的viewport设置。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"</span> /&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>当然，user-scalable=0,有的人也写成user-scalable=no，都可以的。</p>
+<h2 id="5、apple-mobile-web-app-capable"><a href="#5、apple-mobile-web-app-capable" class="headerlink" title="5、apple-mobile-web-app-capable"></a>5、apple-mobile-web-app-capable</h2><p>apple-mobile-web-app-capable是设置Web应用是否以全屏模式运行。</p>
+<h6 id="语法："><a href="#语法：" class="headerlink" title="语法："></a>语法：</h6><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"apple-mobile-web-app-capable"</span> <span class="attr">content</span>=<span class="string">"yes"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h6 id="说明："><a href="#说明：" class="headerlink" title="说明："></a>说明：</h6><p>如果content设置为yes，Web应用会以全屏模式运行，反之，则不会。content的默认值是no，表示正常显示。你可以通过只读属性window.navigator.standalone来确定网页是否以全屏模式显示。</p>
+<h2 id="6、format-detection"><a href="#6、format-detection" class="headerlink" title="6、format-detection"></a>6、format-detection</h2><p>format-detection 启动或禁用自动识别页面中的电话号码。</p>
+<h6 id="语法：-1"><a href="#语法：-1" class="headerlink" title="语法："></a>语法：</h6><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"format-detection"</span> <span class="attr">content</span>=<span class="string">"telephone=no"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h6 id="说明：-1"><a href="#说明：-1" class="headerlink" title="说明："></a>说明：</h6><p>默认情况下，设备会自动识别任何可能是电话号码的字符串。设置telephone=no可以禁用这项功能。</p>
+<h2 id="7、html5调用安卓或者ios的拨号功能"><a href="#7、html5调用安卓或者ios的拨号功能" class="headerlink" title="7、html5调用安卓或者ios的拨号功能"></a>7、html5调用安卓或者ios的拨号功能</h2><p>html5提供了自动调用拨号的标签，只要在a标签的href中添加tel:就可以了。<br>如下：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"tel:10010"</span>&gt;</span>10010<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="8、html5GPS定位功能"><a href="#8、html5GPS定位功能" class="headerlink" title="8、html5GPS定位功能"></a>8、html5GPS定位功能</h2><p>具体请看：<a href="http://www.w3school.com.cn/html5/html_5_geolocation.asp" target="_blank" rel="noopener">http://www.w3school.com.cn/html5/html_5_geolocation.asp</a></p>
+<h2 id="9、上下拉动滚动条时卡顿、慢"><a href="#9、上下拉动滚动条时卡顿、慢" class="headerlink" title="9、上下拉动滚动条时卡顿、慢"></a>9、上下拉动滚动条时卡顿、慢</h2><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-overflow-scrolling</span>: touch;</span><br><span class="line">  <span class="attribute">overflow-scrolling</span>: touch;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="10、禁止复制、选中文本"><a href="#10、禁止复制、选中文本" class="headerlink" title="10、禁止复制、选中文本"></a>10、禁止复制、选中文本</h2><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">Element</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-user-select</span>: none;</span><br><span class="line">  <span class="attribute">-moz-user-select</span>: none;</span><br><span class="line">  <span class="attribute">-khtml-user-select</span>: none;</span><br><span class="line">   <span class="attribute">user-select</span>: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>解决移动设备可选中页面文本(视产品需要而定)</p>
+<h2 id="11、长时间按住页面出现闪退"><a href="#11、长时间按住页面出现闪退" class="headerlink" title="11、长时间按住页面出现闪退"></a>11、长时间按住页面出现闪退</h2><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">element</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-touch-callout</span>: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="12、iphone及ipad下输入框默认内阴影"><a href="#12、iphone及ipad下输入框默认内阴影" class="headerlink" title="12、iphone及ipad下输入框默认内阴影"></a>12、iphone及ipad下输入框默认内阴影</h2><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">Element</span>&#123;</span><br><span class="line">  <span class="attribute">-webkit-appearance</span>: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="13、ios和android下触摸元素时出现半透明灰色遮罩"><a href="#13、ios和android下触摸元素时出现半透明灰色遮罩" class="headerlink" title="13、ios和android下触摸元素时出现半透明灰色遮罩"></a>13、ios和android下触摸元素时出现半透明灰色遮罩</h2><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">Element</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-tap-highlight-color</span>:rgba(<span class="number">255</span>,<span class="number">255</span>,<span class="number">255</span>,<span class="number">0</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="14、active兼容处理-即-伪类-active-失效"><a href="#14、active兼容处理-即-伪类-active-失效" class="headerlink" title="14、active兼容处理 即 伪类 :active 失效"></a>14、active兼容处理 即 伪类 :active 失效</h2><h6 id="方法一：body添加ontouchstart"><a href="#方法一：body添加ontouchstart" class="headerlink" title="方法一：body添加ontouchstart"></a>方法一：body添加ontouchstart</h6><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">ontouchstart</span>=<span class="string">""</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h6 id="方法二：js给-document-绑定-touchstart-或-touchend-事件"><a href="#方法二：js给-document-绑定-touchstart-或-touchend-事件" class="headerlink" title="方法二：js给 document 绑定 touchstart 或 touchend 事件**"></a>方法二：js给 document 绑定 touchstart 或 touchend 事件**</h6><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">a &#123;</span><br><span class="line"> color: #000;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">a:active &#123;</span><br><span class="line"> color: #fff;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">herf</span>=<span class="string">foo</span> &gt;</span>bar<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"> <span class="built_in">document</span>.addEventListener(<span class="string">'touchstart'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;,<span class="literal">false</span>);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="15、动画定义3D启用硬件加速"><a href="#15、动画定义3D启用硬件加速" class="headerlink" title="15、动画定义3D启用硬件加速"></a>15、动画定义3D启用硬件加速</h2><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">Element</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-transform</span>:translate3d(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">  <span class="attribute">transform</span>: translate3d(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="16、Retina屏的1px边框"><a href="#16、Retina屏的1px边框" class="headerlink" title="16、Retina屏的1px边框"></a>16、Retina屏的1px边框</h2><p>具体请百度谷歌关键字，解决方案有很多</p>
+<h2 id="17、webkit-mask-兼容处理"><a href="#17、webkit-mask-兼容处理" class="headerlink" title="17、webkit mask 兼容处理"></a>17、webkit mask 兼容处理</h2><p>某些低端手机不支持css3 mask，可以选择性的降级处理。</p>
+<p>比如可以使用js判断来引用不同class：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">if</span>( <span class="string">'WebkitMask'</span> <span class="keyword">in</span> <span class="built_in">document</span>.documentElement.style)&#123;</span><br><span class="line"></span><br><span class="line">  alert(<span class="string">'支持mask'</span>);</span><br><span class="line"></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">  alert(<span class="string">'不支持mask'</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="18、旋转屏幕时，字体大小调整的问题"><a href="#18、旋转屏幕时，字体大小调整的问题" class="headerlink" title="18、旋转屏幕时，字体大小调整的问题"></a>18、旋转屏幕时，字体大小调整的问题</h2><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">html</span>, <span class="selector-tag">body</span>, <span class="selector-tag">form</span>, <span class="selector-tag">fieldset</span>, <span class="selector-tag">p</span>, <span class="selector-tag">div</span>, <span class="selector-tag">h1</span>, <span class="selector-tag">h2</span>, <span class="selector-tag">h3</span>, <span class="selector-tag">h4</span>, <span class="selector-tag">h5</span>, <span class="selector-tag">h6</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-text-size-adjust</span>:<span class="number">100%</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="19、transition闪屏"><a href="#19、transition闪屏" class="headerlink" title="19、transition闪屏"></a>19、transition闪屏</h2><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*设置内嵌的元素在 3D 空间如何呈现：保留3D */</span></span><br><span class="line"><span class="attribute">-webkit-transform-style</span>: preserve-<span class="number">3</span>d;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*设置进行转换的元素的背面在面对用户时是否可见：隐藏*/</span></span><br><span class="line"><span class="attribute">-webkit-backface-visibility</span>:hidden;</span><br></pre></td></tr></table></figure>
+<h2 id="20、圆角bug"><a href="#20、圆角bug" class="headerlink" title="20、圆角bug"></a>20、圆角bug</h2><p>某些Android手机圆角失效<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">background-clip</span>: padding-box;</span><br></pre></td></tr></table></figure></p>
+<h2 id="21、顶部状态栏背景色"><a href="#21、顶部状态栏背景色" class="headerlink" title="21、顶部状态栏背景色"></a>21、顶部状态栏背景色</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"apple-mobile-web-app-status-bar-style"</span> <span class="attr">content</span>=<span class="string">"black"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<p>说明：</p>
+<p>除非你先使用apple-mobile-web-app-capable指定全屏模式，否则这个meta标签不会起任何作用。</p>
+<p>如果content设置为default，则状态栏正常显示。如果设置为blank，则状态栏会有一个黑色的背景。如果设置为blank-translucent，则状态栏显示为黑色半透明。</p>
+<p>如果设置为default或blank，则页面显示在状态栏的下方，即状态栏占据上方部分，页面占据下方部分，二者没有遮挡对方或被遮挡。</p>
+<p>如果设置为blank-translucent，则页面会充满屏幕，其中页面顶部会被状态栏遮盖住（会覆盖页面20px高度，而iphone4和itouch4的Retina屏幕为40px）。</p>
+<p>默认值是default。</p>
+<h2 id="22、设置缓存"><a href="#22、设置缓存" class="headerlink" title="22、设置缓存"></a>22、设置缓存</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Cache-Control"</span> <span class="attr">content</span>=<span class="string">"no-cache"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<p>手机页面通常在第一次加载后会进行缓存，然后每次刷新会使用缓存而不是去重新向服务器发送请求。如果不希望使用缓存可以设置no-cache。</p>
+<p>##23、桌面图标<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"apple-touch-icon"</span> <span class="attr">href</span>=<span class="string">"touch-icon-iphone.png"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"apple-touch-icon"</span> <span class="attr">sizes</span>=<span class="string">"76x76"</span> <span class="attr">href</span>=<span class="string">"touch-icon-ipad.png"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"apple-touch-icon"</span> <span class="attr">sizes</span>=<span class="string">"120x120"</span> <span class="attr">href</span>=<span class="string">"touch-icon-iphone-retina.png"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"apple-touch-icon"</span> <span class="attr">sizes</span>=<span class="string">"152x152"</span> <span class="attr">href</span>=<span class="string">"touch-icon-ipad-retina.png"</span> /&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>iOS下针对不同设备定义不同的桌面图标。如果不定义则以当前屏幕截图作为图标。</p>
+<p>上面的写法可能大家会觉得会有默认光泽，下面这种设置方法可以去掉光泽效果，还原设计图的效果！</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"apple-touch-icon-precomposed"</span> <span class="attr">href</span>=<span class="string">"touch-icon-iphone.png"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<p>图片尺寸可以设定为57<em>57（px）或者Retina可以定为114</em>114（px），ipad尺寸为72*72（px)</p>
+<h2 id="24、启动画面"><a href="#24、启动画面" class="headerlink" title="24、启动画面"></a>24、启动画面</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"apple-touch-startup-image"</span> <span class="attr">href</span>=<span class="string">"start.png"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>iOS下页面启动加载时显示的画面图片，避免加载时的白屏。</p>
+<p>可以通过madia来指定不同的大小：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">&lt;!--iPhone--&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">"apple-touch-startup-image-320x460.png"</span> <span class="attr">media</span>=<span class="string">"(device-width: 320px)"</span> <span class="attr">rel</span>=<span class="string">"apple-touch-startup-image"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- iPhone Retina --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">"apple-touch-startup-image-640x920.png"</span> <span class="attr">media</span>=<span class="string">"(device-width: 320px) and (-webkit-device-pixel-ratio: 2)"</span> <span class="attr">rel</span>=<span class="string">"apple-touch-startup-image"</span> /&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- iPhone 5 --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"apple-touch-startup-image"</span> <span class="attr">media</span>=<span class="string">"(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"</span> <span class="attr">href</span>=<span class="string">"apple-touch-startup-image-640x1096.png"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- iPad portrait --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">"apple-touch-startup-image-768x1004.png"</span> <span class="attr">media</span>=<span class="string">"(device-width: 768px) and (orientation: portrait)"</span> <span class="attr">rel</span>=<span class="string">"apple-touch-startup-image"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- iPad landscape --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">"apple-touch-startup-image-748x1024.png"</span> <span class="attr">media</span>=<span class="string">"(device-width: 768px) and (orientation: landscape)"</span> <span class="attr">rel</span>=<span class="string">"apple-touch-startup-image"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- iPad Retina portrait --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">"apple-touch-startup-image-1536x2008.png"</span> <span class="attr">media</span>=<span class="string">"(device-width: 1536px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2)"</span> <span class="attr">rel</span>=<span class="string">"apple-touch-startup-image"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- iPad Retina landscape --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">"apple-touch-startup-image-1496x2048.png"</span><span class="attr">media</span>=<span class="string">"(device-width: 1536px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2)"</span><span class="attr">rel</span>=<span class="string">"apple-touch-startup-image"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="25、浏览器私有及其它meta"><a href="#25、浏览器私有及其它meta" class="headerlink" title="25、浏览器私有及其它meta"></a>25、浏览器私有及其它meta</h2><p>以下属性在项目中没有应用过，可以写一个demo测试以下！</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- QQ浏览器私有 --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 全屏模式 --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"x5-fullscreen"</span> <span class="attr">content</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 强制竖屏 --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"x5-orientation"</span> <span class="attr">content</span>=<span class="string">"portrait"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 强制横屏 --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"x5-orientation"</span> <span class="attr">content</span>=<span class="string">"landscape"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 应用模式 --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"x5-page-mode"</span> <span class="attr">content</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- UC浏览器私有 --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 全屏模式 --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"full-screen"</span> <span class="attr">content</span>=<span class="string">"yes"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 强制竖屏 --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"screen-orientation"</span> <span class="attr">content</span>=<span class="string">"portrait"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 强制横屏 --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"screen-orientation"</span> <span class="attr">content</span>=<span class="string">"landscape"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 应用模式 --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"browsermode"</span> <span class="attr">content</span>=<span class="string">"application"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>其它,针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"HandheldFriendly"</span> <span class="attr">content</span>=<span class="string">"true"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>微软的老式浏览器</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"MobileOptimized"</span> <span class="attr">content</span>=<span class="string">"320"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>windows phone 点击无高光</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"msapplication-tap-highlight"</span> <span class="attr">content</span>=<span class="string">"no"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="26、-IOS中input键盘事件keyup、keydown、keypress支持不是很好"><a href="#26、-IOS中input键盘事件keyup、keydown、keypress支持不是很好" class="headerlink" title="26、 IOS中input键盘事件keyup、keydown、keypress支持不是很好"></a>26、 IOS中input键盘事件keyup、keydown、keypress支持不是很好</h2><p>问题是这样的，用input search做模糊搜索的时候，在键盘里面输入关键词，会通过ajax后台查询，然后返回数据，然后再对返回的数据进行关键词标红。</p>
+<p>用input监听键盘keyup事件，在安卓手机浏览器中是可以的，但是在ios手机浏览器中变红很慢，用输入法输入之后，并未立刻相应keyup事件，只有在通过删除之后才能相应！</p>
+<h6 id="解决办法："><a href="#解决办法：" class="headerlink" title="解决办法："></a>解决办法：</h6><p>可以用html5的oninput事件去代替keyup<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">id</span>=<span class="string">"testInput"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">  <span class="built_in">document</span>.getElementById(<span class="string">'testInput'</span>).addEventListener(<span class="string">'input'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> value = e.target.value;</span></span><br><span class="line"><span class="undefined">  &#125;);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>然后就达到类似keyup的效果！</p>
+<h2 id="27、h5网站input-设置为type-number的问题"><a href="#27、h5网站input-设置为type-number的问题" class="headerlink" title="27、h5网站input 设置为type=number的问题"></a>27、h5网站input 设置为type=number的问题</h2><p>h5网页input 的type设置为number一般会产生三个问题，一个问题是maxlength属性不好用了。另外一个是form提交的时候，默认给取整了。三是部分安卓手机出现样式问题。</p>
+<h6 id="问题一解决，我目前用的是js。如下"><a href="#问题一解决，我目前用的是js。如下" class="headerlink" title="问题一解决，我目前用的是js。如下"></a>问题一解决，我目前用的是js。如下</h6><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"number"</span> <span class="attr">oninput</span>=<span class="string">"checkTextLength(this ,10)"</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">checkTextLength</span>(<span class="params">obj, length</span>) </span>&#123;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">      <span class="keyword">if</span>(obj.value.length &gt; length)  &#123;</span></span><br><span class="line"><span class="undefined">        obj.value = obj.value.substr(0, length);</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h6 id="问题二，是因为form提交默认做了表单验证，step默认是1-要设置step属性，假如保留2位小数，写法如下："><a href="#问题二，是因为form提交默认做了表单验证，step默认是1-要设置step属性，假如保留2位小数，写法如下：" class="headerlink" title="问题二，是因为form提交默认做了表单验证，step默认是1,要设置step属性，假如保留2位小数，写法如下："></a>问题二，是因为form提交默认做了表单验证，step默认是1,要设置step属性，假如保留2位小数，写法如下：</h6><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"number"</span> <span class="attr">step</span>=<span class="string">"0.01"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<p>关于step，我在这里做简单的介绍，input 中type=number，一般会自动生成一个上下箭头，点击上箭头默认增加一个step，点击下箭头默认会减少一个step。number中默认step是1。也就是step=0.01,可以允许输入2位小数，并且点击上下箭头分别增加0.01和减少0.01。</p>
+<p>假如step和min一起使用，那么数值必须在min和max之间。</p>
+<h6 id="看下面的例子："><a href="#看下面的例子：" class="headerlink" title="看下面的例子："></a>看下面的例子：</h6><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"number"</span> <span class="attr">step</span>=<span class="string">"3.1"</span> <span class="attr">min</span>=<span class="string">"1"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<p>输入框可以输入哪些数字？</p>
+<p>首先，最小值是1，那么可以输入1.0，第二个是可以输入（1+3.1）那就是4.1,以此类推，每次点击上下箭头都会增加或者减少3.1，输入其他数字无效。这就是step的简单介绍。</p>
+<h6 id="问题三，去除input默认样式"><a href="#问题三，去除input默认样式" class="headerlink" title="问题三，去除input默认样式"></a>问题三，去除input默认样式</h6><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type=number]</span> &#123;</span><br><span class="line">  <span class="attribute">-moz-appearance</span>:textfield;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type=number]</span><span class="selector-pseudo">::-webkit-inner-spin-button</span>,</span><br><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type=number]</span><span class="selector-pseudo">::-webkit-outer-spin-button</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-appearance</span>: none;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="28、ios-设置input-按钮样式会被默认样式覆盖"><a href="#28、ios-设置input-按钮样式会被默认样式覆盖" class="headerlink" title="28、ios 设置input 按钮样式会被默认样式覆盖"></a>28、ios 设置input 按钮样式会被默认样式覆盖</h2><p>解决方式如下：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">input</span>,</span><br><span class="line"><span class="selector-tag">textarea</span> &#123;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">-webkit-appearance</span>: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>设置默认样式为none</p>
+<h2 id="29、IOS键盘字母输入，默认首字母大写"><a href="#29、IOS键盘字母输入，默认首字母大写" class="headerlink" title="29、IOS键盘字母输入，默认首字母大写"></a>29、IOS键盘字母输入，默认首字母大写</h2><p>解决方案，设置如下属性</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">autocapitalize</span>=<span class="string">"off"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="30、select-下拉选择设置右对齐"><a href="#30、select-下拉选择设置右对齐" class="headerlink" title="30、select 下拉选择设置右对齐"></a>30、select 下拉选择设置右对齐</h2><p>设置如下：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">select</span> <span class="selector-tag">option</span> &#123;</span><br><span class="line"></span><br><span class="line"><span class="attribute">direction</span>: rtl;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="31、通过transform进行skew变形，rotate旋转会造成出现锯齿现象"><a href="#31、通过transform进行skew变形，rotate旋转会造成出现锯齿现象" class="headerlink" title="31、通过transform进行skew变形，rotate旋转会造成出现锯齿现象"></a>31、通过transform进行skew变形，rotate旋转会造成出现锯齿现象</h2><p>可以设置如下：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">-webkit-transform</span>: rotate(-<span class="number">4deg</span>) skew(<span class="number">10deg</span>) translateZ(<span class="number">0</span>);</span><br><span class="line"><span class="attribute">transform</span>: rotate(-<span class="number">4deg</span>) skew(<span class="number">10deg</span>) translateZ(<span class="number">0</span>);</span><br><span class="line"><span class="attribute">outline</span>: <span class="number">1px</span> solid rgba(<span class="number">255</span>,<span class="number">255</span>,<span class="number">255</span>,<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="32、移动端点击300ms延迟"><a href="#32、移动端点击300ms延迟" class="headerlink" title="32、移动端点击300ms延迟"></a>32、移动端点击300ms延迟</h2><p>300ms尚可接受，不过因为300ms产生的问题，我们必须要解决。300ms导致用户体验并不是很好，解决这个问题，我们一般在移动端用tap事件来取代click事件。</p>
+<p>推荐两个js，一个是fastclick，一个是tap.js</p>
+<p>关于300ms延迟，具体请看：<a href="http://thx.github.io/mobile/300ms-click-delay/" target="_blank" rel="noopener">http://thx.github.io/mobile/300ms-click-delay/</a></p>
+<h2 id="33、移动端点透问题"><a href="#33、移动端点透问题" class="headerlink" title="33、移动端点透问题"></a>33、移动端点透问题</h2><p>案例如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"haorooms"</span>&gt;</span>点头事件测试<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>www.xxx.com<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>div是绝对定位的蒙层,并且z-index高于a。而a标签是页面中的一个链接，我们给div绑定tap事件：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">$(<span class="string">'#haorooms'</span>).on(<span class="string">'tap'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">$(<span class="string">'#haorooms'</span>).hide();</span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>我们点击蒙层时 div正常消失，但是当我们在a标签上点击蒙层时，发现a链接被触发，这就是所谓的点透事件。</p>
+<h6 id="原因："><a href="#原因：" class="headerlink" title="原因："></a>原因：</h6><p>touchstart 早于 touchend 早于click。 亦即click的触发是有延迟的，这个时间大概在300ms左右，也就是说我们tap触发之后蒙层隐藏， 此时 click还没有触发，300ms之后由于蒙层隐藏，我们的click触发到了下面的a链接上。</p>
+<h6 id="解决："><a href="#解决：" class="headerlink" title="解决："></a>解决：</h6><p>（1）尽量都使用touch事件来替换click事件。例如用touchend事件(推荐)。<br>（2）用fastclick，<a href="https://github.com/ftlabs/fastclick" target="_blank" rel="noopener">https://github.com/ftlabs/fastclick</a><br>（3）用preventDefault阻止a标签的click<br>（4）延迟一定的时间(300ms+)来处理事件 （不推荐）<br>（5）以上一般都能解决，实在不行就换成click事件。</p>
+<p>下面介绍一下touchend事件，如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">"#haorooms"</span>).on(<span class="string">"touchend"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span><br><span class="line">   event.preventDefault();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="34、消除-IE10-里面的那个叉号"><a href="#34、消除-IE10-里面的那个叉号" class="headerlink" title="34、消除 IE10 里面的那个叉号"></a>34、消除 IE10 里面的那个叉号</h2><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">input</span>:-ms-clear&#123;<span class="attribute">display</span>:none;&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="35、关于-iOS-与-OS-X-端字体的优化-横竖屏会出现字体加粗不一致等"><a href="#35、关于-iOS-与-OS-X-端字体的优化-横竖屏会出现字体加粗不一致等" class="headerlink" title="35、关于 iOS 与 OS X 端字体的优化(横竖屏会出现字体加粗不一致等)"></a>35、关于 iOS 与 OS X 端字体的优化(横竖屏会出现字体加粗不一致等)</h2><p>iOS 浏览器横屏时会重置字体大小，设置 text-size-adjust 为 none 可以解决 iOS 上的问题，但桌面版 Safari 的字体缩放功能会失效，因此最佳方案是将 text-size-adjust 为 100% 。</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">-webkit-text-size-adjust</span>: <span class="number">100%</span>;</span><br><span class="line"></span><br><span class="line"><span class="attribute">-ms-text-size-adjust</span>: <span class="number">100%</span>;</span><br><span class="line"></span><br><span class="line"><span class="attribute">text-size-adjust</span>: <span class="number">100%</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="36、关于-iOS-系统中，中文输入法输入英文时，字母之间可能会出现一个六分之一空格"><a href="#36、关于-iOS-系统中，中文输入法输入英文时，字母之间可能会出现一个六分之一空格" class="headerlink" title="36、关于 iOS 系统中，中文输入法输入英文时，字母之间可能会出现一个六分之一空格"></a>36、关于 iOS 系统中，中文输入法输入英文时，字母之间可能会出现一个六分之一空格</h2><p>可以通过正则去掉</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.value = <span class="keyword">this</span>.value.replace(<span class="regexp">/\u2006/g</span>, <span class="string">''</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="37、移动端-HTML5-audio-autoplay-失效问题"><a href="#37、移动端-HTML5-audio-autoplay-失效问题" class="headerlink" title="37、移动端 HTML5 audio autoplay 失效问题"></a>37、移动端 HTML5 audio autoplay 失效问题</h2><p>这个不是 BUG，由于自动播放网页中的音频或视频，会给用户带来一些困扰或者不必要的流量消耗，所以苹果系统和安卓系统通常都会禁止自动播放和使用 JS 的触发播放，必须由用户来触发才可以播放。</p>
+<p>解决方法思路：先通过用户 touchstart 触碰，触发播放并暂停（音频开始加载，后面用 JS 再操作就没问题了）。</p>
+<h6 id="解决代码："><a href="#解决代码：" class="headerlink" title="解决代码："></a>解决代码：</h6><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">'touchstart'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">document</span>.getElementsByTagName(<span class="string">'audio'</span>)[<span class="number">0</span>].play();</span><br><span class="line"></span><br><span class="line">  <span class="built_in">document</span>.getElementsByTagName(<span class="string">'audio'</span>)[<span class="number">0</span>].pause();</span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="38、移动端-HTML5-input-date-不支持-placeholder-问题"><a href="#38、移动端-HTML5-input-date-不支持-placeholder-问题" class="headerlink" title="38、移动端 HTML5 input date 不支持 placeholder 问题"></a>38、移动端 HTML5 input date 不支持 placeholder 问题</h2><p>这个我感觉没有什么好的解决方案，用如下方法</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">placeholder</span>=<span class="string">"Date"</span> <span class="attr">class</span>=<span class="string">"textbox-n"</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">onfocus</span>=<span class="string">"(this.type='date')"</span>  <span class="attr">id</span>=<span class="string">"date"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>有的浏览器可能要点击两遍！</p>
+<h2 id="39、部分机型存在type为search的input，自带close按钮样式修改方法"><a href="#39、部分机型存在type为search的input，自带close按钮样式修改方法" class="headerlink" title="39、部分机型存在type为search的input，自带close按钮样式修改方法"></a>39、部分机型存在type为search的input，自带close按钮样式修改方法</h2><p>有些机型的搜索input控件会自带close按钮（一个伪元素），而通常为了兼容所有浏览器，我们会自己实现一个，此时去掉原生close按钮的方法为</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#Search</span><span class="selector-pseudo">::-webkit-search-cancel-button</span>&#123;</span><br><span class="line">  <span class="attribute">display</span>: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果想使用原生close按钮，又想使其符合设计风格，可以对这个伪元素的样式进行修改。</p>
+<h2 id="40、唤起select的option展开"><a href="#40、唤起select的option展开" class="headerlink" title="40、唤起select的option展开"></a>40、唤起select的option展开</h2><h6 id="zepto方式"><a href="#zepto方式" class="headerlink" title="zepto方式:"></a>zepto方式:</h6><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(sltElement).trrgger(<span class="string">"mousedown"</span>);</span><br></pre></td></tr></table></figure>
+<h6 id="原生js方式"><a href="#原生js方式" class="headerlink" title="原生js方式:"></a>原生js方式:</h6><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">showDropdown</span>(<span class="params">sltElement</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> event;</span><br><span class="line">  event = <span class="built_in">document</span>.createEvent(<span class="string">'MouseEvents'</span>);</span><br><span class="line">  event.initMouseEvent(<span class="string">'mousedown'</span>, <span class="literal">true</span>, <span class="literal">true</span>, <span class="built_in">window</span>);</span><br><span class="line">  sltElement.dispatchEvent(event);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、安卓浏览器看背景图片，有些设备会模糊。"><span class="toc-text">1、安卓浏览器看背景图片，有些设备会模糊。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、图片加载"><span class="toc-text">2、图片加载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、假如手机网站不用兼容IE浏览器，一般我们会使用zeptojs。"><span class="toc-text">3、假如手机网站不用兼容IE浏览器，一般我们会使用zeptojs。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、防止手机中网页放大和缩小。"><span class="toc-text">4、防止手机中网页放大和缩小。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、apple-mobile-web-app-capable"><span class="toc-text">5、apple-mobile-web-app-capable</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#语法："><span class="toc-text">语法：</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#说明："><span class="toc-text">说明：</span></a></li></ol></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#6、format-detection"><span class="toc-text">6、format-detection</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#语法：-1"><span class="toc-text">语法：</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#说明：-1"><span class="toc-text">说明：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7、html5调用安卓或者ios的拨号功能"><span class="toc-text">7、html5调用安卓或者ios的拨号功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8、html5GPS定位功能"><span class="toc-text">8、html5GPS定位功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9、上下拉动滚动条时卡顿、慢"><span class="toc-text">9、上下拉动滚动条时卡顿、慢</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10、禁止复制、选中文本"><span class="toc-text">10、禁止复制、选中文本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11、长时间按住页面出现闪退"><span class="toc-text">11、长时间按住页面出现闪退</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12、iphone及ipad下输入框默认内阴影"><span class="toc-text">12、iphone及ipad下输入框默认内阴影</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13、ios和android下触摸元素时出现半透明灰色遮罩"><span class="toc-text">13、ios和android下触摸元素时出现半透明灰色遮罩</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#14、active兼容处理-即-伪类-active-失效"><span class="toc-text">14、active兼容处理 即 伪类 :active 失效</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#方法一：body添加ontouchstart"><span class="toc-text">方法一：body添加ontouchstart</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#方法二：js给-document-绑定-touchstart-或-touchend-事件"><span class="toc-text">方法二：js给 document 绑定 touchstart 或 touchend 事件**</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#15、动画定义3D启用硬件加速"><span class="toc-text">15、动画定义3D启用硬件加速</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#16、Retina屏的1px边框"><span class="toc-text">16、Retina屏的1px边框</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#17、webkit-mask-兼容处理"><span class="toc-text">17、webkit mask 兼容处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#18、旋转屏幕时，字体大小调整的问题"><span class="toc-text">18、旋转屏幕时，字体大小调整的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#19、transition闪屏"><span class="toc-text">19、transition闪屏</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#20、圆角bug"><span class="toc-text">20、圆角bug</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#21、顶部状态栏背景色"><span class="toc-text">21、顶部状态栏背景色</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#22、设置缓存"><span class="toc-text">22、设置缓存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#24、启动画面"><span class="toc-text">24、启动画面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#25、浏览器私有及其它meta"><span class="toc-text">25、浏览器私有及其它meta</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#26、-IOS中input键盘事件keyup、keydown、keypress支持不是很好"><span class="toc-text">26、 IOS中input键盘事件keyup、keydown、keypress支持不是很好</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#解决办法："><span class="toc-text">解决办法：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#27、h5网站input-设置为type-number的问题"><span class="toc-text">27、h5网站input 设置为type=number的问题</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#问题一解决，我目前用的是js。如下"><span class="toc-text">问题一解决，我目前用的是js。如下</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#问题二，是因为form提交默认做了表单验证，step默认是1-要设置step属性，假如保留2位小数，写法如下："><span class="toc-text">问题二，是因为form提交默认做了表单验证，step默认是1,要设置step属性，假如保留2位小数，写法如下：</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#看下面的例子："><span class="toc-text">看下面的例子：</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#问题三，去除input默认样式"><span class="toc-text">问题三，去除input默认样式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#28、ios-设置input-按钮样式会被默认样式覆盖"><span class="toc-text">28、ios 设置input 按钮样式会被默认样式覆盖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#29、IOS键盘字母输入，默认首字母大写"><span class="toc-text">29、IOS键盘字母输入，默认首字母大写</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#30、select-下拉选择设置右对齐"><span class="toc-text">30、select 下拉选择设置右对齐</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#31、通过transform进行skew变形，rotate旋转会造成出现锯齿现象"><span class="toc-text">31、通过transform进行skew变形，rotate旋转会造成出现锯齿现象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#32、移动端点击300ms延迟"><span class="toc-text">32、移动端点击300ms延迟</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#33、移动端点透问题"><span class="toc-text">33、移动端点透问题</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#原因："><span class="toc-text">原因：</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#解决："><span class="toc-text">解决：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#34、消除-IE10-里面的那个叉号"><span class="toc-text">34、消除 IE10 里面的那个叉号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#35、关于-iOS-与-OS-X-端字体的优化-横竖屏会出现字体加粗不一致等"><span class="toc-text">35、关于 iOS 与 OS X 端字体的优化(横竖屏会出现字体加粗不一致等)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#36、关于-iOS-系统中，中文输入法输入英文时，字母之间可能会出现一个六分之一空格"><span class="toc-text">36、关于 iOS 系统中，中文输入法输入英文时，字母之间可能会出现一个六分之一空格</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#37、移动端-HTML5-audio-autoplay-失效问题"><span class="toc-text">37、移动端 HTML5 audio autoplay 失效问题</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#解决代码："><span class="toc-text">解决代码：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#38、移动端-HTML5-input-date-不支持-placeholder-问题"><span class="toc-text">38、移动端 HTML5 input date 不支持 placeholder 问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#39、部分机型存在type为search的input，自带close按钮样式修改方法"><span class="toc-text">39、部分机型存在type为search的input，自带close按钮样式修改方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#40、唤起select的option展开"><span class="toc-text">40、唤起select的option展开</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#zepto方式"><span class="toc-text">zepto方式:</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#原生js方式"><span class="toc-text">原生js方式:</span></a></li></ol></li>
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: Leeao</div>
+      
+        <div>
+          原文链接: 
+          <a href target="_blank">http://leeao82.com/article/2019-03-28-倾力总结40条常见的移动端Web页面问题解决方案.html</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/移动端/"><i class="fa fa-tags"></i>移动端</a>
+     
+      <a href="/tags/web/"><i class="fa fa-tags"></i>web</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      <div class="site-footer-col">
+        <h5 class="site-footer-title">博客推荐</h5>
+        
+          <span class="site-footer-item">
+            <a href="https://www.zhangxinxu.com/" target="_blank">张鑫旭</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="http://ruanyifeng.com/" target="_blank">阮一峰</a>
+          </span>
+        
+      </div>
+    
+      <div class="site-footer-col">
+        <h5 class="site-footer-title">系列教程</h5>
+        
+          <span class="site-footer-item">
+            <a href="http://es6.ruanyifeng.com/" target="_blank">ECMAScript6 入门</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://www.vuepress.cn/" target="_blank">VuePress 中文网</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://cn.vuejs.org/" target="_blank">Vue.js 教程</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="http://www.bootcss.com/" target="_blank">Bootstrap 中文网</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://www.tslang.net/" target="_blank">TypeScript 中文手册</a>
+          </span>
+        
+      </div>
+    
+      <div class="site-footer-col">
+        <h5 class="site-footer-title">抓到我</h5>
+        
+          <span class="site-footer-item">
+            <a href="https://github.com/cokucoku/" target="_blank">Github</a>
+          </span>
+        
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 Created by <a href="https://leeao82.com/" target="_blank">leeao82.com</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+        
+          <div>
+            <img src="/images/wechat.png" alt="微信扫一扫">
+            
+              <p>微信扫一扫</p>
+            
+          </div>
+        
+          <div>
+            <img src="/images/alipay.png" alt="AliPay">
+            
+              <p>AliPay</p>
+            
+          </div>
+        
+      </div>
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/article/2019-04-02-伪类匹配列表数目实现微信群头像CSS布局的技巧.html" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/article/2019-03-28-独家分享—大牛教你如何学习Web前端开发.html" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="music">
+            <div class="iconfont iconziyuan1" @click="prev"></div>
+            <div class="iconfont iconbofang" v-if="!play" @click="playmucis"></div>
+            <div class="iconfont iconstop" v-if="play" @click="pausemucis"></div>
+            <div class="iconfont iconziyuan" @click="next"></div>
+            <div class="musicinfo">
+                <audio id="mymusic"></audio>
+                <div class="info">
+                    <div class="nameauthor">{{music[xh].name}} - {{music[xh].author}}</div>
+                    <div class="time"><em>{{curtime | ge}}</em> / <em>{{music[xh].time}}</em></div>
+                </div>
+                <div id="jd" class="jd"></div>
+            </div>
+            <div class="iconfont iconyinliang"></div>
+            <div id="volume"></div>
+        </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    <a href="javascript:void(0);" id="site-reward">
+      <i class="fa fa-thumbs-up"></i>
+    </a>
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+<script>
+new Vue({
+        el: '.music',
+        data: {
+            mymusic: document.getElementById('mymusic'),
+            music: music, //存放播放列表
+            play: false,
+            xh: 0, //播放的音乐的序号
+            curtime: 0, //播放當前時間
+            total: 0, //音樂總長度
+            temcurtime: 0, //暫停播放後臨時保存，
+            setinter: '', //保存定時器名稱
+            si1: '',
+            si2: '',
+            exp: false,
+        },
+        mounted() {
+            var _this = this
+            var w = document.body.clientWidth
+            window.onresize = function() {
+                w = document.body.clientWidth
+                chulis()
+
+            }
+            chulis()
+
+            function chulis() {
+                if (w > 768) {
+                    _this.si2 = new Slider(
+                        '#volume', {
+                            theme: 'green', //red,yellow,black,green,
+                            size: 's', //s,m,l
+                            initvalue: 100, //初始值
+                            showtip: false,
+                            slideend: function(val, string) {
+                                _this.mymusic.volume = val / 100
+                            }
+                        });
+                }
+            }
+            this.si1 = new Slider(
+                '#jd', {
+                    theme: 'green', //red,yellow,black,green,
+                    size: 's', //s,m,l
+                    initvalue: 0, //初始值
+                    showtip: false,
+                    slideend: function(val, string) {
+                        if (_this.total > 0) {
+                            //_this.mymusic.currentTime = val * _this.total / 100
+                            _this.temcurtime = val * _this.total / 100
+                            _this.playmucis()
+                        }
+                    }
+                });
+
+            this.chulimusic()
+        },
+        computed: {
+            thestyle() {
+                if (this.play) {
+                    return 'animation-play-state:running'
+                } else {
+                    return 'animation-play-state:paused'
+                }
+            }
+        },
+        filters: {
+            ge: function(value) {
+                var fen = Math.floor(value / 60)
+                var yu = Math.floor(value % 60)
+                if (fen < 10) {
+                    fen = '0' + fen
+                } else {
+                    fen = fen
+                }
+                if (yu < 10) {
+                    yu = '0' + yu
+                } else {
+                    yu = yu
+                }
+                return fen + ':' + yu
+            }
+        },
+        watch: {
+            xh: {
+                immediate: true,
+                handler(value) {
+                    this.$nextTick(function() {
+                        this.mymusic.src = this.music[value].url
+                        this.temcurtime = 0
+                        this.mymusic.currentTime = 0
+                    })
+                }
+            },
+            curtime: {
+                immediate: true,
+                handler(value) {
+                    this.$nextTick(function() {
+                        if (value == 0) {
+                            this.si1.disabled()
+                        } else {
+                            this.si1.enabled()
+                        }
+                    })
+                }
+            }
+        },
+        methods: {
+            playme(xh) {
+                this.xh = xh
+                this.chulimusic()
+            },
+            playmucis() {
+                this.chulimusic()
+            },
+            pausemucis() {
+                this.play = false
+                this.mymusic.pause()
+                this.temcurtime = this.mymusic.currentTime
+                clearInterval(this.setinter)
+            },
+            prev() {
+                this.xh--
+                if (this.xh < 0) {
+                    this.xh = this.music.length - 1
+                }
+                this.chulimusic()
+            },
+            next() {
+                this.xh++
+                if (this.xh > this.music.length - 1) {
+                    this.xh = 0
+                }
+                this.chulimusic()
+            },
+            chulimusic() {
+                var _this = this
+                this.play = true
+                this.mymusic.currentTime = _this.temcurtime
+                this.mymusic.oncanplaythrough = function() {
+                    _this.mymusic.play()
+                    _this.curtime = _this.mymusic.currentTime
+                    _this.total = _this.mymusic.duration
+                    _this.setinter = setInterval(function() {
+                        _this.curtime = _this.mymusic.currentTime
+                        var pos = _this.curtime / _this.total * 100
+                        _this.si1.go(pos)
+                        if (_this.curtime >= _this.total) {
+                            _this.next()
+                        }
+                    }, 1000)
+                }
+            }
+        }
+    })
+</script>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>

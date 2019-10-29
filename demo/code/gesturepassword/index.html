@@ -1,0 +1,29 @@
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>Gesture Password</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="gesturepassword.css">
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_924531_bjux84rbnan.css">
+    <style type="text/css" media="screen">
+    body{display: flex;justify-content: center;align-items: center;height: 640px}
+    #gesturepassword{
+        width: 350px;height: 350px;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="gesturepassword"></div>
+    <script src="gesturepassword.js"></script>
+    <script type="text/javascript">
+    new GesturePassword(
+        '#gesturepassword', {
+            password:[1,4,7,5,3,6,9],//密码N字形
+            check: function(result) {
+                console.log(result)
+            }
+        });
+    </script>
+</body>

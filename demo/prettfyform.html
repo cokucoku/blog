@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta name="author" content="Leeao">
+  
+  
+  <title>prettfyform插件中文文档 | Leeao个人博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="前端技术,js,html5,css3,vue">
+  
+
+  
+  <meta name="description" content="前端技术,js,html5,css3,vue">
+
+  
+  <script src="https://hm.baidu.com/hm.js?10fbae7c1a6c78cc96943d97655a97da"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz","appkey":"WaR7nrzhliHj9aVwdQzkdlGd","comment":false,"count":false},
+    welcome: {"enable":true,"interval":30},
+    start_time: "2019-03-10",
+    passwords: ["efe07af7441da2b69c4a41e42e73be4db47f66010a56900788a458354a7373ec", ],
+    is_post: false,
+    lock: false,
+    author: "Leeao",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "demo",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+<script src="/demo/code/vue/bus/play/music.js"></script>
+<script src="/demo/code/vue/bus/play/slider.js" .js"></script>
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+    <link rel="apple-touch-icon" href="/images/favicon.ico">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+ <link href="https://at.alicdn.com/t/font_1468805_o85uzwp8pui.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+<link rel="stylesheet" href="/demo/code/vue/bus/play/slider.css">
+
+  
+</head>
+  <body style="background-image: url(https://w.wallhaven.cc/full/ne/wallhaven-ne5ekn.jpg)">
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">Leeao</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 工作的你更帅气</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/aboutme/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/cokucoku/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/aboutme/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+   <div class="demo">
+  <h1 class="passage-title">
+    
+      prettfyform插件中文文档
+    
+  </h1>
+  <article class="passage-article">
+    <h3 id="演示Demo"><a href="#演示Demo" class="headerlink" title="演示Demo"></a>演示Demo</h3><iframe src="code/prettfyform/" width="100%" height="auto" frameborder="0" allowfullscreen></iframe>
+<h3 id="快速上手"><a href="#快速上手" class="headerlink" title="快速上手"></a>快速上手</h3><blockquote>
+<p><strong>该插件基于Jquery，请先引入。</strong></p>
+</blockquote>
+<p>页面代码如下：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"prettfyform.css"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"myform1"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">label</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"radio"</span> <span class="attr">name</span>=<span class="string">"sex"</span> <span class="attr">value</span>=<span class="string">"男"</span> <span class="attr">disabled</span> <span class="attr">checked</span>&gt;</span>男<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">label</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"radio"</span> <span class="attr">name</span>=<span class="string">"sex"</span> <span class="attr">value</span>=<span class="string">"女"</span>&gt;</span>女<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">label</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">name</span>=<span class="string">"love"</span> <span class="attr">value</span>=<span class="string">"读书"</span> <span class="attr">disabled</span> <span class="attr">checked</span>&gt;</span>读书<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">label</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">name</span>=<span class="string">"love"</span> <span class="attr">value</span>=<span class="string">"唱歌"</span>&gt;</span>唱歌<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">label</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">name</span>=<span class="string">"love"</span> <span class="attr">value</span>=<span class="string">"画画"</span>&gt;</span>画画<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"http://libs.baidu.com/jquery/1.8.3/jquery.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"prettfyform.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">new</span> Prettfyform(<span class="string">"#myform1"</span>, &#123;</span></span><br><span class="line"><span class="javascript">    <span class="string">"style"</span>: <span class="string">"Flat"</span>, <span class="comment">//风格 Square Minimal Flat Block</span></span></span><br><span class="line"><span class="javascript">    <span class="string">"theme"</span>: <span class="string">"#3eaf7c"</span></span></span><br><span class="line"><span class="undefined">&#125;)</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="参数说明"><a href="#参数说明" class="headerlink" title="参数说明"></a>参数说明</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">键</th>
+<th style="text-align:left">说明</th>
+<th style="text-align:left">值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">style</td>
+<td style="text-align:left">美化风格</td>
+<td style="text-align:left"><code>Square</code> <code>Minimal</code> <code>Flat</code> <code>Block</code></td>
+</tr>
+<tr>
+<td style="text-align:left">theme</td>
+<td style="text-align:left">控件颜色</td>
+<td style="text-align:left">例如：’#3eaf7c’</td>
+</tr>
+</tbody>
+</table>
+
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#演示Demo"><span class="toc-text">演示Demo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#快速上手"><span class="toc-text">快速上手</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参数说明"><span class="toc-text">参数说明</span></a></li></ol>
+  </div>
+</aside>
+</div>
+
+    </main>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      <div class="site-footer-col">
+        <h5 class="site-footer-title">博客推荐</h5>
+        
+          <span class="site-footer-item">
+            <a href="https://www.zhangxinxu.com/" target="_blank">张鑫旭</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="http://ruanyifeng.com/" target="_blank">阮一峰</a>
+          </span>
+        
+      </div>
+    
+      <div class="site-footer-col">
+        <h5 class="site-footer-title">系列教程</h5>
+        
+          <span class="site-footer-item">
+            <a href="http://es6.ruanyifeng.com/" target="_blank">ECMAScript6 入门</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://www.vuepress.cn/" target="_blank">VuePress 中文网</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://cn.vuejs.org/" target="_blank">Vue.js 教程</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="http://www.bootcss.com/" target="_blank">Bootstrap 中文网</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://www.tslang.net/" target="_blank">TypeScript 中文手册</a>
+          </span>
+        
+      </div>
+    
+      <div class="site-footer-col">
+        <h5 class="site-footer-title">抓到我</h5>
+        
+          <span class="site-footer-item">
+            <a href="https://github.com/cokucoku/" target="_blank">Github</a>
+          </span>
+        
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 Created by <a href="https://leeao82.com/" target="_blank">leeao82.com</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+        
+          <div>
+            <img src="/images/wechat.png" alt="微信扫一扫">
+            
+              <p>微信扫一扫</p>
+            
+          </div>
+        
+          <div>
+            <img src="/images/alipay.png" alt="AliPay">
+            
+              <p>AliPay</p>
+            
+          </div>
+        
+      </div>
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="javascript:void(0);" data-enable="false">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="javascript:void(0);" data-enable="false">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="music">
+            <div class="iconfont iconziyuan1" @click="prev"></div>
+            <div class="iconfont iconbofang" v-if="!play" @click="playmucis"></div>
+            <div class="iconfont iconstop" v-if="play" @click="pausemucis"></div>
+            <div class="iconfont iconziyuan" @click="next"></div>
+            <div class="musicinfo">
+                <audio id="mymusic"></audio>
+                <div class="info">
+                    <div class="nameauthor">{{music[xh].name}} - {{music[xh].author}}</div>
+                    <div class="time"><em>{{curtime | ge}}</em> / <em>{{music[xh].time}}</em></div>
+                </div>
+                <div id="jd" class="jd"></div>
+            </div>
+            <div class="iconfont iconyinliang"></div>
+            <div id="volume"></div>
+        </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="false" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    <a href="javascript:void(0);" id="site-reward">
+      <i class="fa fa-thumbs-up"></i>
+    </a>
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+<script>
+new Vue({
+        el: '.music',
+        data: {
+            mymusic: document.getElementById('mymusic'),
+            music: music, //存放播放列表
+            play: false,
+            xh: 0, //播放的音乐的序号
+            curtime: 0, //播放當前時間
+            total: 0, //音樂總長度
+            temcurtime: 0, //暫停播放後臨時保存，
+            setinter: '', //保存定時器名稱
+            si1: '',
+            si2: '',
+            exp: false,
+        },
+        mounted() {
+            var _this = this
+            var w = document.body.clientWidth
+            window.onresize = function() {
+                w = document.body.clientWidth
+                chulis()
+
+            }
+            chulis()
+
+            function chulis() {
+                if (w > 768) {
+                    _this.si2 = new Slider(
+                        '#volume', {
+                            theme: 'green', //red,yellow,black,green,
+                            size: 's', //s,m,l
+                            initvalue: 100, //初始值
+                            showtip: false,
+                            slideend: function(val, string) {
+                                _this.mymusic.volume = val / 100
+                            }
+                        });
+                }
+            }
+            this.si1 = new Slider(
+                '#jd', {
+                    theme: 'green', //red,yellow,black,green,
+                    size: 's', //s,m,l
+                    initvalue: 0, //初始值
+                    showtip: false,
+                    slideend: function(val, string) {
+                        if (_this.total > 0) {
+                            //_this.mymusic.currentTime = val * _this.total / 100
+                            _this.temcurtime = val * _this.total / 100
+                            _this.playmucis()
+                        }
+                    }
+                });
+
+            this.chulimusic()
+        },
+        computed: {
+            thestyle() {
+                if (this.play) {
+                    return 'animation-play-state:running'
+                } else {
+                    return 'animation-play-state:paused'
+                }
+            }
+        },
+        filters: {
+            ge: function(value) {
+                var fen = Math.floor(value / 60)
+                var yu = Math.floor(value % 60)
+                if (fen < 10) {
+                    fen = '0' + fen
+                } else {
+                    fen = fen
+                }
+                if (yu < 10) {
+                    yu = '0' + yu
+                } else {
+                    yu = yu
+                }
+                return fen + ':' + yu
+            }
+        },
+        watch: {
+            xh: {
+                immediate: true,
+                handler(value) {
+                    this.$nextTick(function() {
+                        this.mymusic.src = this.music[value].url
+                        this.temcurtime = 0
+                        this.mymusic.currentTime = 0
+                    })
+                }
+            },
+            curtime: {
+                immediate: true,
+                handler(value) {
+                    this.$nextTick(function() {
+                        if (value == 0) {
+                            this.si1.disabled()
+                        } else {
+                            this.si1.enabled()
+                        }
+                    })
+                }
+            }
+        },
+        methods: {
+            playme(xh) {
+                this.xh = xh
+                this.chulimusic()
+            },
+            playmucis() {
+                this.chulimusic()
+            },
+            pausemucis() {
+                this.play = false
+                this.mymusic.pause()
+                this.temcurtime = this.mymusic.currentTime
+                clearInterval(this.setinter)
+            },
+            prev() {
+                this.xh--
+                if (this.xh < 0) {
+                    this.xh = this.music.length - 1
+                }
+                this.chulimusic()
+            },
+            next() {
+                this.xh++
+                if (this.xh > this.music.length - 1) {
+                    this.xh = 0
+                }
+                this.chulimusic()
+            },
+            chulimusic() {
+                var _this = this
+                this.play = true
+                this.mymusic.currentTime = _this.temcurtime
+                this.mymusic.oncanplaythrough = function() {
+                    _this.mymusic.play()
+                    _this.curtime = _this.mymusic.currentTime
+                    _this.total = _this.mymusic.duration
+                    _this.setinter = setInterval(function() {
+                        _this.curtime = _this.mymusic.currentTime
+                        var pos = _this.curtime / _this.total * 100
+                        _this.si1.go(pos)
+                        if (_this.curtime >= _this.total) {
+                            _this.next()
+                        }
+                    }, 1000)
+                }
+            }
+        }
+    })
+</script>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>

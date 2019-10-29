@@ -1,0 +1,53 @@
+* {
+    margin: 0px;
+    padding: 0;
+    list-style: none;
+    box-sizing: border-box;
+}
+[v-cloak] {
+    display: none;
+}
+.bus{height:100vh;display: flex;flex-direction: column;}
+.bus .header{height:136px;display: flex;}
+.bus .header .nameinfo,.bus .header .curstation{width: 50%}
+.bus .header .curstation{background: #d20063;border-left: solid 6px #e7e7e7;color: #fff;display: flex;align-items: center;}
+.bus .header .curstation h2{font-size: 40px;padding:0 40px;}
+
+
+.bus .header .nameinfo{margin-right: 10px;display: flex;flex-direction: column;}
+.bus .header .nameinfo .namefrom{flex-grow: 1;display: flex;align-items: center;justify-content: space-between;color: #d20063}
+.bus .header .nameinfo .namefrom h2{font-size: 50px;padding-left: 40px;flex-shrink: 0}
+.bus .header .nameinfo .namefrom .fromto{font-size: 22px;display: flex;align-items: center;padding-right: 40PX;}
+.bus .header .nameinfo .namefrom .fromto i{width: 36px;height: 3px;background: #d20063;margin:0 40px 0 20px;position: relative;cursor: pointer;}
+.bus .header .nameinfo .namefrom .fromto i:before{content: '';position: absolute;border-width:4px 10px 4px 10px;border-style: solid;border-color: transparent transparent #d20063 #d20063;bottom: 0px;right: -20px}
+
+.bus .header .nameinfo .times{background: #d20063;height: 30px;color: #fff;font-size: 16px;line-height: 30px;padding:0 40px;}
+
+.bus .body{flex-grow: 1;border-bottom: solid 1px #ddd;display: flex;align-items: center;justify-content: center}
+.bus .body ul{display: flex;align-items: flex-end;}
+.bus .body ul li{width: min-content;/*padding-left:15px;*/}
+.bus .body ul li .stname{font-size: 26px;text-align: center;padding:5px;margin-left: 15px;transition: all .5s;border-radius: 8px;flex-grow: 1}
+.bus .body ul li .quanline{margin:20px 0;background: #d20063;height: 3px;position: relative;}
+.bus .body ul li .quanline .quan{width: 14px;height: 14px;border:solid 2px #d20063;border-radius: 100%;top: 50%;left: calc(50% + 7px);position: absolute;transform: translate(-50%,-50%);background: #fff;transition: all .5s}
+.bus .body ul li.pass .stname{background: #ddd;}
+.bus .body ul li.pass .quanline .quan{background: #d20063}
+.bus .body ul li.current .stname{background: #fc0;color: #fff;}
+.bus .body ul li.current  .quanline .quan{background: #d20063}
+.bus .body ul li.mypos .stname{background:  #d20063;color: #fff}
+.bus .body ul li.mypos  .quanline .quan{border-radius: 0px;transform: rotate(45deg) translate(-50%,-50%);background: #d20063}
+
+@media screen and (max-width: 768px) {
+    .bus .header{height: auto;flex-direction: column;}
+    .bus .header .nameinfo, .bus .header .curstation{width: 100%;padding:20px 0;}
+    .bus .header .curstation{border-left: none;flex-direction: column;}
+    .bus .header .nameinfo .namefrom h2{padding-left: 15px;}
+    .bus .header .nameinfo .namefrom{flex-direction: column;}
+    .bus .header .nameinfo .namefrom .fromto{padding-right: 0}
+    .bus .header .nameinfo .times{background: none;color: #d20063;text-align: center;}
+    .bus .body{width: 100vw;justify-content: inherit;}
+    .bus .body ul{width: 100%;flex-direction: column;}
+    .bus .body ul li{flex-grow: 1;width: 100%;position: relative;padding:5px 0;}
+    .bus .body ul li .quanline{width: 2px;margin:0 12px;height:100%;position: absolute;left: 0px;top: 0;}
+    .bus .body ul li .quanline .quan{left: 50%}
+    .bus .body ul li .stname{text-align: left;margin-left: 28px;margin-right: 15px;}
+}

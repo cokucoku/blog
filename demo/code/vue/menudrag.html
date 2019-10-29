@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>[实战]33-菜单拖动排序</title>
+    <style>
+    * {
+        margin: 0px;
+        padding: 0px;
+        list-style: none
+    }
+
+    ul {
+        padding: 20px;
+        width: 320px;
+    }
+
+    ul li {
+        border-radius: 5px;
+        height: 34px;
+        line-height: 34px;
+        padding: 0 10px;
+        background: #ddd;
+        margin-bottom: 10px;
+        cursor: move;
+
+    }
+    </style>
+</head>
+
+<body>
+    <div class="ad" id="app">
+        <ul @dragstart="dragstart" @dragover="dragover" id="nav">
+            <li draggable="true" v-for="item in nav">{{item}}</li>
+        </ul>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+    function inAfter(newElement, targetElement) {
+        var parent = targetElement.parentNode;
+        parent.insertBefore(newElement, targetElement.nextElementSibling);
+    }
+    function inBefore(newElement, targetElement) {
+        var parent = targetElement.parentNode;
+        parent.insertBefore(newElement, targetElement);
+    }
+    new Vue({
+        el: '#app',
+        data: {
+            nav:['首页','公司简介','新闻中心','产品中心','联系我们'],
+            draging: null
+        },
+        mounted() {},
+        methods: {
+            dragstart(e) {
+                this.draging = e.target;
+            },            
+            dragover(e) {
+                e.preventDefault();
+                var target = e.target;
+                if (target.nodeName === "LI" && target !== this.draging) {
+                    if (this.index(this.draging) < this.index(target)) {
+                        //node.insertBefore(this.draging, target.nextSibling);
+                        inAfter(this.draging, target);
+                    } else {
+                        inBefore(this.draging, target);
+                    }
+                }
+            },            
+            index(target) {
+                var xh = 0;
+                var all = target.parentNode.children
+                all = Array.from(all)
+                xh = all.indexOf(target)
+                return xh;
+            }
+
+        },
+        computed: {}
+    })
+    </script>
+</body>
+
+</html>

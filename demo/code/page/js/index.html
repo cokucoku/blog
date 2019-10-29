@@ -1,0 +1,123 @@
+<head>
+    <meta charset="UTF-8">
+    <title>翻页</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="Page.css">
+    <style type="text/css" media="screen">
+    .list {
+        padding: 10px 0;min-height: 400px
+    }
+
+    .list ul {
+        display: flex;
+        flex-wrap: wrap;width:99%
+    }
+
+    .list ul li {
+        width: 9%;
+        position: relative;
+        padding-bottom: 9%;
+        height: 0px;
+        overflow: hidden;
+        margin: 0 0% 1% 1%;background-color: #f2f2f2
+    }
+
+    .list ul li img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        opacity: 0
+    }
+
+    .list ul li img.load {
+        width: auto;
+        height: auto;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 1
+    }
+
+
+    .list ul li span {
+        color: #fff;
+        font-size: 14px;
+        position: absolute;
+        width: 100%;
+        z-index: 2;
+        left: 0;
+        bottom: 0;
+        white-space: nowrap;
+        background-color: rgba(0, 0, 0, .6);
+        padding: 3px 6px;
+        text-align: center;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="page"></div>
+    <div class="list" id="list">
+        <ul>
+        </ul>
+    </div>
+    <script src="Page.js"></script>
+    <script type="text/javascript">
+    var a = new Page(
+        '#page', {
+            curpage: 1,
+            totalpage: 10, //总页数,
+            theme: 'green', //red,yellow,black,green,
+            size: 'm', //s,m,l
+            layout:'total,prevnext,pager,jumpr',//total,prevnext, pager,jumpr"
+            clickback: function(page) {
+                fetch('https://picsum.photos/v2/list?limit=40&page=' + page)
+                    .then(function(response) {
+                        return response.json();
+                    })
+                    .then(function(myJson) {
+                        var ul = document.getElementById('list').getElementsByTagName('ul')[0]
+                        ul.innerHTML = ''
+                        var lis = []
+                        for (var i = 0; i < myJson.length; i++) {
+                            var li = document.createElement('li')
+                            var img = document.createElement('img')
+                            img.classList.add('load')
+                            //img.style.opacity=1
+                            img.setAttribute('src', 'loading.gif')
+                            li.appendChild(img)
+                            lis.push(li)
+                        }
+                        lis.map(function(el) {
+                            ul.appendChild(el)
+                        })
+                        for (let i = 0; i < myJson.length; i++) {
+                            var ge1 = myJson[i].download_url.split('/')[5]
+                            var ge2 = myJson[i].download_url.split('/')[6]
+                            var len = ge1.length + ge2.length + 1
+                            var front = myJson[i].download_url.slice(0, -len)
+                            var back = '300/300'
+                            var url = front + back
+                            var imgs = new Image();
+                            imgs.src = url;
+                            imgs.onload = function(e) {
+                                var li = ul.getElementsByTagName('li')[i]
+                                var img = li.getElementsByTagName('img')[0]
+                                img.classList.remove('load')
+                                var span = document.createElement('span')
+                                span.innerText = myJson[i].author
+                                li.appendChild(span)
+                                img.src = e.path[0].src
+                                setTimeout(function() {
+                                    img.style.transition = 'opacity .8s'
+                                    img.style.opacity = 1
+                                }, 200)
+                            }
+                        }
+
+                    });
+            }
+        });
+    </script>
+</body>

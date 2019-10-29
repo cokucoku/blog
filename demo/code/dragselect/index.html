@@ -1,0 +1,27 @@
+<link rel="stylesheet" href="dragselect.css">
+<body>
+    <style type="text/css" media="screen">
+    * {
+        margin: 0px;
+        padding: 0px;
+        list-style: none
+    }
+
+    .clear {
+        clear: both;
+        zoom: 1;
+        overflow: hidden
+    }
+    </style>
+    <div class="area">时间选择：<input placeholder="选择时间"></div>
+    <script src="https://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="dragselect.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+    $(function() {
+        $(".area").dragselect({
+            num: 5,
+            style: "#3eaf7c"
+        });
+    });
+    </script>
+</body>

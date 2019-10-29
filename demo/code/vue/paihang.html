@@ -1,0 +1,238 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <title>2018年中国500强排行榜</title>
+    <style>
+        * {
+        margin: 0px;
+        padding: 0px;
+        list-style: none;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-size: 14px;
+    }
+
+    .myapp {
+        width: 550px;
+        margin: 20px auto;
+    }
+
+    .myapp .toolbar {
+        padding: 5px;
+        border: 1px solid #aaaaaa;
+        background: #cccccc url(ui-bg_highlight-soft_75_cccccc_1x100.png) 50% 50% repeat-x;
+        color: #222222;
+        font-weight: bold;
+        height: 38px;
+        display: flex;
+        justify-content: space-between;
+        line-height: 26px;
+        position:sticky;
+        top: 0;
+        z-index: 444;
+    }
+
+    .myapp .toolbart {
+        border-top-right-radius: 4px;
+        border-top-left-radius: 4px;
+    }
+    .myapp .toolbarb {
+        border-bottom-right-radius: 4px;
+        border-bottom-left-radius: 4px;font-size: 12px;
+    }
+    .myapp .toolbarb .page {display: flex;}
+    .myapp .toolbarb .page span{margin-right: .1em;font-weight: normal;border: 1px solid #d3d3d3;
+    background: #e6e6e6 url(ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x;color: #555555;cursor: pointer;padding: 0px 6px;}
+    .myapp .toolbarb .page span.disabled{opacity: .35;pointer-events: none;}
+    table{color: #666;border-collapse: collapse;border-spacing: 0;width: 100%;line-height: 26px;}
+    table th{text-align: left;}
+    table .ph{width: 9%;}
+    table .mc{width: 55%;}
+    table .yy,table .lr{width: 18%;}
+    table td,table th{padding:7px;}
+    table td{border-bottom: 1px solid #eee;}
+    table th{border: 1px solid #d3d3d3;position: relative;vertical-align:top;cursor: pointer;}
+    table th .ico{position: absolute;width: 14px;height: 14px;background-image: url(ui-icons_888888_256x240.png);right: 0;
+    top: 12px;}
+    table th .default{background-position: -128px 0;}
+   
+    table th .sup{background-position: 0 -16px;}
+    table th .sdown{background-position: -64px -16px;}
+    table thead{border: 1px solid #d3d3d3;background: #e6e6e6 url(ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x;border-bottom: solid 1px #000;}
+    table tbody tr:nth-child(odd){background: #eee;border-left: 1px solid #ded3d3;border-right: 1px solid #ded3d3;}
+    table tbody tr:nth-child(odd) .sort{background-color: #D2D2D2;}
+    table tbody tr:nth-child(even){background: #fff;border-left: 1px solid #ded3d3;border-right: 1px solid #ded3d3;}
+    table tbody tr:nth-child(even) .sort{background-color: #E2E2E2;}
+    </style>
+</head>
+
+<body>
+    <div class="myapp">
+        <div class="toolbar toolbart">
+            <div class="pernum">
+                每页显示 <select size="1" ref="pagesize" @change="changeps">
+                    <option value="10" :selected="pagesize==10">10</option>
+                    <option value="20" :selected="pagesize==20">20</option>
+                    <option value="30" :selected="pagesize==30">30</option>
+                    <option value="40" :selected="pagesize==40">40</option>
+                    <option value="50" :selected="pagesize==50">50</option>
+                    <option value="60" :selected="pagesize==60">60</option>
+                    <option value="-1" :selected="pagesize==-1">All</option>
+                </select> 条记录
+            </div>
+            <div class="search">
+                输入关键字检索： <input type="text" ref="keyword" v-model="keyword">
+            </div>
+        </div>
+        <table style="position: sticky;top: 38px">
+            <thead>
+                <tr>
+                    <th class="ph" @click="px('ph')">排名<span v-if="curitem=='ph'" class="ico" :class="{sup:sortby['ph']==1,sdown:sortby['ph']==0}"></span><span v-else class="ico default"></span></th>
+                    <th class="mc" @click="px('name')">公司名称<br>(中文)<span v-if="curitem=='name'" class="ico" :class="{sup:sortby['name']==1,sdown:sortby['name']==0}"></span><span v-else class="ico default"></span></th>
+                    <th class="yy" @click="px('yy')">营业收入<br>(百万元)<span v-if="curitem=='yy'" class="ico" :class="{sup:sortby['yy']==1,sdown:sortby['yy']==0}"></span><span v-else class="ico default"></span></th>
+                    <th class="lr" @click="px('lr')">利润<br>(百万元)<span v-if="curitem=='lr'" class="ico" :class="{sup:sortby['lr']==1,sdown:sortby['lr']==0}"></span><span v-else class="ico default"></span></th>
+                </tr>
+            </thead>
+        </table>
+        <table>
+            <tbody>
+                <tr v-for="item in fliterdata">
+                    <td @click="px('ph')" class="ph" :class="{sort:curitem=='ph'}">{{item.ph}}</td>
+                    <td @click="px('name')" class="mc" :class="{sort:curitem=='name'}">{{item.name}}</td>
+                    <td @click="px('yy')" class="yy" :class="{sort:curitem=='yy'}">{{item.yy}}</td>
+                    <td @click="px('lr')" class="lr" :class="{sort:curitem=='lr'}">{{item.lr}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="toolbar toolbarb">
+            <div class="info">从 {{(curpage-1)*pagesize+1}} 到 {{lastxh}} 共 {{fdata.length}} 条 <span v-if="keyword">(从 {{list.length}} 条记录中过滤)</span></div>
+            <div class="page">
+                <span class="first" @click="curpage=1" :class="{disabled:curpage==1}" :class="{disabled:curpage==1}">首页</span>
+                <span class="prev" @click="curpage--" :class="{disabled:curpage==1}">上页</span>
+                <span class="num" v-for="item in totalpage" @click="curpage=item" :class="{disabled:curpage==item}">{{item}}</span>
+                <span class="next" @click="curpage++" :class="{disabled:curpage>=totalpage}">下页</span>
+                <span class="last" @click="curpage=totalpage"  :class="{disabled:curpage>=totalpage}">末页</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="ph.js"></script>
+    <script>
+    new Vue({
+        el: '.myapp',
+        data: {
+            fdata: ph, //保存有关键字输入过滤后数据
+            list: ph,
+            totalpage: 1,
+            pagesize: 30,
+            keyword: '',
+            curpage: 1,
+            curitem: "ph",
+            sortby: { 'ph': 1, 'name': 1, 'yy': 1, 'lr': 1, } // 1 升序  0 降序
+        },
+        mounted() {},
+        methods: {
+            changeps(e) {
+                this.pagesize = e.target.value
+                this.curpage = 1
+            },
+            px(el) { //处理排序变化
+                var _this = this
+                if (el != this.curitem) {
+                    this.curitem = el
+                    this.sortby.ph = 1
+                    this.sortby.yy = 1
+                    this.sortby.lr = 1
+                } else {
+                    if (this.sortby[this.curitem] == 1) {
+                        this.sortby[this.curitem] = 0
+                    } else {
+                        this.sortby[this.curitem] = 1
+                    }
+                }
+            }
+        },
+        computed: {
+            lastxh() { //这个处理从几到几的
+                if (this.curpage < this.totalpage) {
+                    return this.curpage * this.pagesize
+                } else {
+                    return this.fdata.length
+                }
+            },
+            fliterdata() {
+                var _this = this
+                var s = this.keyword.toLowerCase();
+                var lastdata;
+                var adata = this.list.filter(function(el, index, eml) {
+                    var ph = String(el.ph),
+                        name = el.name,
+                        yy = el.yy,
+                        lr = el.lr
+                    return ph.indexOf(s) > -1 || name.indexOf(s) > -1 || yy.indexOf(s) > -1 || lr.indexOf(s) > -1;
+                });
+                this.fdata = adata; //先关键词过滤
+                if (this.sortby[this.curitem] == 1) { //排序处理
+                    adata.sort(function(a, b) {
+                        var value1 = a[_this.curitem],
+                            value2 = b[_this.curitem];
+                        if (_this.curitem == "name") {
+                            return value1.localeCompare(value2, "zh")
+                        } else {
+                            return value1 - value2;
+                        }
+
+                    });
+                } else {
+                    adata.sort(function(a, b) {
+                        var value1 = a[_this.curitem],
+                            value2 = b[_this.curitem];
+                        if (_this.curitem == "name") {
+                            return value2.localeCompare(value1, "zh")
+                        } else {
+                            return value2 - value1;
+                        }
+                    });
+                }
+                if (this.pagesize != -1) { //排序后才进行分页
+                    lastdata = adata.filter(function(el, index) {
+                        return index >= (_this.curpage - 1) * _this.pagesize && index < _this.curpage * _this.pagesize
+                    });
+                    this.totalpage = Math.ceil(adata.length / this.pagesize)
+
+                } else {
+                    lastdata = adata
+                    this.totalpage = 1
+
+                }
+                return lastdata
+            }
+        },
+        watch: {
+            keyword: {
+                immediate: true,
+                handler(value) {
+                    this.curpage = 1
+                }
+            },
+            curitem: {
+                immediate: true,
+                handler(value) {
+                    this.curpage = 1
+                }
+            }
+        }
+    })
+    </script>
+</body>
+
+</html>

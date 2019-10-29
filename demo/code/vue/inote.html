@@ -1,0 +1,156 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>[实战]49苹果桌面通知</title>
+    <link rel="stylesheet" href="bus/note.css">
+</head>
+
+<body>
+    <div class="news">
+        <div class="datearea">
+            <div class="time">{{time}}</div>
+            <div class="day">{{day}} {{xq}}</div>
+            <div class="old">乙亥年八月十三</div>
+        </div>
+        <div class="newslist">
+            <transition-group name="fade" tag="ul">
+                <li v-for="(item,inx) in news" :key="item" :class="{suo:!item.exp,exp:item.exp}">
+                    <div class="k">
+                        <div class="mark" v-if="!item.exp&&item.child.length>1" @click="exp(item)"></div>
+                        <div class="mark1" v-if="item.del" @click="item.del=false"></div>
+                        <div class="ktit">
+                            <div class="from">{{item.from}}</div>
+                            <div class="dos">
+                                <div v-if="!item.del" class="zd" @click="suo(item)">
+                                    <div class="arrow"></div>
+                                    <div class="te">折叠</div>
+                                </div>
+                                <div v-else class="zd del" @click="item.del=false">
+                                    <div class="arrow"></div>
+                                    <div class="te">折叠</div>
+                                </div>
+                                <div class="close" :class="{del:item.del}">
+                                    <div class="te" @click="del(inx)">清除</div>
+                                    <div class="cha" @click="item.del=true"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="klis">
+                            <transition-group name="slide" tag="div">
+                                <div class="kli" :key="it" v-for="(it,inx) in fi(item.child)" @click="goto(it.url)">
+                                    <div class="ti">{{item.from}}<i>{{it.time}}</i></div>
+                                    <div class="con">{{it.content}}
+                                        <div class="more" v-if="inx==0&&item.child.length>1">还有{{item.child.length-1}}通知</div>
+                                    </div>
+                                </div>
+                            </transition-group>
+                            <div class="morezd" v-if="item.child.length>1&&!item.exp">
+                                <div class="zdm one"></div>
+                                <div class="zdm two" v-if="item.child.length>2"></div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </transition-group>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="bus/note.js"></script>
+    <script>
+    new Vue({
+        el: '.news',
+        data: {
+            time: '',
+            day: '',
+            xq: '',
+            news: ''
+        },
+        mounted() {
+            var _this = this
+            note.map(function(el) {
+                _this.$set(el, 'exp', false)
+                _this.$set(el, 'del', false)
+                el.child.map(function(ele) {
+                    _this.$set(ele, 'exp', false)
+                })
+                _this.$set(el.child[0], 'exp', true)
+
+            })
+            this.news = note
+            this.day = (new Date().getMonth() + 1) + '月' + new Date().getDate() + '日'
+            var xq;
+            var rxq = new Date().getDay();
+            console.log(rxq)
+            switch (rxq) {
+                case 1:
+                    xq = "一";
+                    break;
+                case 2:
+                    xq = "二";
+                    break;
+                case 3:
+                    xq = "三";
+                    break;
+                case 4:
+                    xq = "四";
+                    break;
+                case 5:
+                    xq = "五";
+                    break;
+                case 6:
+                    xq = "六";
+                    break;
+                case 0:
+                    xq = "日";
+                    break;
+            }
+
+            this.xq = '星期' + xq
+            this.tt()
+            setInterval(this.tt, 1000)
+        },
+        computed: {
+
+
+        },
+        methods: {
+            tt() {
+                var h = new Date().getHours() < 10 ? '0' + new Date().getHours() : new Date().getHours()
+                var m = new Date().getMinutes() < 10 ? '0' + new Date().getMinutes() : new Date().getMinutes()
+                this.time = h + ':' + m
+            },
+            goto(url) {
+                window.open(url)
+            },
+            del(xh) {
+                this.news.splice(xh, 1)
+            },
+            fi(arr) {
+                return arr.filter(function(el) {
+                    return el.exp == true
+                });
+            },
+            exp(arr) {
+                var _this = this
+                _this.$set(arr, 'exp', true)
+                arr.child.map(function(el) {
+                    _this.$set(el, 'exp', true)
+                })
+            },
+            suo(arr) {
+                var _this = this
+                _this.$set(arr, 'exp', false)
+                arr.child.map(function(el) {
+                    _this.$set(el, 'exp', false)
+                })
+                _this.$set(arr.child[0], 'exp', true)
+            }
+        }
+    })
+    </script>
+</body>
+
+</html>

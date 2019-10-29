@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>[实战]44-图片手风琴</title>
+</head>
+
+<body>
+    <style type="text/css" media="screen">
+    * {
+        margin: 0px;
+        padding: 0;
+        list-style: none
+    }
+    .app{width: 100%;}
+    .app ul {display: flex;}
+    .app ul li{flex-grow: 1;height: 50vh;background-size: cover;background-position: center center;transition: all .5s ease;cursor: pointer;width: 0%;position: relative;border:solid 1px rgba(255,255,255,.6);border-top: none;border-bottom: none}
+    .app ul li h1{color: #fff;position: absolute;top: 100%;width: 100%;text-align: center;z-index: 2;transition: all .5s ease;opacity: 0;transform: translateY(-50%);}
+    .app ul li:hover{width: 30%;}
+    .app ul li:before{content: "";position: absolute;background: rgba(0,0,0,0);width: 100%;height: 0%;transition: all .5s ease;bottom: 0%;z-index: 1}
+    .app ul li:hover:before{background: rgba(0,0,0,.6);height: 100%}
+    .app ul li:hover h1{top: 50%;opacity: 1}
+
+    @media screen and (max-width: 768px) {
+        .app ul{flex-direction: column;height: 100vh}
+        .app ul li{width: 100%;height: 0;}
+        .app ul li:hover{height: 30%;width: 100%}
+    }
+
+    </style>
+    <div class="app">
+        <ul>
+            <li v-for="item in imglist"  :style="'background-image:url('+item+')'"><h1>读书的人</h1></li>
+        </ul>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+    var img=['https://picsum.photos/id/3/650/300','https://picsum.photos/id/23/650/300','https://picsum.photos/id/24/650/300','https://picsum.photos/id/33/650/300','https://picsum.photos/id/48/650/300','https://picsum.photos/id/50/650/300','https://picsum.photos/id/60/650/300']
+    new Vue({
+        el: '.app',
+        data: {
+            imglist: []
+
+        },
+        mounted() {
+            this.imglist=img
+            $.ajax({
+                url: 'https://picsum.photos/v2/list',
+                type: 'get',
+                dataType: 'json',
+            })
+            .done(function(d) {
+                console.log(d);
+            })
+
+
+
+        },
+        methods: {
+
+        },
+        computed: {
+            fliterlist() {
+
+            }
+        }
+    })
+    </script>
+</body>
+
+</html>

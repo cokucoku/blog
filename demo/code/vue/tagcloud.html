@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>[实战]38-标签云</title>
+</head>
+
+<body>
+    <style type="text/css" media="screen">
+    * {
+        margin: 0px;
+        padding: 0;
+        list-style: none
+    }
+
+    body {
+        background: floralwhite
+    }
+
+    .app {
+        width: 350px;
+        /*height: 160px;*/
+        margin: 20px auto;
+        text-align: center;
+        /*border:solid 1px #dedede;*/
+    }
+
+    ul {
+        width: 78%;
+        height: 100%;
+        margin: 0 auto;
+    }
+
+    ul li {
+        padding: 5px 10px;
+        display: inline-block;transition: transform 2s;
+    }
+
+    ul li:nth-child(1),
+    ul li:nth-child(5) {
+        vertical-align: top;
+    }
+    </style>
+    <div class="app">
+        <transition-group name="flip-list" tag="ul">
+            <li v-for="item in tag" :key="item.t" :style="{color:item.color,fontSize:item.size+'px'}">{{item.t}}</li>
+        </transition-group>
+        <button @click="sj">随机</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.14.1/lodash.min.js"></script>
+
+    <script>
+    var tag = [{ t: '活泼', size: 16, color: '#3ee9c3' }, { t: '聪明', size: 28, color: '#2599fc' }, { t: '可爱', size: 16, color: '#22bdd9' }, { t: '温柔', size: 18, color: '#bbc3ca' }, { t: '美腿', size: 20, color: '#2599fc' }, { t: '性感', size: 30, color: '#8278eb' }, { t: '幸福', size: 26, color: '#909db2' }, { t: '温和', size: 18, color: '#22bdd9' }, { t: '低调', size: 18, color: '#8278eb' }, { t: '善良', size: 16, color: '#5053cd' }, { t: '人见人爱', size: 20, color: '#8278eb' }, { t: '初恋', size: 15, color: '#f899b3' }, { t: '强势', size: 14, color: '#e29cd8' }, { t: '出众', size: 14, color: '#3ee9c3' }, { t: '真诚', size: 18, color: '#f899b3' }, { t: '稳重', size: 15, color: '#909db2' }]
+    var tag1 = [{ t: '活泼' }, { t: '聪明' }, { t: '可爱' }, { t: '温柔' }, { t: '美腿' }, { t: '性感' }, { t: '幸福' }, { t: '温和' }, { t: '低调' }, { t: '善良' }, { t: '人见人爱' }, { t: '初恋' }, { t: '强势' }, { t: '出众' }, { t: '真诚' }, { t: '稳重' }]
+    new Vue({
+        el: '.app',
+        data: {
+            tag: []
+
+        },
+        mounted() {
+            var _this = this
+            this.tag = tag1
+            this.tag.map(function(el, ind) {
+                var rnd = Math.floor((Math.random() + 1) * 14 + Math.random() * 2)
+                _this.$set(el, 'size', rnd)
+                _this.$set(el, 'color', _this.color())
+            })
+        },
+        methods: {
+            shuffle(arr) {
+                var i = arr.length,
+                    t, j;
+                while (i) {
+                    j = Math.floor(Math.random() * i--);
+                    t = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = t;
+                }
+                return arr
+            },
+            sj(){
+                this.tag=_.shuffle(this.tag)
+            },
+            color() {
+                var r = Math.floor(Math.random() * 255);
+                var g = Math.floor(Math.random() * 255);
+                var b = Math.floor(Math.random() * 255);
+                var color = 'rgb(' + r + ',' + g + ',' + b + ' )';
+                return color
+            }
+        },
+        computed: {
+        },
+        watch: {
+            keyword: {
+                immediate: true,
+                handler(value) {
+
+                }
+            }
+        }
+    })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,96 @@
+<link rel="stylesheet" href="page.css">
+<div id="mylist"></div>
+<div class="pageTest"></div>
+<style>
+.pageTest {
+
+    height: 50px;
+    margin: 20px;
+}
+#mylist{padding:20px;min-height: 200px}
+* {
+    margin: 0px;
+    padding: 0
+}
+
+</style>
+<script src="https://libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="https://mockjs.com/dist/mock.js"></script>
+<script src="page.js"></script>
+<script>
+var pagesize = 10;
+var totalpage;
+var mod;
+Mock.mock('leeao82.com', 'get', {
+    'data|101': [{
+        'title': '@cparagraph(1)',
+        'datetime|': '@date(T)',
+        'url|': /http:\/\/[a-z0-9A-Z]+\.(com|cn|org|net)/,
+        'hit|1-10000': 1,
+        'ntype': /(国内新闻|国际新闻|财经新闻|娱乐新闻|图片新闻|本地新闻|社会新闻)/
+    }],
+    'msg': 'ok'
+
+});
+$.ajax({
+        url: 'leeao82.com',
+        type: 'get',
+        dataType: 'json'
+    })
+    .done(function(data) {
+        totalpage = parseInt(data.data.length / pagesize);
+        mod = data.data.length % pagesize;
+        totalpage = (mod == 0) ? totalpage : totalpage + 1;
+        tablelist(data, 1) //加载第一页
+        //分页
+        var mypage = new Page('.pageTest', {
+            len: totalpage, //总页数
+            sizes: 'l', //大小 s m l
+            themes: 'green', //风格 red:#d9534f blue:#159fee green:#4bc270  yellow:#ffaa00
+            clickback: function(page) {
+                tablelist(data, page) //加载第page页
+            }
+        });
+        //console.log(mypage.vesion)
+        mypage.go(1)//跳到第4页
+    })
+//加载第几页的数据
+function tablelist(data, pno) {
+    // var mod = data.data.length % 10;   
+    console.log(mod)
+    var pageEnd = pno * pagesize;
+    var pageStart = pageEnd - pagesize;
+    var mylist = $("<ul>");
+    var li = "";
+    if (pno < totalpage) {
+        for (i = pageStart; i < pageEnd; i++) {
+            li += "<li>[" + data.data[i].ntype + "]<a href='" + data.data[i].url + "'>" + i + data.data[i].title + "</a><span>" + timetrans(data.data[i].datetime) + "</span><i>点击：" + data.data[i].hit + "</i></li>"
+        }
+
+    } else {
+        if (mod != 0) {
+            for (i = pageStart; i < pageStart + mod; i++) {
+                li += "<li>[" + data.data[i].ntype + "]<a href='" + data.data[i].url + "'>" + i + data.data[i].title + "</a><span>" + timetrans(data.data[i].datetime) + "</span><i>点击：" + data.data[i].hit + "</i></li>"
+            }
+        } else {
+            for (i = pageStart; i < pageEnd; i++) {
+                li += "<li>[" + data.data[i].ntype + "]<a href='" + data.data[i].url + "'>" + i + data.data[i].title + "</a><span>" + timetrans(data.data[i].datetime) + "</span><i>点击：" + data.data[i].hit + "</i></li>"
+            }
+        }
+
+    }
+    mylist.append(li);
+    $("#mylist").html(mylist);
+}
+//时间戳转时间
+function timetrans(date) {
+    var date = new Date(date * 1); //如果date为10位不需要乘1000
+    var Y = date.getFullYear() + '-';
+    var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+    var D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()) + ' ';
+    var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+    var m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
+    var s = (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds());
+    return Y + M + D + h + m + s;
+}
+</script>

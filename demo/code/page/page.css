@@ -1,0 +1,64 @@
+ul,
+li {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+}
+
+.mypage li {
+    cursor: pointer;
+    padding: 4px 8px;
+    display: inline-block;
+    background: #f6f6f6;
+    margin: 0 4px;
+    color: #000;
+    border: solid 1px #dedede;
+}
+
+.green .mypage li {
+    color: #4bc270
+}
+
+.red .mypage li {
+    color: #d9534f
+}
+
+.blue .mypage li {
+    color: #159fee
+}
+
+.yellow .mypage li {
+    color: #ffaa00
+}
+
+.green .mypage li.on {
+    background: #4bc270;
+    color: #fff;
+}
+
+.red .mypage li.on {
+    background: #d9534f;
+    color: #fff;
+}
+
+.blue .mypage li.on {
+    background: #159fee;
+    color: #fff;
+}
+
+.yellow .mypage li.on {
+    background: #ffaa00;
+    color: #fff;
+}
+
+.s .mypage li {
+    font-size: 12px;
+}
+
+.m .mypage li {
+    font-size: 14px;
+}
+
+.l .mypage li {
+    font-size: 16px;
+}

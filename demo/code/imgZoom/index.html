@@ -1,0 +1,78 @@
+<link rel="stylesheet" type="text/css" href="imgZoom.css">
+<div class="imgs">
+    <img alt="" data-html="" src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=4139838077,4278995209&fm=173&app=25&f=JPEG?w=640&h=360&s=B9E1CB144D41784F56425543030070F9">
+    <img alt="" data-html="" src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=782641184,4037218400&fm=173&app=25&f=JPEG?w=640&h=427&s=9F00498316022AE2388DB49403005091">
+    <img alt="" data-html="" src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=3303358194,1293626511&fm=173&app=25&f=JPEG?w=640&h=427&s=9F3340831C92F4D0488AA0A80300B01B">
+    <img alt="" data-html="" src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=4165184427,1992608925&fm=173&app=25&f=JPEG?w=640&h=480&s=6A2204C54C8236D0149D48B603008041">
+    <img alt="" data-html="" src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=4139838077,4278995209&fm=173&app=25&f=JPEG?w=640&h=360&s=B9E1CB144D41784F56425543030070F9">
+    <img alt="" data-html="" src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=782641184,4037218400&fm=173&app=25&f=JPEG?w=640&h=427&s=9F00498316022AE2388DB49403005091">
+    <img alt="" data-html="" src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=3303358194,1293626511&fm=173&app=25&f=JPEG?w=640&h=427&s=9F3340831C92F4D0488AA0A80300B01B">
+    <img alt="" data-html="" src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=4165184427,1992608925&fm=173&app=25&f=JPEG?w=640&h=480&s=6A2204C54C8236D0149D48B603008041">
+</div>
+<style type="text/css" media="screen">
+* {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+}
+
+body {
+    background: #fafafa;
+    padding: 25px;
+    color: #333;
+}
+
+.imgs img {
+    width: 100px;
+    height: 60px;
+    object-fit: cover;
+    border: solid 2px #fff;
+}
+
+.imgs img.cur {
+    border-color: #f60
+}
+</style>
+<script src="https://libs.baidu.com/jquery/1.4.2/jquery.min.js"></script>
+<script src="imgZoom.js"></script>
+<script type="text/javascript">
+var imgdata = [{
+    'alt': '第一站—联通智慧应用展厅',
+    'ms': '辽宁联通“互联网+”体验中心是辽宁联通按照省委、省政府的“互联网+”行动计划整体部署，助力辽宁老工业基地新一轮全面振兴发展，推动辽宁地区各行业信息化建设，展示辽宁联通在“大数据、云计算、互联网+、物联网和智慧城市”等创新领域的建设成果。'
+}, {
+    'alt': '第二站—上海汽车博览公园',
+    'ms': '上海汽车博览公园环上海汽车博物馆而建，位于上海国际汽车城核心贸易区南侧，西临墨玉南路，北接公园路，蕰藻浜和吴淞江两条河流分别流经公园。上海汽车博览公园是一个以汽车娱乐，汽车展览，汽车文化为主题的综合性公园，建设总用地面积为76.8万平方米。'
+}, {
+    'alt': '3M中国研发中心',
+    'ms': '3M公司创建于1902年，全球总部位于美国明尼苏达州的圣保罗市。作为一家世界领先的多元化科技创新企业，3M的产品和技术早已深深地融入人们的生活。100多年以来，3M开发了近七万种产品，从家庭用品到医疗产品，从运输、建筑到商业、教育和电子、通信等各个领域。'
+}, {
+    'alt': '二楼是珍藏馆',
+    'ms': '步长集团毛泽东像章珍藏馆位于咸阳市渭阳西路西延段123号步长集团内，是由步长集团董事长赵步长教授投资百余万元兴建并于2002年5月1日正式开馆的一座民营博物馆。'
+}, {
+    'alt': '第一站—联通智慧应用展厅',
+    'ms': '辽宁联通“互联网+”体验中心是辽宁联通按照省委、省政府的“互联网+”行动计划整体部署，助力辽宁老工业基地新一轮全面振兴发展，推动辽宁地区各行业信息化建设，展示辽宁联通在“大数据、云计算、互联网+、物联网和智慧城市”等创新领域的建设成果。'
+}, {
+    'alt': '第二站—上海汽车博览公园',
+    'ms': '上海汽车博览公园环上海汽车博物馆而建，位于上海国际汽车城核心贸易区南侧，西临墨玉南路，北接公园路，蕰藻浜和吴淞江两条河流分别流经公园。上海汽车博览公园是一个以汽车娱乐，汽车展览，汽车文化为主题的综合性公园，建设总用地面积为76.8万平方米。'
+}, {
+    'alt': '3M中国研发中心',
+    'ms': '3M公司创建于1902年，全球总部位于美国明尼苏达州的圣保罗市。作为一家世界领先的多元化科技创新企业，3M的产品和技术早已深深地融入人们的生活。100多年以来，3M开发了近七万种产品，从家庭用品到医疗产品，从运输、建筑到商业、教育和电子、通信等各个领域。'
+}, {
+    'alt': '二楼是珍藏馆',
+    'ms': '步长集团毛泽东像章珍藏馆位于咸阳市渭阳西路西延段123号步长集团内，是由步长集团董事长赵步长教授投资百余万元兴建并于2002年5月1日正式开馆的一座民营博物馆。'
+}, ]
+$('.imgs img').each(function(index, el) {
+    $(el).attr({
+        alt: imgdata[index].alt,
+        'data-html': imgdata[index].ms
+    });
+
+});
+var imgZoom = new imgZoom('.imgs', {
+    effect: 'fade', //fade left right down up rotation scale
+    loop: true, //
+    nextpre: true, //可以上下翻页
+    progress: true, //如果nextpre为false 这个属性失效
+});
+imgZoom.go(0);
+</script>

@@ -1,0 +1,450 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_1468805_px3dlrukkv.css">
+    <link rel="stylesheet" href="bus/play/slider.css">
+    <link rel="stylesheet" href="bus/play/getcolor.css">
+    <title>[实战]54音乐播放器</title>
+    <style>
+    * {
+        margin: 0px;
+        padding: 0px;
+        list-style: none;
+        box-sizing: border-box;
+    }
+
+    .mark {
+        background-color: rgba(0, 0, 0, .35);
+        z-index: 4;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        transition: all .3s cubic-bezier(0.77, 0, 0.175, 1);
+    }
+
+    .musiclist {
+        position: fixed;
+        width: 300px;
+        height: 100vh;
+        left: 0;
+        top: 0;
+        background: #222;
+        z-index: 5;
+        transition: all .3s cubic-bezier(0.77, 0, 0.175, 1);
+        transform: translateX(-100%);
+        color: #eee
+    }
+
+    .musiclist .list {
+        height: calc(100vh - 62px);
+        overflow-y: auto
+    }
+
+    ::-webkit-scrollbar {
+        width: 10px;
+        /*高宽分别对应横竖滚动条的尺寸*/
+        height: 1px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        /*滚动条里面小方块*/
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+        background: #3eaf7c;
+    }
+
+    ::-webkit-scrollbar-track {
+        /*滚动条里面轨道*/
+        background: #333;
+    }
+
+    .musiclist li {
+        display: flex;
+        flex-direction: column;
+        border-bottom: solid 1px #444;
+        padding: 15px 20px 15px;
+        cursor: pointer;
+    }
+
+    .musiclist.exp {
+        transform: translateX(0%);
+    }
+
+    .musiclist .ti {
+        padding: 20px 20px;
+        color: #3eaf7c;
+        border-bottom: solid 1px #444;
+    }
+
+    .musiclist .ti i {
+        font-size: 12px;
+        font-style: normal;
+        margin-left: 4px;
+        color: #aaa
+    }
+
+    .musiclist li .name {
+        font-size: 14px;
+        height: 14px;
+        line-height: 14px;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    .musiclist li .name img {
+        margin-left: 5px;
+    }
+
+    .musiclist li .authortime {
+        display: flex;
+        justify-content: space-between;
+        font-size: 12px;
+        height: 12px;
+        line-height: 12px;
+        margin-top: 10px;
+    }
+
+    .musiclist li .author {
+        color: #aaa
+    }
+
+    .musiclist li .time {
+        color: #666
+    }
+
+    .musiclist li.cur {
+        background: #000
+    }
+
+    .musiclist li.cur,
+    .musiclist li.cur .author,
+    .musiclist li.cur .time {
+        color: #3eaf7c
+    }
+
+
+
+    .music {
+        display: flex;
+        align-items: center;
+        color: #eee;
+        position: absolute;
+        z-index: 3;
+        width: 80%;
+        left: 50%;
+        bottom: 10%;
+        transform: translateX(-50%);
+    }
+
+    .iconfont {
+        font-size: 22px;
+        transition: all .2s
+    }
+
+    .music .iconfont {
+        margin-right: 30px;
+        flex-shrink: 0;
+        cursor: pointer;
+    }
+
+    .music .iconfont:hover {
+        color: #3eaf7c
+    }
+
+    .music .musicinfo {
+        margin-right: 30px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .music .musicinfo .info {
+        display: flex;
+        justify-content: space-between;
+        font-size: 14px;
+        line-height: 14px;
+        height: 14px;
+        margin-bottom: 12px;
+    }
+
+    .music .musicinfo .time em {
+        font-style: normal;
+    }
+
+    .music #icolist {
+        color: #3eaf7c
+    }
+
+    .music #icolist i {
+        font-style: normal;
+        font-size: 12px;
+    }
+
+
+    #volume {
+        width: 50px;
+    }
+
+    .cpj {
+        position: absolute;
+        left: 50%;
+        z-index: 3;
+        top: 50%;
+        border-radius: 100%;
+        animation: rotate 16s infinite linear;
+        animation-play-state: paused;
+        width: 342px;
+        height: 342px;
+        margin-left: -171px;
+        margin-top: -171px;
+        background: linear-gradient(30deg, transparent 40%, rgba(42, 41, 40, .85) 40%) no-repeat 100% 0, linear-gradient(60deg, rgba(42, 41, 40, .85) 60%, transparent 60%) no-repeat 0 100%, repeating-radial-gradient(#2a2928, #2a2928 4px, #ada9a0 5px, #2a2928 6px);
+        background-size: 50% 100%, 100% 50%, 100% 100%;
+        box-shadow: 0 0 13px rgba(0, 0, 0, .9)
+    }
+
+    #pic {
+        width: 30%;
+        height: 30%;
+        border-radius: 100%;
+        margin: 35%;
+        border: solid 4px #3eaf7c;
+        object-fit: cover;
+    }
+    .myu-enter,
+    .myu-leave-to {
+        opacity: 0;
+    }
+
+    .myu-enter-to,
+    .myu-leave {
+        opacity: 1;
+    }
+
+    @media (max-width:768px) {
+        .iconfont {
+            font-size: 14px;
+        }
+
+        .music .iconfont {
+            margin-right: 15px;
+        }
+
+        .music .musicinfo {
+            margin-right: 15px;
+        }
+
+        .music .musicinfo .info {
+            display: none
+        }
+
+    }
+
+    @keyframes rotate {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
+    </style>
+</head>
+
+<body>
+    <div class="musicct">
+        <div class="musiclist" :class="{exp:exp}">
+            <div class="ti">播放列表<i>{{music.length}}首歌曲</i></div>
+            <div class="list">
+                <ul>
+                    <li v-for="(item,inx) in music" :class="{cur:inx==xh}" @click.stop="playme(inx)">
+                        <div class="name">{{item.name}}<img src="bus/play/playing.gif" v-if="inx==xh&&play"></div>
+                        <div class="authortime">
+                            <div class="author">{{item.author}}</div>
+                            <div class="time">{{item.time}}</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <transition name="myu">
+            <div class="mark" v-if="exp" @click="exp=false"></div>
+        </transition>
+        <div class="cpj" :style="thestyle">
+            <img id="pic" :src="music[xh].cover">
+        </div>
+        <div class="music">
+            <div class="iconfont iconziyuan1" @click="prev"></div>
+            <div class="iconfont iconbofang" v-if="!play" @click="playmucis"></div>
+            <div class="iconfont iconstop" v-if="play" @click="pausemucis"></div>
+            <div class="iconfont iconziyuan" @click="next"></div>
+            <div class="musicinfo">
+                <audio id="mymusic"></audio>
+                <div class="info">
+                    <div class="nameauthor">{{music[xh].name}} - {{music[xh].author}}</div>
+                    <div class="time"><em>{{curtime | ge}}</em> / <em>{{music[xh].time}}</em></div>
+                </div>
+                <div id="jd" class="jd"></div>
+            </div>
+            <div id="icolist" class="iconfont icongedan" @click.stop="exp=!exp"><i>{{music.length}}</i></div>
+            <div class="iconfont iconyinliang"></div>
+            <div id="volume"></div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="bus/play/music.js"></script>
+    <script src="bus/play/slider.js"></script>
+    <script src="bus/play/getcolor.js"></script>
+    <script>
+    new Vue({
+        el: '.musicct',
+        data: {
+            mymusic: document.getElementById('mymusic'),
+            music: music, //存放播放列表
+            play: false,
+            xh: 0, //播放的音乐的序号
+            curtime: 0, //播放當前時間
+            total: 0, //音樂總長度
+            temcurtime: 0, //暫停播放後臨時保存，
+            setinter: '', //保存定時器名稱
+            si1: '',
+            si2: '',
+            exp: false,
+        },
+        mounted() {
+            var _this = this
+            new Getcolor('#pic')
+            this.si1 = new Slider(
+                '#jd', {
+                    theme: 'green', //red,yellow,black,green,
+                    size: 's', //s,m,l
+                    initvalue: 0, //初始值
+                    showtip: false,
+                    slideend: function(val, string) {
+                        if (_this.total > 0) {
+                            //_this.mymusic.currentTime = val * _this.total / 100
+                            _this.temcurtime = val * _this.total / 100
+                            _this.playmucis()
+                        }
+                    }
+                });
+            this.si2 = new Slider(
+                '#volume', {
+                    theme: 'green', //red,yellow,black,green,
+                    size: 's', //s,m,l
+                    initvalue: 100, //初始值
+                    showtip: false,
+                    slideend: function(val, string) {
+                        _this.mymusic.volume = val / 100
+                    }
+                });
+        },
+        computed: {
+            thestyle() {
+                if (this.play) {
+                    return 'animation-play-state:running'
+                } else {
+                    return 'animation-play-state:paused'
+                }
+            }
+        },
+        filters: {
+            ge: function(value) {
+                var fen = Math.floor(value / 60)
+                var yu = Math.floor(value % 60)
+                if (fen < 10) {
+                    fen = '0' + fen
+                } else {
+                    fen = fen
+                }
+                if (yu < 10) {
+                    yu = '0' + yu
+                } else {
+                    yu = yu
+                }
+                return fen + ':' + yu
+            }
+        },
+        watch: {
+            xh: {
+                immediate: true,
+                handler(value) {
+                    this.$nextTick(function() {
+                        this.mymusic.src = this.music[value].url
+                        this.temcurtime = 0
+                        this.mymusic.currentTime = 0
+                        new Getcolor('#pic')
+                    })
+                }
+            },
+            curtime: {
+                immediate: true,
+                handler(value) {
+                    this.$nextTick(function() {
+                        if (value == 0) {
+                            this.si1.disabled()
+                        } else {
+                            this.si1.enabled()
+                        }
+                    })
+                }
+            }
+        },
+        methods: {
+            playme(xh) {
+                this.xh = xh
+                this.chulimusic()
+            },
+            playmucis() {
+                this.chulimusic()
+            },
+            pausemucis() {
+                this.play = false
+                this.mymusic.pause()
+                this.temcurtime = this.mymusic.currentTime
+                clearInterval(this.setinter)
+            },
+            prev() {
+                this.xh--
+                if (this.xh < 0) {
+                    this.xh = this.music.length - 1
+                }
+                this.chulimusic()
+            },
+            next() {
+                this.xh++
+                if (this.xh > this.music.length - 1) {
+                    this.xh = 0
+                }
+                this.chulimusic()
+            },
+            chulimusic() {
+                var _this = this
+                this.play = true
+                this.mymusic.currentTime = _this.temcurtime
+                this.mymusic.oncanplaythrough = function() {
+                    _this.mymusic.play()
+                    _this.curtime = _this.mymusic.currentTime
+                    _this.total = _this.mymusic.duration
+                    _this.setinter = setInterval(function() {
+                        _this.curtime = _this.mymusic.currentTime
+                        var pos = _this.curtime / _this.total * 100
+                        _this.si1.go(pos)
+                        if (_this.curtime >= _this.total) {
+                            _this.next()
+                        }
+                    }, 1000)
+                }
+            }
+        }
+    })
+    </script>
+</body>
+
+</html>

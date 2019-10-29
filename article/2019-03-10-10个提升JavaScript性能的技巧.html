@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta name="author" content="Leeao">
+  
+  
+  <title>10个提升JavaScript性能的技巧 | Leeao个人博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="javascript,javascript,技巧,">
+  
+
+  
+  <meta name="description" content="当一个变量被引用的时候，JavaScript将在作用域链中的不同成员中查找这个变量。作用域链指的是当前作用于下可用变量的集合，它在各种主流浏览器中至少包含两个部分：局部变量的集合和全局变量的集合。">
+
+  
+  <script src="https://hm.baidu.com/hm.js?10fbae7c1a6c78cc96943d97655a97da"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz","appkey":"WaR7nrzhliHj9aVwdQzkdlGd","comment":false,"count":false},
+    welcome: {"enable":true,"interval":30},
+    start_time: "2019-03-10",
+    passwords: ["efe07af7441da2b69c4a41e42e73be4db47f66010a56900788a458354a7373ec", ],
+    is_post: true,
+    lock: false,
+    author: "Leeao",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+<script src="/demo/code/vue/bus/play/music.js"></script>
+<script src="/demo/code/vue/bus/play/slider.js" .js"></script>
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+    <link rel="apple-touch-icon" href="/images/favicon.ico">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+ <link href="https://at.alicdn.com/t/font_1468805_o85uzwp8pui.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+<link rel="stylesheet" href="/demo/code/vue/bus/play/slider.css">
+
+  
+</head>
+  <body style="background-image: url(https://w.wallhaven.cc/full/ne/wallhaven-ne5ekn.jpg)">
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">Leeao</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 工作的你更帅气</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/aboutme/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/cokucoku/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/aboutme/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2019-03-10
+    </span>
+    
+      <span>
+        | <a href="/categories/javascript/"><i class="fa fa-bookmark"></i>javascript</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    10个提升JavaScript性能的技巧
+  </h1>
+  
+    <div class="passage-cover">
+      <figure style="background-image:url(http://v8062609.11217.28la.com.cn/userfiles/20161228151556.gif);"></figure>
+    </div>
+  
+  <article class="passage-article">
+    <p></p>
+<h2 id="定义局部变量"><a href="#定义局部变量" class="headerlink" title="定义局部变量"></a>定义局部变量</h2><p>当一个变量被引用的时候，JavaScript将在作用域链中的不同成员中查找这个变量。作用域链指的是当前作用于下可用变量的集合，它在各种主流浏览器中至少包含两个部分：局部变量的集合和全局变量的集合。</p>
+<p>简单地说，如果JavaScript引擎在作用域链中搜索的深度越大，那么操作也就会消耗更多的时间。引擎首先从 this 开始查找局部变量，然后是函数参数、本地定义的变量，最后遍历所有的全局变量。</p>
+<p>因为局部变量在这条链的起端，所以查找局部变量总是比查找全局变量要块。所以当你想要不止一次地使用一个全局变量的时候，你应该将它定义成局部变量，就像这样：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> blah = <span class="built_in">document</span>.getElementById(<span class="string">'myID'</span>),</span><br><span class="line">blah2 = <span class="built_in">document</span>.getElementById(<span class="string">'myID2'</span>);</span><br><span class="line">改写成</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> doc = <span class="built_in">document</span>,</span><br><span class="line">blah = doc.getElementById(<span class="string">'myID'</span>),</span><br><span class="line">blah2 = doc.getElementById(<span class="string">'myID2'</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="不要使用-with-语句"><a href="#不要使用-with-语句" class="headerlink" title="不要使用 with() 语句"></a>不要使用 with() 语句</h2><p>这是因为 with() 语句将会在作用域链的开始添加额外的变量。额外的变量意味着，当任何变量需要被访问的时候，JavaScript引擎都需要先扫描with()语句产生的变量，然后才是局部变量，最后是全局变量。 So with() essentially gives local variables all the performance drawbacks of global ones, and in turn derails Javascript optimization. 因此with()语句同时给局部变量和全局变量的性能带来负面影响，最终使我们优化JavaScript性能的计划破产。</p>
+<h2 id="小心使用闭包"><a href="#小心使用闭包" class="headerlink" title="小心使用闭包"></a>小心使用闭包</h2><p>虽然你可能还不知道“闭包”，但你可能在不经意间经常使用这项技术。闭包基本上被认为是JavaScript中的new，当我们定义一个即时函数的时候，我们就使用了闭包，比如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">'foo'</span>).onclick = <span class="function"><span class="keyword">function</span>(<span class="params">ev</span>) </span>&#123; &#125;;</span><br></pre></td></tr></table></figure>
+<p>闭包的问题在于：根据定义，在它们的作用域链中至少有三个对象：闭包变量、局部变量和全局变量。这些额外的对象将会导致第1和第2个建议中提到的性能问题。</p>
+<p>但是我认为Nicholas并不是要我们因噎废食，闭包对于提高代码可读性等方面还是非常有用的，只是不要滥用它们（尤其在循环中）。</p>
+<h2 id="对象属性和数组元素的速度都比变量慢"><a href="#对象属性和数组元素的速度都比变量慢" class="headerlink" title="对象属性和数组元素的速度都比变量慢"></a>对象属性和数组元素的速度都比变量慢</h2><p>谈到JavaScript的数据，一般来说有4种访问方式：数值、变量、对象属性和数组元素。在考虑优化时，数值和变量的性能差不多，并且速度显著优于对象属性和数组元素。</p>
+<p>因此当你多次引用一个对象属性或者数组元素的时候，你可以通过定义一个变量来获得性能提升。（这一条在读、写数据时都有效）</p>
+<p>虽然这条规则在绝大多数情况下是正确的，但是Firefox在优化数组索引上做了一些有意思的工作，能够让它的实际性能优于变量。但是考虑到数组元素在其他浏览器上的性能弊端，还是应该尽量避免数组查找，除非你真的只针对于火狐浏览器的性能而进行开发。</p>
+<h2 id="不要在数组中挖得太深"><a href="#不要在数组中挖得太深" class="headerlink" title="不要在数组中挖得太深"></a>不要在数组中挖得太深</h2><p>另外，程序员应该避免在数组中挖得太深，因为进入的层数越多，操作速度就越慢。</p>
+<p>简单地说，在嵌套很多层的数组中操作很慢是因为数组元素的查找速度很慢。试想如果操作嵌套三层的数组元素，就要执行三次数组元素查找，而不是一次。</p>
+<p>因此如果你不断地引用 foo.bar， 你可以通过定义 var bar = foo.bar 来提高性能。</p>
+<h2 id="避免-for-in-循环（和基于函数的迭代）"><a href="#避免-for-in-循环（和基于函数的迭代）" class="headerlink" title="避免 for-in 循环（和基于函数的迭代）"></a>避免 for-in 循环（和基于函数的迭代）</h2><p>这是另一条非常教条的建议：不要使用for-in循环。</p>
+<p>这背后的逻辑非常直接：要遍历一个集合内的元素，你可以使用诸如for循环、或者do-while循环来替代for-in循环，for-in循环不仅仅可能需要遍历额外的数组项，还需要更多的时间。</p>
+<p>为了遍历这些元素，JavaScript需要为每一个元素建立一个函数，这种基于函数的迭代带来了一系列性能问题：额外的函数引入了函数对象被创建和销毁的上下文，将会在作用域链的顶端增加额外的元素。</p>
+<h2 id="在循环时将控制条件和控制变量合并起来"><a href="#在循环时将控制条件和控制变量合并起来" class="headerlink" title="在循环时将控制条件和控制变量合并起来"></a>在循环时将控制条件和控制变量合并起来</h2><p>提到性能，在循环中需要避免的工作一直是个热门话题，因为循环会被重复执行很多次。所以如果有性能优化的需求，先对循环开刀有可能会获得最明显的性能提升。</p>
+<p>一种优化循环的方法是在定义循环的时候，将控制条件和控制变量合并起来，下面是一个没有将他们合并起来的例子：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> ( <span class="keyword">var</span> x = <span class="number">0</span>; x &lt; <span class="number">10</span>; x++ ) &#123;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>当我们要添加什么东西到这个循环之前，我们发现有几个操作在每次迭代都会出现。JavaScript引擎需要：</p>
+<blockquote>
+<p>1：检查 x 是否存在<br>2：检查 x 是否小于 0 <span style="color: #888888;">（译者注：我猜这里是作者的笔误）</span><br>3：使 x 增加 1</p>
+</blockquote>
+<p>然而如果你只是迭代元素中的一些元素，那么你可以使用while循环进行轮转来替代上面这种操作：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">9</span>;</span><br><span class="line"><span class="keyword">do</span> &#123; &#125; <span class="keyword">while</span>( x-- );</span><br></pre></td></tr></table></figure></p>
+<p>如果你想更深入地了解循环的性能，Zakas提供了一种高级的循环优化技巧，使用异步进行循环（碉堡了！）</p>
+<h2 id="为HTML集合对象定义数组"><a href="#为HTML集合对象定义数组" class="headerlink" title="为HTML集合对象定义数组"></a>为HTML集合对象定义数组</h2><p>JavaScript使用了大量的HTML集合对象，比如 document.forms，document.images 等等。通常他们被诸如 getElementsByTagName、getElementByClassName 等方法调用。</p>
+<p>由于大量的DOM selection操作，HTML集合对象相当的慢，而且还会带来很多额外的问题。正如DOM标准中所定义的那样：“HTML集合是一个虚拟存在，意味着当底层文档被改变时，它们将自动更新。”这太可怕了！</p>
+<p>尽管集合对象看起来跟数组很像，他们在某些地方却区别很大，比如对于特定查询的结果。当对象被访问进行读写时，查询需要重新执行来更新所有与对象相关的组分，比如 length。</p>
+<p>HTML集合对象也非常的慢，Nicholas说好像在看球的时候对一个小动作进行60倍速慢放。另外，集合对象也有可能造成死循环，比如下面的例子：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> divs = <span class="built_in">document</span>.getElementsByTagName(<span class="string">'div'</span>);</span><br><span class="line"> </span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i &lt; divs.length; i++ ) &#123;</span><br><span class="line">    <span class="keyword">var</span> div = <span class="built_in">document</span>.createElement(<span class="string">"div"</span>); </span><br><span class="line">    <span class="built_in">document</span>.appendChild(div);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这段代码造成了死循环，因为 divs 表示一个实时的HTML集合，并不是你所期望的数组。这种实时的集合在添加 <div> 标签时被更新，所以i &lt; div.length 永远都不会结束。</div></p>
+<p>解决这个问题的方法是将这些元素定义成数组，相比只设置 var divs = document.getElementsByTagName(‘div’) 稍微有点麻烦，下面是Zakas提供的强制使用数组的代码：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">array</span>(<span class="params">items</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Array</span>.prototype.concat.call(items);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (ex) &#123;</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">var</span> i       = <span class="number">0</span>,</span><br><span class="line">            len     = items.length,</span><br><span class="line">            result  = <span class="built_in">Array</span>(len);</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">while</span> (i &lt; len) &#123;</span><br><span class="line">            result[i] = items[i];</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">var</span> divs = array( <span class="built_in">document</span>.getElementsByTagName(<span class="string">'div'</span>) );</span><br><span class="line"> </span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>l i &lt; divs.length; i++ ) &#123;</span><br><span class="line">    <span class="keyword">var</span> div = <span class="built_in">document</span>.createElement(<span class="string">"div"</span>); </span><br><span class="line">    <span class="built_in">document</span>.appendChild(div);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="不要碰DOM！"><a href="#不要碰DOM！" class="headerlink" title="不要碰DOM！"></a>不要碰DOM！</h2><p>不使用DOM是JavaScript优化中另一个很大的话题。经典的例子是添加一系列的列表项：如果你把每个列表项分别加到DOM中，肯定会比一次性加入所有列表项到DOM中要慢。这是因为DOM操作开销很大。</p>
+<p>Zakas对这个进行了细致的讲解，解释了由于回流（reflow）的存在，DOM操作是非常消耗资源的。回流通常被理解为浏览器重新选渲染DOM树的处理过程。比如说，如果你用JavaScript语句改变了一个div的宽度，浏览器需要重绘页面来适应变化。</p>
+<p>任何时候只要有元素被添加到DOM树或者从DOM树移除，都会引发回流。使用一个非常方便的JavaScript对象可以解决这个问题——documentFragment，我并没有使用过，但是在Steve Souders也表示同意这种做法之后我感觉更加肯定了。</p>
+<p>DocumentFragment 基本上是一种浏览器以非可视方式实现的类似文档的片段，非可视化的表现形式带来了很多优点，最主要的是你可以在 documentFragment 中添加任何结点而不会引起浏览器回流。</p>
+<h2 id="修改CSS类，而不是样式"><a href="#修改CSS类，而不是样式" class="headerlink" title="修改CSS类，而不是样式"></a>修改CSS类，而不是样式</h2><p>你也许听说过：修改CSS类必直接修改样式会更高效。这归结于回流带来的另一个问题：当布局样式发生改变时，会引发回流。</p>
+<p>布局样式意味着任何影响改变布局的变化都会强制引起浏览器回流。比如宽度、高度、字号、浮动等。</p>
+<p>但是别误会我的意思，CSS类并不会避免回流，但是可以将它的影响最小化。相比每次修改样式都会引起回流，使用CSS类一次修改多个样式，只需要承担一次回流带来的消耗。</p>
+<p>因此在修改多个布局样式的时候，使用CSS类来优化性能是明智的选择。另外如果你需要在运行时定义很多歌CSS类，在DOM上添加样式结点也是不错的选择。</p>
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#定义局部变量"><span class="toc-text">定义局部变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#不要使用-with-语句"><span class="toc-text">不要使用 with() 语句</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小心使用闭包"><span class="toc-text">小心使用闭包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#对象属性和数组元素的速度都比变量慢"><span class="toc-text">对象属性和数组元素的速度都比变量慢</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#不要在数组中挖得太深"><span class="toc-text">不要在数组中挖得太深</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#避免-for-in-循环（和基于函数的迭代）"><span class="toc-text">避免 for-in 循环（和基于函数的迭代）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在循环时将控制条件和控制变量合并起来"><span class="toc-text">在循环时将控制条件和控制变量合并起来</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为HTML集合对象定义数组"><span class="toc-text">为HTML集合对象定义数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#不要碰DOM！"><span class="toc-text">不要碰DOM！</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改CSS类，而不是样式"><span class="toc-text">修改CSS类，而不是样式</span></a></li></ol>
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: Leeao</div>
+      
+        <div>
+          原文链接: 
+          <a href target="_blank">http://leeao82.com/article/2019-03-10-10个提升JavaScript性能的技巧.html</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/javascript/"><i class="fa fa-tags"></i>javascript</a>
+     
+      <a href="/tags/技巧/"><i class="fa fa-tags"></i>技巧</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      <div class="site-footer-col">
+        <h5 class="site-footer-title">博客推荐</h5>
+        
+          <span class="site-footer-item">
+            <a href="https://www.zhangxinxu.com/" target="_blank">张鑫旭</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="http://ruanyifeng.com/" target="_blank">阮一峰</a>
+          </span>
+        
+      </div>
+    
+      <div class="site-footer-col">
+        <h5 class="site-footer-title">系列教程</h5>
+        
+          <span class="site-footer-item">
+            <a href="http://es6.ruanyifeng.com/" target="_blank">ECMAScript6 入门</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://www.vuepress.cn/" target="_blank">VuePress 中文网</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://cn.vuejs.org/" target="_blank">Vue.js 教程</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="http://www.bootcss.com/" target="_blank">Bootstrap 中文网</a>
+          </span>
+        
+          <span class="site-footer-item">
+            <a href="https://www.tslang.net/" target="_blank">TypeScript 中文手册</a>
+          </span>
+        
+      </div>
+    
+      <div class="site-footer-col">
+        <h5 class="site-footer-title">抓到我</h5>
+        
+          <span class="site-footer-item">
+            <a href="https://github.com/cokucoku/" target="_blank">Github</a>
+          </span>
+        
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 Created by <a href="https://leeao82.com/" target="_blank">leeao82.com</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+        
+          <div>
+            <img src="/images/wechat.png" alt="微信扫一扫">
+            
+              <p>微信扫一扫</p>
+            
+          </div>
+        
+          <div>
+            <img src="/images/alipay.png" alt="AliPay">
+            
+              <p>AliPay</p>
+            
+          </div>
+        
+      </div>
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/article/2019-03-28-独家分享—大牛教你如何学习Web前端开发.html" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="javascript:void(0);" data-enable="false">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="music">
+            <div class="iconfont iconziyuan1" @click="prev"></div>
+            <div class="iconfont iconbofang" v-if="!play" @click="playmucis"></div>
+            <div class="iconfont iconstop" v-if="play" @click="pausemucis"></div>
+            <div class="iconfont iconziyuan" @click="next"></div>
+            <div class="musicinfo">
+                <audio id="mymusic"></audio>
+                <div class="info">
+                    <div class="nameauthor">{{music[xh].name}} - {{music[xh].author}}</div>
+                    <div class="time"><em>{{curtime | ge}}</em> / <em>{{music[xh].time}}</em></div>
+                </div>
+                <div id="jd" class="jd"></div>
+            </div>
+            <div class="iconfont iconyinliang"></div>
+            <div id="volume"></div>
+        </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    <a href="javascript:void(0);" id="site-reward">
+      <i class="fa fa-thumbs-up"></i>
+    </a>
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+<script>
+new Vue({
+        el: '.music',
+        data: {
+            mymusic: document.getElementById('mymusic'),
+            music: music, //存放播放列表
+            play: false,
+            xh: 0, //播放的音乐的序号
+            curtime: 0, //播放當前時間
+            total: 0, //音樂總長度
+            temcurtime: 0, //暫停播放後臨時保存，
+            setinter: '', //保存定時器名稱
+            si1: '',
+            si2: '',
+            exp: false,
+        },
+        mounted() {
+            var _this = this
+            var w = document.body.clientWidth
+            window.onresize = function() {
+                w = document.body.clientWidth
+                chulis()
+
+            }
+            chulis()
+
+            function chulis() {
+                if (w > 768) {
+                    _this.si2 = new Slider(
+                        '#volume', {
+                            theme: 'green', //red,yellow,black,green,
+                            size: 's', //s,m,l
+                            initvalue: 100, //初始值
+                            showtip: false,
+                            slideend: function(val, string) {
+                                _this.mymusic.volume = val / 100
+                            }
+                        });
+                }
+            }
+            this.si1 = new Slider(
+                '#jd', {
+                    theme: 'green', //red,yellow,black,green,
+                    size: 's', //s,m,l
+                    initvalue: 0, //初始值
+                    showtip: false,
+                    slideend: function(val, string) {
+                        if (_this.total > 0) {
+                            //_this.mymusic.currentTime = val * _this.total / 100
+                            _this.temcurtime = val * _this.total / 100
+                            _this.playmucis()
+                        }
+                    }
+                });
+
+            this.chulimusic()
+        },
+        computed: {
+            thestyle() {
+                if (this.play) {
+                    return 'animation-play-state:running'
+                } else {
+                    return 'animation-play-state:paused'
+                }
+            }
+        },
+        filters: {
+            ge: function(value) {
+                var fen = Math.floor(value / 60)
+                var yu = Math.floor(value % 60)
+                if (fen < 10) {
+                    fen = '0' + fen
+                } else {
+                    fen = fen
+                }
+                if (yu < 10) {
+                    yu = '0' + yu
+                } else {
+                    yu = yu
+                }
+                return fen + ':' + yu
+            }
+        },
+        watch: {
+            xh: {
+                immediate: true,
+                handler(value) {
+                    this.$nextTick(function() {
+                        this.mymusic.src = this.music[value].url
+                        this.temcurtime = 0
+                        this.mymusic.currentTime = 0
+                    })
+                }
+            },
+            curtime: {
+                immediate: true,
+                handler(value) {
+                    this.$nextTick(function() {
+                        if (value == 0) {
+                            this.si1.disabled()
+                        } else {
+                            this.si1.enabled()
+                        }
+                    })
+                }
+            }
+        },
+        methods: {
+            playme(xh) {
+                this.xh = xh
+                this.chulimusic()
+            },
+            playmucis() {
+                this.chulimusic()
+            },
+            pausemucis() {
+                this.play = false
+                this.mymusic.pause()
+                this.temcurtime = this.mymusic.currentTime
+                clearInterval(this.setinter)
+            },
+            prev() {
+                this.xh--
+                if (this.xh < 0) {
+                    this.xh = this.music.length - 1
+                }
+                this.chulimusic()
+            },
+            next() {
+                this.xh++
+                if (this.xh > this.music.length - 1) {
+                    this.xh = 0
+                }
+                this.chulimusic()
+            },
+            chulimusic() {
+                var _this = this
+                this.play = true
+                this.mymusic.currentTime = _this.temcurtime
+                this.mymusic.oncanplaythrough = function() {
+                    _this.mymusic.play()
+                    _this.curtime = _this.mymusic.currentTime
+                    _this.total = _this.mymusic.duration
+                    _this.setinter = setInterval(function() {
+                        _this.curtime = _this.mymusic.currentTime
+                        var pos = _this.curtime / _this.total * 100
+                        _this.si1.go(pos)
+                        if (_this.curtime >= _this.total) {
+                            _this.next()
+                        }
+                    }, 1000)
+                }
+            }
+        }
+    })
+</script>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>

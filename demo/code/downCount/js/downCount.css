@@ -1,0 +1,28 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    box-sizing: border-box;-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+.DownCount{display: flex;overflow: hidden;}
+.DownCount span.num{border-radius: 3px;margin:0 3px;color: #fff;padding:0 3px;transition: .3s;display: block}
+.DownCount span.num.down{transform: translateY(100%);}
+.DownCount span.num.up{transform: translateY(-100%) scaleY(.1);}
+.DownCount span.zi{color: #000;}
+.DownCount.s{font-size: 12px;height: 16px;line-height: 16px;}
+.DownCount.m{font-size: 16px;height: 20px;line-height: 20px;}
+.DownCount.l{font-size: 20px;height: 24px;line-height: 24px;}
+
+.DownCount.black span.num{background-color: #111;}
+.DownCount.black span.zi{color: #111;}
+.DownCount.blue span.num{background-color: #409eff;}
+.DownCount.blue span.zi{color: #409eff;}
+.DownCount.red span.num{background-color: #f00;}
+.DownCount.red span.zi{color: #f00;}
+.DownCount.yellow span.num{background-color: #fa0;}
+.DownCount.yellow span.zi{color: #fa0;}
+.DownCount.green span.num{background-color: #67c23a;}
+.DownCount.green span.zi{color: #67c23a;}
+
+
