@@ -4,7 +4,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <link rel="stylesheet" href="https://at.alicdn.com/t/font_1468805_px3dlrukkv.css">
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_1468805_e4ww4tlwoob.css">
     <link rel="stylesheet" href="bus/play/slider.css">
     <link rel="stylesheet" href="bus/play/getcolor.css">
     <title>[实战]54音乐播放器</title>
@@ -216,6 +216,7 @@
         border: solid 4px #3eaf7c;
         object-fit: cover;
     }
+
     .myu-enter,
     .myu-leave-to {
         opacity: 0;
@@ -293,7 +294,8 @@
                 <div id="jd" class="jd"></div>
             </div>
             <div id="icolist" class="iconfont icongedan" @click.stop="exp=!exp"><i>{{music.length}}</i></div>
-            <div class="iconfont iconyinliang"></div>
+            <div class="iconfont iconyinliang" @click="volume=0" v-if="volume!=0"></div>
+            <div style="color: #3eaf7c" class="iconfont iconjingyin" @click="volume=1" v-else></div>
             <div id="volume"></div>
         </div>
     </div>
@@ -316,6 +318,7 @@
             si1: '',
             si2: '',
             exp: false,
+            volume:1
         },
         mounted() {
             var _this = this
@@ -341,10 +344,11 @@
                     initvalue: 100, //初始值
                     showtip: false,
                     slideend: function(val, string) {
+                        _this.volume = val / 100
                         _this.mymusic.volume = val / 100
                     }
                 });
-            this.chulimusic()
+            _this.playmucis()
         },
         computed: {
             thestyle() {
@@ -373,6 +377,20 @@
             }
         },
         watch: {
+            volume: {
+                immediate: true,
+                handler(value) {
+                    this.$nextTick(function() {
+                        if (value==0) {
+                            this.mymusic.volume = 0
+                            this.si2.go(0)
+                        } else {
+                            this.mymusic.volume = this.volume
+                            this.si2.go(this.volume*100)
+                        }
+                    })
+                }
+            },
             xh: {
                 immediate: true,
                 handler(value) {
