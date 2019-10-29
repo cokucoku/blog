@@ -72,7 +72,8 @@ let Slider = function(el, option) {
         tooltip.style.display = 'none'
     }
     let down = false,
-        ov = false
+        ov = false,//为了tooltip
+        drag=false//为了判断是否有拖动滑块与否
     let fullw = runway.offsetWidth //轨道总长度
     let old_x,
         new_x = initvalue * fullw * 0.01;
@@ -87,6 +88,7 @@ let Slider = function(el, option) {
     wrap.addEventListener('mousedown', function(e) {
         //e.stopPropagation()
         down = true
+        drag = true
         old_x = e.pageX - wrapleft;
     })
     wrap.addEventListener('touchstart', function(e) {
@@ -97,7 +99,10 @@ let Slider = function(el, option) {
     document.addEventListener('mouseup', function(e) {
         e.preventDefault()
         down = false
-        //chuli('end')
+        if(drag){
+           chuli('end')
+        }
+        drag=false
         wrapleft = wrap.offsetLeft
     })
     document.addEventListener('mousemove', function(e) {
@@ -136,7 +141,7 @@ let Slider = function(el, option) {
         wrapleft = wrap.offsetLeft
     })
 
-    function chuli() {
+    function chuli(string) {
         if (new_x <= 0) {
             new_x = 0
         } else if (new_x >= fullw) {
@@ -154,7 +159,7 @@ let Slider = function(el, option) {
             }
 
         }
-        myoption.slideend.call(_this, po);
+        myoption.slideend.call(_this, po,string);
         wrap.style.left = po + '%'
         bar.style.width = po + '%'
         tooltip.innerText = po

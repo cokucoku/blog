@@ -416,8 +416,8 @@ new Vue({
                     initvalue: 0, //初始值
                     showtip: false,
                     slideend: function(val, string) {
-                        if (_this.total > 0) {
-                            //_this.mymusic.currentTime = val * _this.total / 100
+                        clearInterval(_this.setinter)
+                        if (string=='end') {
                             _this.temcurtime = val * _this.total / 100
                             _this.playmucis()
                         }
