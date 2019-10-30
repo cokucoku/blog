@@ -322,7 +322,6 @@
         },
         mounted() {
             var _this = this
-            new Getcolor('#pic')
             this.si1 = new Slider(
                 '#jd', {
                     theme: 'green', //red,yellow,black,green,
@@ -333,7 +332,7 @@
                         clearInterval(_this.setinter)
                         if (string=='end') {
                             _this.temcurtime = val * _this.total / 100
-                            _this.playmucis()
+                            _this.chulimusic()
                         }
                     }
                 });
@@ -348,7 +347,6 @@
                         _this.mymusic.volume = val / 100
                     }
                 });
-            _this.playmucis()
         },
         computed: {
             thestyle() {
@@ -399,6 +397,7 @@
                         this.temcurtime = 0
                         this.mymusic.currentTime = 0
                         new Getcolor('#pic')
+                        this.chulimusic()
                     })
                 }
             },
@@ -418,7 +417,6 @@
         methods: {
             playme(xh) {
                 this.xh = xh
-                this.chulimusic()
             },
             playmucis() {
                 this.chulimusic()
@@ -434,14 +432,12 @@
                 if (this.xh < 0) {
                     this.xh = this.music.length - 1
                 }
-                this.chulimusic()
             },
             next() {
                 this.xh++
                 if (this.xh > this.music.length - 1) {
                     this.xh = 0
                 }
-                this.chulimusic()
             },
             chulimusic() {
                 var _this = this
